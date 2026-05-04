@@ -1,0 +1,44 @@
+[
+    {
+        "id": "e9b01abe-0d65-42e0-b418-78af032e2995",
+        "projectId": "b41a8077d3ed49c69ddc77ed0b16572e",
+        "instanceId": "31334afe-7d58-4c7a-9225-65467d0d3d5a",
+        "nodePoolId": "cd4a171f-5824-405c-9b99-be0298511f58",
+        "name": "k8s-asp-iadv-pool-fix-r2-240-node-e9b01a",
+        "flavor": "r2-240",
+        "status": "READY",
+        "isUpToDate": true,
+        "version": "1.34.2-1576",
+        "createdAt": "2026-01-30T11:47:54Z",
+        "updatedAt": "2026-02-09T08:59:31Z",
+        "deployedAt": "2026-02-09T08:59:31Z"
+    },
+    {
+        "id": "f14f1534-9b34-442d-97f4-291a0f66925d",
+        "projectId": "b41a8077d3ed49c69ddc77ed0b16572e",
+        "instanceId": "d1c2aace-0489-4f0a-961c-45a311c2f3c2",
+        "nodePoolId": "cd4a171f-5824-405c-9b99-be0298511f58",
+        "name": "k8s-asp-iadv-pool-fix-r2-240-node-f14f15",
+        "flavor": "r2-240",
+        "status": "READY",
+        "isUpToDate": true,
+        "version": "1.34.2-1576",
+        "createdAt": "2026-01-30T11:47:54Z",
+        "updatedAt": "2026-02-09T08:53:50Z",
+        "deployedAt": "2026-02-09T08:53:50Z"
+    },
+    {
+        "id": "301d9978-bb4d-4b72-abb3-a9f441ada287",
+        "projectId": "b41a8077d3ed49c69ddc77ed0b16572e",
+        "instanceId": "902967f0-87b4-495d-baa3-40456350a79b",
+        "nodePoolId": "cd4a171f-5824-405c-9b99-be0298511f58",
+        "name": "k8s-asp-iadv-pool-fix-r2-240-node-301d99",
+        "flavor": "r2-240",
+        "status": "READY",
+        "isUpToDate": true,
+        "version": "1.34.2-1576",
+        "createdAt": "2026-01-30T11:47:54Z",
+        "updatedAt": "2026-02-09T08:39:38Z",
+        "deployedAt": "2026-02-09T08:39:38Z"
+    }
+]

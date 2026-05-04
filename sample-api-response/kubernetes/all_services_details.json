@@ -1,0 +1,308 @@
+[
+    {
+        "project_id": "11039156c26e49459b541a3d7590e08b",
+        "projectName": "4993222284877773",
+        "description": "COPE-ARC-DATA-CUST-76-ASP-LTA-SHARED",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2022-11-02T09:43:56.518295+01:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "d5c7f3c8-5b7f-4391-9c14-e7a04fb0446b",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:11039156c26e49459b541a3d7590e08b"
+        }
+    },
+    {
+        "project_id": "163e42453b274eacbf76af5a56ffcd9f",
+        "projectName": "2787683956199447",
+        "description": "COPE-DATA-CUST-76-ASP-IADV",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2025-10-10T14:45:28.999731+02:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "1c7a0043-8f50-46ac-9857-3d4f375b6d3d",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:163e42453b274eacbf76af5a56ffcd9f"
+        }
+    },
+    {
+        "project_id": "1a8f694e151640b1b5063a3810c697a9",
+        "projectName": "1612259407720339",
+        "description": "COPE-DATA-CUST-76-ASP-S3STANDARD-SHARED-GRA",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2022-11-03T11:47:26.129987+01:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "c6f06d96-5a4a-4325-9476-1727d00256d6",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:1a8f694e151640b1b5063a3810c697a9"
+        }
+    },
+    {
+        "project_id": "2216e6aee4b144568dc1c88c8a23803b",
+        "projectName": "6362340742527198",
+        "description": "COPE-DATA-CUST-76-ASP-QUAL",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2022-06-06T11:31:54.354926+02:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "6dcb3bb5-32c3-48a5-bb9e-7e8dcb47bbab",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:2216e6aee4b144568dc1c88c8a23803b"
+        }
+    },
+    {
+        "project_id": "2e2e7afe34e34e008b880fada35db796",
+        "projectName": "2338663593041781",
+        "description": "COPE-DATA-CUST-76-ASP-S3STANDARD-DETECTION-SBG",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2023-05-19T15:46:59.596143+02:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "8adb0540-efa1-4efa-8efa-f467091ea537",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:2e2e7afe34e34e008b880fada35db796"
+        }
+    },
+    {
+        "project_id": "410f9f46cc204247b9967cbe8766dde3",
+        "projectName": "7059138575307040",
+        "description": "COPE-DATA-CUST-76-ASP-PRD-DR",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2022-08-26T15:48:33.569655+02:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "51f00c0b-33d0-4148-baea-b9ab83b53780",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:410f9f46cc204247b9967cbe8766dde3"
+        }
+    },
+    {
+        "project_id": "63c225ce881444d0aadab294473a4314",
+        "projectName": "4420043496144173",
+        "description": "ASP-3STR-FINOPS",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2024-09-16T09:23:07.68582+02:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "1b3612a6-6c63-460d-808c-3c1d0fdb338b",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:63c225ce881444d0aadab294473a4314"
+        }
+    },
+    {
+        "project_id": "69a0d51f7e5a4b5cb31746f16125531e",
+        "projectName": "5350740037248342",
+        "description": "COPE-DATA-CUST-76-ASP-S3STANDARD-SHARED-SBG",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2022-12-19T16:43:08.173761+01:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "282a33d3-23b0-4259-a54e-a709a04189dc",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:69a0d51f7e5a4b5cb31746f16125531e"
+        }
+    },
+    {
+        "project_id": "72af027d3bc44afd894d075dab82fb6c",
+        "projectName": "6660306553585913",
+        "description": "COPE-DATA-CUST-76-ASP-S3STANDARD-STAGING-SBG",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2024-02-19T16:18:04.115613+01:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "ce32e717-1332-4ce3-98ab-613ec76c7041",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:72af027d3bc44afd894d075dab82fb6c"
+        }
+    },
+    {
+        "project_id": "87b01528e0374606b53b83890906bf76",
+        "projectName": "2323085093746158",
+        "description": "ASP-DATA-PROVISION",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2026-03-24T13:44:13.31109+01:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "0e1185f6-84a7-4cd5-949a-9b54d6c52a3a",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:87b01528e0374606b53b83890906bf76"
+        }
+    },
+    {
+        "project_id": "8ceac8567f434e6e9aee8c070638fda5",
+        "projectName": "9887715669145209",
+        "description": "COPE-DATA-CUST-76-ASP-REC",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2022-07-12T12:38:03.883662+02:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "951d013a-8904-4390-ae15-69de5300f41e",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:8ceac8567f434e6e9aee8c070638fda5"
+        }
+    },
+    {
+        "project_id": "9e5a586f3abc4db68639d4be7102f789",
+        "projectName": "4305648558424543",
+        "description": "COPE-DATA-CUST-76-ASP-PREPRD",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2022-08-26T14:32:34.001711+02:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "f2e5dead-4690-41c1-8ecc-cb1f39b9a724",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:9e5a586f3abc4db68639d4be7102f789"
+        }
+    },
+    {
+        "project_id": "b41a8077d3ed49c69ddc77ed0b16572e",
+        "projectName": "7637135277552301",
+        "description": "DIAS-TPU-CUST-ASP",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2022-04-20T14:41:34.027736+02:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "c05f74cf-e3c2-48d5-90fa-723d3c14b032",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:b41a8077d3ed49c69ddc77ed0b16572e"
+        }
+    },
+    {
+        "project_id": "d955734ea0534ab18c436148b7d7983f",
+        "projectName": "5003979933724509",
+        "description": "ASP-LIGHT-S3",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2025-09-04T11:19:52.886989+02:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "b0e76b6d-325c-43fb-898a-28bebe848a2a",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:d955734ea0534ab18c436148b7d7983f"
+        }
+    },
+    {
+        "project_id": "e2a6950526a940d8a22ae4b4f185990a",
+        "projectName": "3710756955402437",
+        "description": "COPE-DATA-CUST-76-ASP-PRD",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2022-07-12T12:32:33.370992+02:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "0450a96b-93f1-4e06-b485-1709c0c1b514",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:e2a6950526a940d8a22ae4b4f185990a"
+        }
+    },
+    {
+        "project_id": "f2e44efd56b744af8fc1d1fad78aafe2",
+        "projectName": "9537031728633244",
+        "description": "COPE-DATA-CUST-92-ASP-IMAGES",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2024-02-19T16:21:00.699692+01:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "16631d82-fc45-4e9d-a440-8a73a176e0fa",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:f2e44efd56b744af8fc1d1fad78aafe2"
+        }
+    },
+    {
+        "project_id": "f4cc883647f8470697d745280bc26bcb",
+        "projectName": "6604515390744189",
+        "description": "CYBELTECH-CUST-01",
+        "planCode": "project.2018",
+        "unleash": true,
+        "expiration": null,
+        "creationDate": "2024-03-11T16:32:18.04656+01:00",
+        "orderId": null,
+        "access": "full",
+        "status": "ok",
+        "manualQuota": false,
+        "iam": {
+            "id": "20637940-02b1-4f7b-9d69-b97475dc478c",
+            "state": "OK",
+            "urn": "urn:v1:eu:resource:publicCloudProject:f4cc883647f8470697d745280bc26bcb"
+        }
+    }
+]

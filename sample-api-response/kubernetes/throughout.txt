@@ -1,0 +1,186 @@
+
+Listing ALL services
+
+endpoint=/cloud/project/
+
+               
+[
+   "11039156c26e49459b541a3d7590e08b",
+   "163e42453b274eacbf76af5a56ffcd9f",
+   "1a8f694e151640b1b5063a3810c697a9",
+   "2216e6aee4b144568dc1c88c8a23803b",
+   "2e2e7afe34e34e008b880fada35db796",
+   "410f9f46cc204247b9967cbe8766dde3",
+   "63c225ce881444d0aadab294473a4314",
+   "69a0d51f7e5a4b5cb31746f16125531e",
+   "72af027d3bc44afd894d075dab82fb6c",
+   "87b01528e0374606b53b83890906bf76",
+   "8ceac8567f434e6e9aee8c070638fda5",
+   "9e5a586f3abc4db68639d4be7102f789",
+   "b41a8077d3ed49c69ddc77ed0b16572e",
+   "d955734ea0534ab18c436148b7d7983f",
+   "e2a6950526a940d8a22ae4b4f185990a",
+   "f2e44efd56b744af8fc1d1fad78aafe2",
+   "f4cc883647f8470697d745280bc26bcb"
+]
+
+---------------------------------------
+Service b41a8077d3ed49c69ddc77ed0b16572e details:
+
+endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e
+
+{
+   "project_id": "b41a8077d3ed49c69ddc77ed0b16572e",
+   "projectName": "7637135277552301",
+   "description": "DIAS-TPU-CUST-ASP",
+   "planCode": "project.2018",
+   "unleash": true,
+   "expiration": null,
+   "creationDate": "2022-04-20T14:41:34.027736+02:00",
+   "orderId": null,
+   "access": "full",
+   "status": "ok",
+   "manualQuota": false,
+   "iam": {
+      "id": "c05f74cf-e3c2-48d5-90fa-723d3c14b032",
+      "state": "OK",
+      "urn": "urn:v1:eu:resource:publicCloudProject:b41a8077d3ed49c69ddc77ed0b16572e"
+   }
+}
+
+
+--------------------------------------
+Service b41a8077d3ed49c69ddc77ed0b16572e clusters:
+
+endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/
+
+[
+   "8c8d289c-c36e-4d64-bf63-448ac34dfcd1",
+   "0d838f5d-37c9-4ff5-8f8f-66b20b2eaa75",
+   "a72f2572-6f51-4ebe-ae39-94a974d187a1",
+   "b373e451-fa42-48d1-afdf-60d05ea755a7",
+   "60fc1580-c786-4d95-bdf9-e98ec7239d27",
+   "4becd4a5-8517-442c-b9c1-8401ff490c59",
+   "dc12fbcd-5b94-4585-adb9-ef64397e9766"
+]
+
+
+---------------------------------------
+Service b41a8077d3ed49c69ddc77ed0b16572e -> cluster 8c8d289c-c36e-4d64-bf63-448ac34dfcd1 details:
+
+endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/8c8d289c-c36e-4d64-bf63-448ac34dfcd1/
+
+{
+   "id": "8c8d289c-c36e-4d64-bf63-448ac34dfcd1",
+   "region": "SBG5",
+   "name": "k8s-asp-iadv",
+   "url": "gft4tk.c1.sbg5.k8s.ovh.net",
+   "nodesUrl": "gft4tk.nodes.c1.sbg5.k8s.ovh.net",
+   "version": "1.34.2-2",
+   "plan": "free",
+   "nextUpgradeVersions": [
+      "1.35"
+   ],
+   "kubeProxyMode": "iptables",
+   "customization": {
+      "apiServer": {
+         "admissionPlugins": {
+            "enabled": [
+               "AlwaysPullImages",
+               "NodeRestriction"
+            ],
+            "disabled": []
+         }
+      }
+   },
+   "status": "READY",
+   "updatePolicy": "NEVER_UPDATE",
+   "isUpToDate": false,
+   "controlPlaneIsUpToDate": false,
+   "privateNetworkId": "30b34abc-f58b-4936-8599-50eeab82a30c",
+   "nodesSubnetId": "ca087ae5-cabf-4319-84e4-4b0abe744b06",
+   "privateNetworkConfiguration": {
+      "privateNetworkRoutingAsDefault": true,
+      "defaultVrackGateway": "10.9.37.1"
+   },
+   "ipAllocationPolicy": {
+      "podsIpv4Cidr": "10.2.0.0/16",
+      "servicesIpv4Cidr": "10.3.0.0/16"
+   },
+   "createdAt": "2025-10-02T13:16:35Z",
+   "updatedAt": "2026-03-24T08:34:59Z",
+   "auditLogsSubscribed": false
+}
+
+-----------------------------------------
+Cluster 8c8d289c-c36e-4d64-bf63-448ac34dfcd1 node list:
+
+endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/8c8d289c-c36e-4d64-bf63-448ac34dfcd1/node
+
+[
+   {
+      "id": "247e334d-e329-4f69-ae11-a60cf0c86907",
+      "projectId": "b41a8077d3ed49c69ddc77ed0b16572e",
+      "instanceId": "8fc93c19-4c55-4520-a092-0b216831757e",
+      "nodePoolId": "6abec6c2-4cf4-4289-818a-e87f27ce6d7f",
+      "name": "k8s-asp-iadv-pool-fix-b3-32-node-247e33",
+      "flavor": "b3-32",
+      "status": "READY",
+      "isUpToDate": true,
+      "version": "1.34.2-1576",
+      "createdAt": "2026-04-30T13:54:25Z",
+      "updatedAt": "2026-04-30T13:56:19Z",
+      "deployedAt": "2026-04-30T13:56:19Z"
+   },
+   {
+      "id": "fdfd4f21-2805-464d-8946-4ff68386ce19",
+      "projectId": "b41a8077d3ed49c69ddc77ed0b16572e",
+      "instanceId": "cecd9c4b-ea23-4f0a-9827-c21c9227e050",
+      "nodePoolId": "6abec6c2-4cf4-4289-818a-e87f27ce6d7f",
+      "name": "k8s-asp-iadv-pool-fix-b3-32-node-fdfd4f",
+      "flavor": "b3-32",
+      "status": "READY",
+      "isUpToDate": true,
+      "version": "1.34.2-1576",
+      "createdAt": "2026-04-30T13:54:25Z",
+      "updatedAt": "2026-04-30T13:56:31Z",
+      "deployedAt": "2026-04-30T13:56:31Z"
+   },
+   {
+      "id": "544a9810-34d1-45ee-a9ed-9970203f4868",
+      "projectId": "b41a8077d3ed49c69ddc77ed0b16572e",
+      "instanceId": "7e6ca739-3463-4333-a967-a289f436a688",
+      "nodePoolId": "6abec6c2-4cf4-4289-818a-e87f27ce6d7f",
+      "name": "k8s-asp-iadv-pool-fix-b3-32-node-544a98",
+      "flavor": "b3-32",
+      "status": "READY",
+      "isUpToDate": true,
+      "version": "1.34.2-1576",
+      "createdAt": "2026-04-30T13:54:25Z",
+      "updatedAt": "2026-04-30T13:56:29Z",
+      "deployedAt": "2026-04-30T13:56:29Z"
+   }
+]
+
+-----------------------------------------
+Cluster 8c8d289c-c36e-4d64-bf63-448ac34dfcd1 -> node 247e334d-e329-4f69-ae11-a60cf0c86907 details:
+
+endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/8c8d289c-c36e-4d64-bf63-448ac34dfcd1/node/247e334d-e329-4f69-ae11-a60cf0c86907
+
+{
+   "id": "247e334d-e329-4f69-ae11-a60cf0c86907",
+   "projectId": "b41a8077d3ed49c69ddc77ed0b16572e",
+   "instanceId": "8fc93c19-4c55-4520-a092-0b216831757e",
+   "nodePoolId": "6abec6c2-4cf4-4289-818a-e87f27ce6d7f",
+   "name": "k8s-asp-iadv-pool-fix-b3-32-node-247e33",
+   "flavor": "b3-32",
+   "status": "READY",
+   "isUpToDate": true,
+   "version": "1.34.2-1576",
+   "createdAt": "2026-04-30T13:54:25Z",
+   "updatedAt": "2026-04-30T13:56:19Z",
+   "deployedAt": "2026-04-30T13:56:19Z"
+}
+
+-----------------------------------------
+               

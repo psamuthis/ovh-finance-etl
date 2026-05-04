@@ -1,0 +1,27 @@
+from sqlalchemy import (
+    BigInteger,
+    SmallInteger,
+    ForeignKey,
+    Uuid,
+)
+from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
+
+
+class DimVolume(DeclarativeBase):
+    __tablename__ = "dim_volume"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    volume_uuid: Mapped[str] = mapped_column(Uuid)
+    deployment_mode_fk: Mapped[int] = mapped_column(
+        SmallInteger, ForeignKey("dim_deployment_mode")
+    )
+    region_fk: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_region.id"))
+    type_fk: Mapped[int] = mapped_column(
+        SmallInteger, ForeignKey("dim_storage_type.id")
+    )
+
+    @staticmethod
+    def insert_one(db: Session, volume: "DimVolume") -> int:
+        db.add(volume)
+        db.flush()
+        return volume.id
