@@ -1,9 +1,9 @@
 
 Listing ALL services
 
-endpoint=/cloud/project/
+    endpoint=/cloud/project/
 
-               
+    
 [
    "11039156c26e49459b541a3d7590e08b",
    "163e42453b274eacbf76af5a56ffcd9f",
@@ -24,12 +24,13 @@ endpoint=/cloud/project/
    "f4cc883647f8470697d745280bc26bcb"
 ]
 
----------------------------------------
+    ---------------------------------------
+    
 Service b41a8077d3ed49c69ddc77ed0b16572e details:
 
-endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e
+    endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e
 
-{
+    {
    "project_id": "b41a8077d3ed49c69ddc77ed0b16572e",
    "projectName": "7637135277552301",
    "description": "DIAS-TPU-CUST-ASP",
@@ -48,13 +49,12 @@ endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e
    }
 }
 
+    --------------------------------------
+    Service b41a8077d3ed49c69ddc77ed0b16572e clusters:
 
---------------------------------------
-Service b41a8077d3ed49c69ddc77ed0b16572e clusters:
+    endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/
 
-endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/
-
-[
+    [
    "8c8d289c-c36e-4d64-bf63-448ac34dfcd1",
    "0d838f5d-37c9-4ff5-8f8f-66b20b2eaa75",
    "a72f2572-6f51-4ebe-ae39-94a974d187a1",
@@ -64,13 +64,12 @@ endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/
    "dc12fbcd-5b94-4585-adb9-ef64397e9766"
 ]
 
+    ---------------------------------------
+    Service b41a8077d3ed49c69ddc77ed0b16572e -> cluster 8c8d289c-c36e-4d64-bf63-448ac34dfcd1 details:
 
----------------------------------------
-Service b41a8077d3ed49c69ddc77ed0b16572e -> cluster 8c8d289c-c36e-4d64-bf63-448ac34dfcd1 details:
+    endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/8c8d289c-c36e-4d64-bf63-448ac34dfcd1/
 
-endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/8c8d289c-c36e-4d64-bf63-448ac34dfcd1/
-
-{
+    {
    "id": "8c8d289c-c36e-4d64-bf63-448ac34dfcd1",
    "region": "SBG5",
    "name": "k8s-asp-iadv",
@@ -112,12 +111,12 @@ endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/8c8d289c-c36e-4d64
    "auditLogsSubscribed": false
 }
 
------------------------------------------
-Cluster 8c8d289c-c36e-4d64-bf63-448ac34dfcd1 node list:
+    -----------------------------------------
+    Cluster 8c8d289c-c36e-4d64-bf63-448ac34dfcd1 node list:
 
-endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/8c8d289c-c36e-4d64-bf63-448ac34dfcd1/node
+    endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/8c8d289c-c36e-4d64-bf63-448ac34dfcd1/node
 
-[
+    [
    {
       "id": "247e334d-e329-4f69-ae11-a60cf0c86907",
       "projectId": "b41a8077d3ed49c69ddc77ed0b16572e",
@@ -159,15 +158,29 @@ endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/8c8d289c-c36e-4d64
       "createdAt": "2026-04-30T13:54:25Z",
       "updatedAt": "2026-04-30T13:56:29Z",
       "deployedAt": "2026-04-30T13:56:29Z"
+   },
+   {
+      "id": "5823bb69-a796-4260-b49d-fc6e45ddc932",
+      "projectId": "b41a8077d3ed49c69ddc77ed0b16572e",
+      "instanceId": "fb8f2d3c-73d9-45f3-b5a0-3adebc5e4d13",
+      "nodePoolId": "d0696bd6-7a1f-4317-bbbc-c499b9dc45aa",
+      "name": "k8s-asp-iadv-pool-var-r3-256-node-5823bb",
+      "flavor": "r3-256",
+      "status": "READY",
+      "isUpToDate": true,
+      "version": "1.34.2-1576",
+      "createdAt": "2026-05-04T13:48:14Z",
+      "updatedAt": "2026-05-04T13:50:09Z",
+      "deployedAt": "2026-05-04T13:50:09Z"
    }
 ]
 
------------------------------------------
-Cluster 8c8d289c-c36e-4d64-bf63-448ac34dfcd1 -> node 247e334d-e329-4f69-ae11-a60cf0c86907 details:
+    -----------------------------------------
+    Cluster 8c8d289c-c36e-4d64-bf63-448ac34dfcd1 -> node 247e334d-e329-4f69-ae11-a60cf0c86907 details:
 
-endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/8c8d289c-c36e-4d64-bf63-448ac34dfcd1/node/247e334d-e329-4f69-ae11-a60cf0c86907
+    endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/8c8d289c-c36e-4d64-bf63-448ac34dfcd1/node/247e334d-e329-4f69-ae11-a60cf0c86907
 
-{
+    {
    "id": "247e334d-e329-4f69-ae11-a60cf0c86907",
    "projectId": "b41a8077d3ed49c69ddc77ed0b16572e",
    "instanceId": "8fc93c19-4c55-4520-a092-0b216831757e",
@@ -182,5 +195,5 @@ endpoint=/cloud/project/b41a8077d3ed49c69ddc77ed0b16572e/kube/8c8d289c-c36e-4d64
    "deployedAt": "2026-04-30T13:56:19Z"
 }
 
------------------------------------------
-               
+    -----------------------------------------
+    
