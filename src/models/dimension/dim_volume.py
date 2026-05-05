@@ -19,9 +19,3 @@ class DimVolume(DeclarativeBase):
     type_fk: Mapped[int] = mapped_column(
         SmallInteger, ForeignKey("dim_storage_type.id")
     )
-
-    @staticmethod
-    def insert_one(db: Session, volume: "DimVolume") -> int:
-        db.add(volume)
-        db.flush()
-        return volume.id
