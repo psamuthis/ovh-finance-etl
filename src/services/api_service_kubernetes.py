@@ -1,5 +1,4 @@
-import json
-from typing import Any, Optional
+from typing import Any
 
 import ovh
 
@@ -32,7 +31,7 @@ def NODE(service_id: str, cluster_id: str, node_id: str) -> str:
     return f"{ALL_PROJECTS}{service_id}/kube/{cluster_id}/node/{node_id}"
 
 
-class ServiceKubernetes:
+class APIServiceKubernetes:
     ovh_client: ovh.Client = OVHConnector._get_client()
 
     def __init__(self, service_id: str):

@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 
 from connector.ovh_connection import OVHConnector
-from services.service_kubernetes import ServiceKubernetes
+from src.services.api_service_kubernetes import APIServiceKubernetes
 
 load_dotenv()
 
@@ -84,8 +84,9 @@ with open("sample-api-response/kubernetes/throughout.txt", "a") as file:
     """)
 
 
-kube_service: ServiceKubernetes = ServiceKubernetes(service_id)
-cluster: str | None = kube_service.get_node_cluster("247e334d-e329-4f69-ae11-a60cf0c86907")
+kube_service: APIServiceKubernetes = APIServiceKubernetes(service_id)
+cluster: str | None = kube_service.get_node_cluster(
+    "247e334d-e329-4f69-ae11-a60cf0c86907"
+)
 
 print(cluster)
-

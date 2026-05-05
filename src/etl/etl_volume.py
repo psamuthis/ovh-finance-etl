@@ -1,13 +1,20 @@
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from typing import Any
 
-from src.connector.postgres_connection import WarehouseSessionLocal
-from src.models.dimension.dim_deployment_mode import DimDeploymentMode
-from src.models.dimension.dim_kubernetes import DimKubernetes
-from src.models.dimension.dim_region import DimRegion
-from src.models.dimension.dim_storage_type import DimStorageType
-from src.models.dimension.dim_volume import DimVolume
-from src.services.service_kubernetes import ServiceKubernetes
+from connector.postgres_connection import WarehouseSessionLocal
+from models.dimension.dim_deployment_mode import DimDeploymentMode
+from models.dimension.dim_kubernetes import DimKubernetes
+from models.dimension.dim_region import DimRegion
+from models.dimension.dim_storage_type import DimStorageType
+from models.dimension.dim_volume import DimVolume
+from src.services.api_service_kubernetes import APIServiceKubernetes
+from src.services.db_service_kubernetes import DBServiceKubernetes
+from src.services.service_deployment_mode import ServiceDeploymentMode
+from src.services.service_region import ServiceRegion
+from src.services.service_storage_type import ServiceStorageType
+from src.services.service_time import ServiceTime
+from src.services.service_volume import ServiceVolume
 
 from .shared import Quantity
 from .etl_interface import ETLInterface
@@ -62,11 +69,11 @@ class ETLVolume(ETLInterface):
 
         for volume in self.volumes:
             with WarehouseSessionLocal() as db:
-                dep_mode_id: int = DimDeploymentMode.get_or_create(
-                    db, volume.deployment_mode
+                dep_mode_id: int = ServiceDeploymentMode(db).get_or_create(
+                    volume.deployment_mode
                 )
-                region_id: int = DimRegion.get_or_create(db, volume.region)
-                type_id: int = DimStorageType.get_or_create(db, volume.type)
+                region_id: int = ServiceRegion(db).get_or_create(volume.region)
+                type_id: int = ServiceStorageType(db).get_or_create(volume.type)
 
                 for details in volume.details:
                     dim_volume: DimVolume = DimVolume(
@@ -76,9 +83,35 @@ class ETLVolume(ETLInterface):
                         type_id=type_id,
                     )
 
-                    dim_kubernetes: DimKubernetes = DimKubernetes.from_raw_data(
-                        self.service_id, details.resource_id
+                    api_kube_service: APIServiceKubernetes = APIServiceKubernetes(
+                        self.service_id
                     )
-                    # find cluster id
-                    # retrieve node data
-                    # get tenant from /cloud/project/{service_id}
+                    time_service: ServiceTime = ServiceTime(db)
+
+                    node_id: str = details.resource_id
+                    node_data: dict[str, Any] = api_kube_service.get_node_data(node_id)
+                    cluster_id: str = api_kube_service.get_node_cluster(node_id)
+                    tenant_name: str = api_kube_service.get_tenant()
+
+                    dim_kubernetes: DimKubernetes = DimKubernetes(
+                        created_at_fk=time_service.get_or_create(
+                            time_service.parse_iso_date(node_data["createdAt"])
+                        ),
+                        updated_at_fk=time_service.get_or_create(
+                            time_service.parse_iso_date(node_data["updatedAt"])
+                        ),
+                        deployed_at_fk=time_service.get_or_create(
+                            time_service.parse_iso_date(node_data["deployedAt"])
+                        ),
+                        deleted_at_fk=None,
+                        cluster_id=cluster_id,
+                        nodepool_id=node_data["nodePoolId"],
+                        instance_id=node_data["instanceId"],
+                        flavor=node_data["flavor"],
+                        status=node_data["status"],
+                        version=node_data["version"],
+                        tenant_name=tenant_name,
+                    )
+
+                    DBServiceKubernetes(db).insert_one(dim_kubernetes)
+                    ServiceVolume(db).insert_one(dim_volume)
