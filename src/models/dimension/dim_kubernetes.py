@@ -5,10 +5,12 @@ from sqlalchemy import (
     String,
     Uuid,
 )
-from sqlalchemy.orm import Mapped, DeclarativeBase, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column
+
+from models.base import Base
 
 
-class DimKubernetes(DeclarativeBase):
+class DimKubernetes(Base):
     __tablename__ = "dim_kubernetes"
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)

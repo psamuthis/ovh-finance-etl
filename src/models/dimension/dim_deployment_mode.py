@@ -8,8 +8,10 @@ from sqlalchemy.orm import (
     mapped_column,
 )
 
+from models.base import Base
 
-class DimDeploymentMode(DeclarativeBase):
+
+class DimDeploymentMode(Base):
     __tablename__ = "dim_deployment_mode"
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)

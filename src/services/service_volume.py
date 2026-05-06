@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from src.models.dimension.dim_volume import DimVolume
+from models.dimension.dim_volume import DimVolume
 
 
 class ServiceVolume:

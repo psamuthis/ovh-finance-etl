@@ -7,8 +7,10 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
+from models.base import Base
 
-class DimTime(DeclarativeBase):
+
+class DimTime(Base):
     __tablename__ = "dim_time"
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)

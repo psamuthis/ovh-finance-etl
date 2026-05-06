@@ -7,8 +7,10 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
+from models.base import Base
 
-class FactVolume(DeclarativeBase):
+
+class FactVolume(Base):
     __tablename__ = "fact_current_dynamic_volume"
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)

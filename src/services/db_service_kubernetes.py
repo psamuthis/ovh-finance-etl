@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from src.models.dimension.dim_kubernetes import DimKubernetes
+from models.dimension.dim_kubernetes import DimKubernetes
 
 
 class DBServiceKubernetes:

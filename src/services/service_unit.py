@@ -2,7 +2,7 @@ from typing import ClassVar, Optional
 
 from sqlalchemy.orm import Session
 
-from src.models.dimension.dim_unit import DimUnit
+from models.dimension.dim_unit import DimUnit
 
 
 class ServiceUnit:

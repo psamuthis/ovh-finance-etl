@@ -6,8 +6,10 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
 
+from models.base import Base
 
-class DimVolume(DeclarativeBase):
+
+class DimVolume(Base):
     __tablename__ = "dim_volume"
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)

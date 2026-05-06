@@ -8,8 +8,10 @@ from sqlalchemy.orm import (
     mapped_column,
 )
 
+from models.base import Base
 
-class DimStorageType(DeclarativeBase):
+
+class DimStorageType(Base):
     __tablename__ = "dim_storage_type"
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)

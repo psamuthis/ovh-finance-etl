@@ -8,13 +8,13 @@ from models.dimension.dim_kubernetes import DimKubernetes
 from models.dimension.dim_region import DimRegion
 from models.dimension.dim_storage_type import DimStorageType
 from models.dimension.dim_volume import DimVolume
-from src.services.api_service_kubernetes import APIServiceKubernetes
-from src.services.db_service_kubernetes import DBServiceKubernetes
-from src.services.service_deployment_mode import ServiceDeploymentMode
-from src.services.service_region import ServiceRegion
-from src.services.service_storage_type import ServiceStorageType
-from src.services.service_time import ServiceTime
-from src.services.service_volume import ServiceVolume
+from services.api_service_kubernetes import APIServiceKubernetes
+from services.db_service_kubernetes import DBServiceKubernetes
+from services.service_deployment_mode import ServiceDeploymentMode
+from services.service_region import ServiceRegion
+from services.service_storage_type import ServiceStorageType
+from services.service_time import ServiceTime
+from services.service_volume import ServiceVolume
 
 from .shared import Quantity
 from .etl_interface import ETLInterface
@@ -115,3 +115,5 @@ class ETLVolume(ETLInterface):
 
                     DBServiceKubernetes(db).insert_one(dim_kubernetes)
                     ServiceVolume(db).insert_one(dim_volume)
+
+    def load_volume(volume: Volume):

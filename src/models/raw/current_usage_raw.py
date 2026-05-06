@@ -4,7 +4,8 @@ from sqlalchemy import DateTime, BigInteger, Numeric, String
 from sqlalchemy.orm import Mapped, Session, declarative_base, mapped_column
 from sqlalchemy.dialects.postgresql import JSONB
 
-Base = declarative_base()
+
+from models.base import Base
 
 
 class CurrentUsageRaw(Base):
