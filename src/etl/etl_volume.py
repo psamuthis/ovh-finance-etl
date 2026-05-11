@@ -115,5 +115,3 @@ class ETLVolume(ETLInterface):
 
                     DBServiceKubernetes(db).insert_one(dim_kubernetes)
                     ServiceVolume(db).insert_one(dim_volume)
-
-    def load_volume(volume: Volume):

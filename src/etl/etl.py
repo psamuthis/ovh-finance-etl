@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Any
 
 from etl.etl_volume import ETLVolume
@@ -8,6 +9,8 @@ class ETL:
 
     def __init__(self, raw_record: CurrentUsageRaw):
         self.service_id: str = raw_record.service_id
+        self.period_from: datetime = raw_record.period_from
+        self.period_to: datetime = raw_record.period_to
         self.json: dict[str, Any] = raw_record.full_response_json
         self.volume: ETLVolume = ETLVolume(self.service_id)
 
