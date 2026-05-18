@@ -1,34 +1,33 @@
 from typing import ClassVar, Optional
+from typing_extensions import override
 
 from sqlalchemy.orm import Session
 
 
 from connector.postgres_connection import WarehouseSessionLocal
 from models.dimension.dim_region import DimRegion
+from services.db_service import DBService
 
 
-class ServiceRegion:
+class ServiceRegion(DBService[DimRegion]):
     _cache: ClassVar[dict[str, int]] = {}
     _cache_loaded: ClassVar[bool] = False
 
     def __init__(self, db: Session):
-        self.db: Session = db
+        super().__init__(db, DimRegion)
 
         if not ServiceRegion._cache_loaded:
             self._load_cache()
 
-    def get_all(self) -> list[DimRegion]:
-        return self.db.query(DimRegion).all()
-
     def get_by_name(self, name: str) -> Optional["DimRegion"]:
         return self.db.query(DimRegion).filter_by(name=name).first()
 
-    def insert_one(self, name: str) -> int:
-        region: DimRegion = DimRegion(name=name)
-        self.db.add(region)
+    @override
+    def insert_one(self, record: DimRegion) -> int:
+        self.db.add(record)
         self.db.flush()
-        ServiceRegion._cache[name] = region.id
-        return region.id
+        ServiceRegion._cache[record.name] = record.id
+        return record.id
 
     def get_or_create(self, region_name: str) -> int:
         self._load_cache()
@@ -36,9 +35,7 @@ class ServiceRegion:
         if region_name in ServiceRegion._cache:
             return self._cache[region_name]
 
-        new_id: int = self.insert_one(region_name)
-        ServiceRegion._cache[region_name] = new_id
-        return new_id
+        return self.insert_one(DimRegion(region_name))
 
     def _load_cache(self) -> None:
         if ServiceRegion._cache_loaded:

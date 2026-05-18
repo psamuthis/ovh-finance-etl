@@ -1,14 +1,42 @@
+from typing import Any
+
 from sqlalchemy.orm import Session
 
 from models.dimension.dim_kubernetes import DimKubernetes
+from services.api_service_kubernetes import APIServiceKubernetes
+from services.db_service import DBService
+from services.service_time import ServiceTime
 
 
-class DBServiceKubernetes:
-
+class DBServiceKubernetes(DBService[DimKubernetes]):
     def __init__(self, db: Session):
-        self.db: Session = db
+        super().__init__(db, DimKubernetes)
 
-    def insert_one(self, dim_kube: DimKubernetes) -> int:
-        self.db.add(dim_kube)
-        self.db.flush()
-        return dim_kube.id
+    def create_record(self, service_id: str, node_id: str) -> DimKubernetes:
+        api_kube_service: APIServiceKubernetes = APIServiceKubernetes(service_id)
+        time_service: ServiceTime = ServiceTime(self.db)
+
+        node_data: dict[str, Any] = api_kube_service.get_node_data(node_id)
+        fk_created_at: int = time_service.get_or_create(
+            time_service.parse_iso_date(node_data["createdAt"])
+        )
+        fk_updated_at: int = time_service.get_or_create(
+            time_service.parse_iso_date(node_data["updatedAt"])
+        )
+        fk_deployed_at: int = time_service.get_or_create(
+            time_service.parse_iso_date(node_data["deployedAt"])
+        )
+
+        return DimKubernetes(
+            fk_created_at=fk_created_at,
+            fk_updated_at=fk_updated_at,
+            fk_deployed_at=fk_deployed_at,
+            fk_deleted_at=None,
+            cluster_id=api_kube_service.get_node_cluster(node_id),
+            nodepool_id=node_data["nodePoolId"],
+            instance_id=node_data["instanceId"],
+            tenant_name=api_kube_service.get_tenant(),
+            flavor=node_data["flavor"],
+            status=node_data["status"],
+            version=node_data["version"],
+        )

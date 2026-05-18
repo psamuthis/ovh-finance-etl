@@ -14,7 +14,10 @@ from services.service_deployment_mode import ServiceDeploymentMode
 from services.service_region import ServiceRegion
 from services.service_storage_type import ServiceStorageType
 from services.service_time import ServiceTime
-from services.service_volume import ServiceVolume
+from services.service_volume import ServiceDimVolume, ServiceFactVolume
+from services.service_unit import ServiceUnit
+from models.fact.fact_volume import FactVolume
+from services.db_service import DBService
 
 from .shared import Quantity
 from .etl_interface import ETLInterface
@@ -38,9 +41,11 @@ class Volume:
 
 class ETLVolume(ETLInterface):
 
-    def __init__(self, service_id: str):
+    def __init__(self, service_id: str, period_from: datetime, period_to: datetime):
         self.volumes: list[Volume] = []
         self.service_id = service_id
+        self.period_from = period_from
+        self.period_to = period_to
 
     def extract_data(self, raw_data: list[dict[str, Any]]) -> None:
         for volume_group in raw_data:
@@ -69,49 +74,37 @@ class ETLVolume(ETLInterface):
 
         for volume in self.volumes:
             with WarehouseSessionLocal() as db:
-                dep_mode_id: int = ServiceDeploymentMode(db).get_or_create(
+                fk_dep_mode: int = ServiceDeploymentMode(db).get_or_create(
                     volume.deployment_mode
                 )
-                region_id: int = ServiceRegion(db).get_or_create(volume.region)
-                type_id: int = ServiceStorageType(db).get_or_create(volume.type)
+                fk_region: int = ServiceRegion(db).get_or_create(volume.region)
+                fk_type: int = ServiceStorageType(db).get_or_create(volume.type)
 
                 for details in volume.details:
                     dim_volume: DimVolume = DimVolume(
                         volume_uuid=details.volume_uuid,
-                        deployment_mode_fk=dep_mode_id,
-                        region_fk=region_id,
-                        type_id=type_id,
+                        deployment_mode_fk=fk_dep_mode,
+                        region_fk=fk_region,
+                        type_id=fk_type,
                     )
-
-                    api_kube_service: APIServiceKubernetes = APIServiceKubernetes(
-                        self.service_id
-                    )
-                    time_service: ServiceTime = ServiceTime(db)
 
                     node_id: str = details.resource_id
-                    node_data: dict[str, Any] = api_kube_service.get_node_data(node_id)
-                    cluster_id: str = api_kube_service.get_node_cluster(node_id)
-                    tenant_name: str = api_kube_service.get_tenant()
+                    dim_kubernetes: DimKubernetes = DBServiceKubernetes(
+                        db
+                    ).create_record(self.service_id, node_id)
 
-                    dim_kubernetes: DimKubernetes = DimKubernetes(
-                        created_at_fk=time_service.get_or_create(
-                            time_service.parse_iso_date(node_data["createdAt"])
+                    record: FactVolume = FactVolume(
+                        fk_volume=ServiceDimVolume(db).insert_one(dim_volume),
+                        fk_period_from=ServiceTime(db).get_or_create(self.period_from),
+                        fk_period_to=ServiceTime(db).get_or_create(self.period_to),
+                        fk_created_at=ServiceTime(db).get_or_create(
+                            datetime.now(timezone.utc)
                         ),
-                        updated_at_fk=time_service.get_or_create(
-                            time_service.parse_iso_date(node_data["updatedAt"])
-                        ),
-                        deployed_at_fk=time_service.get_or_create(
-                            time_service.parse_iso_date(node_data["deployedAt"])
-                        ),
-                        deleted_at_fk=None,
-                        cluster_id=cluster_id,
-                        nodepool_id=node_data["nodePoolId"],
-                        instance_id=node_data["instanceId"],
-                        flavor=node_data["flavor"],
-                        status=node_data["status"],
-                        version=node_data["version"],
-                        tenant_name=tenant_name,
+                        fk_resource=DBServiceKubernetes(db).insert_one(dim_kubernetes),
+                        fk_unit=ServiceUnit(db).get_or_create(details.quantity.unit),
+                        # TODO: transformer le cumulé en non cumulé
+                        value=69,
+                        price=69,
                     )
 
-                    DBServiceKubernetes(db).insert_one(dim_kubernetes)
-                    ServiceVolume(db).insert_one(dim_volume)
+                    DBService(db, FactVolume).insert_one(record)

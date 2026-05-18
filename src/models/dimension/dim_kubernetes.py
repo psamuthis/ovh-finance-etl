@@ -15,10 +15,10 @@ class DimKubernetes(Base):
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
 
-    created_at_fk: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
-    updated_at_fk: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
-    deployed_at_fk: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
-    deleted_at_fk: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
+    fk_created_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
+    fk_updated_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
+    fk_deployed_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
+    fk_deleted_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
 
     cluster_id: Mapped[UUID] = mapped_column(Uuid)
     nodepool_id: Mapped[UUID] = mapped_column(Uuid)

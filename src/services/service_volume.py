@@ -1,14 +1,15 @@
 from sqlalchemy.orm import Session
 
 from models.dimension.dim_volume import DimVolume
+from models.fact.fact_volume import FactVolume
+from services.db_service import DBService
 
 
-class ServiceVolume:
-
+class ServiceDimVolume(DBService[DimVolume]):
     def __init__(self, db: Session):
-        self.db: Session = db
+        super().__init__(db, DimVolume)
 
-    def insert_one(self, volume: DimVolume) -> int:
-        self.db.add(volume)
-        self.db.flush()
-        return volume.id
+
+class ServiceFactVolume(DBService[FactVolume]):
+    def __init__(self, db: Session):
+        super().__init__(db, FactVolume)

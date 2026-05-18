@@ -1,11 +1,13 @@
 from typing import ClassVar
+from typing_extensions import override
 
 from sqlalchemy.orm import Session
 
 from models.dimension.dim_storage_type import DimStorageType
+from services.db_service import DBService
 
 
-class ServiceStorageType:
+class ServiceStorageType(DBService[DimStorageType]):
     _cache: ClassVar[dict[str, int]] = {}
     _cache_loaded: ClassVar[bool] = False
 
@@ -15,15 +17,12 @@ class ServiceStorageType:
         if not ServiceStorageType._cache_loaded:
             self._load_cache()
 
-    def get_all(self) -> list[DimStorageType]:
-        return self.db.query(DimStorageType).all()
-
-    def insert_one(self, type: str) -> int:
-        storage_type: DimStorageType = DimStorageType(type=type)
-        self.db.add(storage_type)
+    @override
+    def insert_one(self, record: DimStorageType) -> int:
+        self.db.add(record)
         self.db.flush()
-        ServiceStorageType._cache[type] = storage_type.id
-        return storage_type.id
+        ServiceStorageType._cache[record.type] = record.id
+        return record.id
 
     def get_or_create(self, type: str) -> int:
         self._load_cache()
@@ -31,9 +30,7 @@ class ServiceStorageType:
         if type in ServiceStorageType._cache:
             return ServiceStorageType._cache[type]
 
-        new_id: int = self.insert_one(type)
-        ServiceStorageType._cache[type] = new_id
-        return new_id
+        return self.insert_one(DimStorageType(type))
 
     def _load_cache(self) -> None:
         if ServiceStorageType._cache_loaded:

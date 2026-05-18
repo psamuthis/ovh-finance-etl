@@ -1,32 +1,31 @@
 from typing import ClassVar, Optional
+from typing_extensions import override
 
 from sqlalchemy.orm import Session
 
 from models.dimension.dim_deployment_mode import DimDeploymentMode
+from services.db_service import DBService
 
 
-class ServiceDeploymentMode:
+class ServiceDeploymentMode(DBService[DimDeploymentMode]):
     _cache: ClassVar[dict[str, int]] = {}
     _cache_loaded: ClassVar[bool] = False
 
     def __init__(self, db: Session):
-        self.db: Session = db
+        super().__init__(db, DimDeploymentMode)
 
         if not ServiceDeploymentMode._cache_loaded:
             self._load_cache()
 
-    def get_all(self) -> list[DimDeploymentMode]:
-        return self.db.query(DimDeploymentMode).all()
-
     def get_by_name(self, name: str) -> Optional["DimDeploymentMode"]:
         return self.db.query(DimDeploymentMode).filter_by(name=name).first()
 
-    def insert_one(self, name: str) -> int:
-        dep_mode: DimDeploymentMode = DimDeploymentMode(name=name)
-        self.db.add(dep_mode)
+    @override
+    def insert_one(self, record: DimDeploymentMode) -> int:
+        self.db.add(record)
         self.db.flush()
-        ServiceDeploymentMode._cache[name] = dep_mode.id
-        return dep_mode.id
+        ServiceDeploymentMode._cache[record.name] = record.id
+        return record.id
 
     def get_or_create(self, dep_name: str) -> int:
         self._load_cache()
@@ -34,9 +33,7 @@ class ServiceDeploymentMode:
         if dep_name in ServiceDeploymentMode._cache:
             return ServiceDeploymentMode._cache[dep_name]
 
-        new_id: int = self.insert_one(dep_name)
-        ServiceDeploymentMode._cache[dep_name] = new_id
-        return new_id
+        return self.insert_one(DimDeploymentMode(dep_name))
 
     def _load_cache(self) -> None:
         if ServiceDeploymentMode._cache_loaded:
