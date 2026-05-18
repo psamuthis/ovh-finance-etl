@@ -1,0 +1,695 @@
+{
+    "hourlyUsage": {
+        "instance": [],
+        "instanceBandwidth": [],
+        "instanceOption": [],
+        "managedKubernetesService": [],
+        "quantum": {
+            "notebook": [],
+            "processingUnit": []
+        },
+        "rancher": [],
+        "snapshot": [],
+        "storage": [
+            {
+                "bucketName": "asp-metrique-pprd",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0.00021150149405
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "SBG",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 220.81930670607835
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0.002146
+                },
+                "totalPrice": 0.002146,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "asp-ia-pprd",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 11310.015841544606
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 11230.447542985901
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "SBG",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 4754494.629129387
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 46.213688
+                },
+                "totalPrice": 46.213688,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "asppprd",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0.00021150149405
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "SBG",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "asp-historisation-pprd",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0.0007876856252551
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "SBG",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 1130917.3755691126
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 10.992517
+                },
+                "totalPrice": 10.992517,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "asp-rpg-departement-pprd",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 35.923150265589356
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "SBG",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 57362.318588256836
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0.557562
+                },
+                "totalPrice": 0.557562,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "NoSuchBucket_error",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 4.218891263e-07
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "SBG",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "asp-rapport-tnr-pprd",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 1.20485201478e-05
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0.0002391878515482
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "SBG",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 1.3153076730668545
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 1.3e-05
+                },
+                "totalPrice": 1.3e-05,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "rancher-backup-preprod",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0.0196914002299309
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0.0002104695886374
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "DE",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 13.646779036149383
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0.000133
+                },
+                "totalPrice": 0.000133,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "asppprd-argo",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 1157.0665598157793
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 1208.6527161533013
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "SBG",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 254386.61847851705
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 2.472638
+                },
+                "totalPrice": 2.472638,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "asp-referentiel-pprd",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 102.43402734026313
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 5521.86913554091
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "SBG",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 86589.51828005537
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0.84165
+                },
+                "totalPrice": 0.84165,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "asp-ia-pprd",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "SBG",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 34866.201171875
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0.871655
+                },
+                "totalPrice": 0.871655,
+                "type": "storage-high-perf"
+            }
+        ],
+        "volume": []
+    },
+    "lastUpdate": "2026-05-18T14:00:58.889Z",
+    "monthlyUsage": {
+        "certification": [],
+        "instance": [],
+        "instanceOption": [],
+        "savingsPlan": []
+    },
+    "period": {
+        "from": "2026-05-01T00:00:00.000Z",
+        "to": "2026-06-01T00:00:00.000Z"
+    },
+    "resourcesUsage": [],
+    "totalPrice": {
+        "currencyCode": "EUR",
+        "priceInUcents": 6195200100,
+        "text": "61.95 EUR",
+        "value": 61.952001
+    }
+}

@@ -35,7 +35,7 @@ class ServiceRegion(DBService[DimRegion]):
         if region_name in ServiceRegion._cache:
             return self._cache[region_name]
 
-        return self.insert_one(DimRegion(region_name))
+        return self.insert_one(DimRegion(name=region_name))
 
     def _load_cache(self) -> None:
         if ServiceRegion._cache_loaded:

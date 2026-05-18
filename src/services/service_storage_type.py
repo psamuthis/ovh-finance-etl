@@ -12,7 +12,7 @@ class ServiceStorageType(DBService[DimStorageType]):
     _cache_loaded: ClassVar[bool] = False
 
     def __init__(self, db: Session):
-        self.db = db
+        super().__init__(db, DimStorageType)
 
         if not ServiceStorageType._cache_loaded:
             self._load_cache()
@@ -30,7 +30,7 @@ class ServiceStorageType(DBService[DimStorageType]):
         if type in ServiceStorageType._cache:
             return ServiceStorageType._cache[type]
 
-        return self.insert_one(DimStorageType(type))
+        return self.insert_one(DimStorageType(type=type))
 
     def _load_cache(self) -> None:
         if ServiceStorageType._cache_loaded:

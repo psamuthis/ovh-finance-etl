@@ -1,0 +1,1461 @@
+{
+    "hourlyUsage": {
+        "instance": [
+            {
+                "deploymentMode": "REGION-1-AZ",
+                "details": [
+                    {
+                        "instanceId": "cdaa5426-f438-4831-8b39-13008122ed1b",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 1
+                        },
+                        "resourceId": "cdaa5426-f438-4831-8b39-13008122ed1b",
+                        "totalPrice": 3.274
+                    }
+                ],
+                "quantity": {
+                    "unit": "Hour",
+                    "value": 1
+                },
+                "reference": "win-b3-512",
+                "region": "GRA11",
+                "totalPrice": 3.274
+            },
+            {
+                "deploymentMode": "REGION-1-AZ",
+                "details": [
+                    {
+                        "instanceId": "cdaa5426-f438-4831-8b39-13008122ed1b",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 128
+                        },
+                        "resourceId": "cdaa5426-f438-4831-8b39-13008122ed1b",
+                        "totalPrice": 4.4416
+                    }
+                ],
+                "quantity": {
+                    "unit": "Hour",
+                    "value": 128
+                },
+                "reference": "win-b3-512.windows-vcore-license",
+                "region": "GRA11",
+                "totalPrice": 4.4416
+            },
+            {
+                "deploymentMode": "REGION-1-AZ",
+                "details": [
+                    {
+                        "instanceId": "1bf49fee-7e28-432e-8d22-2b813aa9d263",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 9
+                        },
+                        "resourceId": "1bf49fee-7e28-432e-8d22-2b813aa9d263",
+                        "totalPrice": 3.6828
+                    },
+                    {
+                        "instanceId": "b0ccdbe0-58fb-4ddd-a03a-87608ab4da43",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 6
+                        },
+                        "resourceId": "b0ccdbe0-58fb-4ddd-a03a-87608ab4da43",
+                        "totalPrice": 2.4552
+                    },
+                    {
+                        "instanceId": "a55126a0-8511-4851-b501-6d905d72ba20",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 6
+                        },
+                        "resourceId": "a55126a0-8511-4851-b501-6d905d72ba20",
+                        "totalPrice": 2.4552
+                    },
+                    {
+                        "instanceId": "b6681869-26ac-42aa-8408-09cee96fd14a",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 9
+                        },
+                        "resourceId": "b6681869-26ac-42aa-8408-09cee96fd14a",
+                        "totalPrice": 3.6828
+                    },
+                    {
+                        "instanceId": "30d14d02-7b36-414b-a861-5f926428cb8f",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 6
+                        },
+                        "resourceId": "30d14d02-7b36-414b-a861-5f926428cb8f",
+                        "totalPrice": 2.4552
+                    },
+                    {
+                        "instanceId": "ac1f9a9a-c7d9-4db2-8a46-30a7517a386d",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 6
+                        },
+                        "resourceId": "ac1f9a9a-c7d9-4db2-8a46-30a7517a386d",
+                        "totalPrice": 2.4552
+                    },
+                    {
+                        "instanceId": "8a4220f2-c87b-4920-9288-7bedd9c60feb",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 3
+                        },
+                        "resourceId": "8a4220f2-c87b-4920-9288-7bedd9c60feb",
+                        "totalPrice": 1.2276
+                    },
+                    {
+                        "instanceId": "7d8c8c43-791e-48a9-82d0-75278e5801fc",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 4
+                        },
+                        "resourceId": "7d8c8c43-791e-48a9-82d0-75278e5801fc",
+                        "totalPrice": 1.6368
+                    },
+                    {
+                        "instanceId": "7c9a789a-a6bc-454f-a875-1d3b6ddee9c4",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 28
+                        },
+                        "resourceId": "7c9a789a-a6bc-454f-a875-1d3b6ddee9c4",
+                        "totalPrice": 11.4576
+                    },
+                    {
+                        "instanceId": "61b968a7-82b8-4568-9ce4-8d619c688e5e",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 121
+                        },
+                        "resourceId": "61b968a7-82b8-4568-9ce4-8d619c688e5e",
+                        "totalPrice": 49.5132
+                    },
+                    {
+                        "instanceId": "c359edcd-8a90-4f78-a1ff-e3822c08f481",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 2
+                        },
+                        "resourceId": "c359edcd-8a90-4f78-a1ff-e3822c08f481",
+                        "totalPrice": 0.8184
+                    }
+                ],
+                "quantity": {
+                    "unit": "Hour",
+                    "value": 200
+                },
+                "reference": "win-b3-64",
+                "region": "GRA11",
+                "totalPrice": 81.84
+            },
+            {
+                "deploymentMode": "REGION-1-AZ",
+                "details": [
+                    {
+                        "instanceId": "58a7bedb-2c8a-44bb-8aee-3c2cc03bddfa",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 10
+                        },
+                        "resourceId": "58a7bedb-2c8a-44bb-8aee-3c2cc03bddfa",
+                        "totalPrice": 4.092
+                    },
+                    {
+                        "instanceId": "97b56c01-78dc-4025-9664-7d298dcfc00a",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 2
+                        },
+                        "resourceId": "97b56c01-78dc-4025-9664-7d298dcfc00a",
+                        "totalPrice": 0.8184
+                    },
+                    {
+                        "instanceId": "f403ab9c-8585-4714-992a-663169358662",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 5
+                        },
+                        "resourceId": "f403ab9c-8585-4714-992a-663169358662",
+                        "totalPrice": 2.046
+                    },
+                    {
+                        "instanceId": "e11c768c-dafa-4a45-9fd6-db7aba736d88",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 2
+                        },
+                        "resourceId": "e11c768c-dafa-4a45-9fd6-db7aba736d88",
+                        "totalPrice": 0.8184
+                    },
+                    {
+                        "instanceId": "ad0f71e9-5d3d-4681-81ef-51d3d7b92082",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 4
+                        },
+                        "resourceId": "ad0f71e9-5d3d-4681-81ef-51d3d7b92082",
+                        "totalPrice": 1.6368
+                    },
+                    {
+                        "instanceId": "85b24bfa-4fc2-4146-baa5-1ed02f853c0e",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 6
+                        },
+                        "resourceId": "85b24bfa-4fc2-4146-baa5-1ed02f853c0e",
+                        "totalPrice": 2.4552
+                    },
+                    {
+                        "instanceId": "772529b6-0484-418c-9f33-00c0e2ea43d0",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 8
+                        },
+                        "resourceId": "772529b6-0484-418c-9f33-00c0e2ea43d0",
+                        "totalPrice": 3.2736
+                    },
+                    {
+                        "instanceId": "2e31e182-da61-423e-866c-d22479070a67",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 7
+                        },
+                        "resourceId": "2e31e182-da61-423e-866c-d22479070a67",
+                        "totalPrice": 2.8644
+                    },
+                    {
+                        "instanceId": "c6823754-4e4c-47ef-9c8c-50e356e8f12a",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 57
+                        },
+                        "resourceId": "c6823754-4e4c-47ef-9c8c-50e356e8f12a",
+                        "totalPrice": 23.3244
+                    },
+                    {
+                        "instanceId": "f264eba2-021d-42a9-a651-a71965d5cbe8",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 7
+                        },
+                        "resourceId": "f264eba2-021d-42a9-a651-a71965d5cbe8",
+                        "totalPrice": 2.8644
+                    },
+                    {
+                        "instanceId": "56007b26-30e3-4eae-a569-9552f1db6d08",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 2
+                        },
+                        "resourceId": "56007b26-30e3-4eae-a569-9552f1db6d08",
+                        "totalPrice": 0.8184
+                    },
+                    {
+                        "instanceId": "9b88b7a7-6bae-444f-8881-7b53a295c542",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 12
+                        },
+                        "resourceId": "9b88b7a7-6bae-444f-8881-7b53a295c542",
+                        "totalPrice": 4.9104
+                    },
+                    {
+                        "instanceId": "4d985f7a-97a8-4006-be7d-48dd304ddb05",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 11
+                        },
+                        "resourceId": "4d985f7a-97a8-4006-be7d-48dd304ddb05",
+                        "totalPrice": 4.5012
+                    },
+                    {
+                        "instanceId": "3e2ba455-ff89-4422-a83b-0b0b33bc16f0",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 3
+                        },
+                        "resourceId": "3e2ba455-ff89-4422-a83b-0b0b33bc16f0",
+                        "totalPrice": 1.2276
+                    },
+                    {
+                        "instanceId": "f91c840c-5ad5-48bd-b182-75a01b5fa285",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 8
+                        },
+                        "resourceId": "f91c840c-5ad5-48bd-b182-75a01b5fa285",
+                        "totalPrice": 3.2736
+                    },
+                    {
+                        "instanceId": "e25b5cee-43d1-4cbc-bacd-28fa770b38ea",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 9
+                        },
+                        "resourceId": "e25b5cee-43d1-4cbc-bacd-28fa770b38ea",
+                        "totalPrice": 3.6828
+                    },
+                    {
+                        "instanceId": "af9d4031-ef2d-48b3-a3dd-22dc3f1c00aa",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 6
+                        },
+                        "resourceId": "af9d4031-ef2d-48b3-a3dd-22dc3f1c00aa",
+                        "totalPrice": 2.4552
+                    },
+                    {
+                        "instanceId": "55699196-8ef2-4979-a4f2-3949e15a4173",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 9
+                        },
+                        "resourceId": "55699196-8ef2-4979-a4f2-3949e15a4173",
+                        "totalPrice": 3.6828
+                    },
+                    {
+                        "instanceId": "d9b6c9d0-1825-4c2f-9a87-cb71910a548b",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 3
+                        },
+                        "resourceId": "d9b6c9d0-1825-4c2f-9a87-cb71910a548b",
+                        "totalPrice": 1.2276
+                    },
+                    {
+                        "instanceId": "bfbba7b4-479a-4b37-a194-6dc3638a0f60",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 13
+                        },
+                        "resourceId": "bfbba7b4-479a-4b37-a194-6dc3638a0f60",
+                        "totalPrice": 5.3196
+                    }
+                ],
+                "quantity": {
+                    "unit": "Hour",
+                    "value": 184
+                },
+                "reference": "b3-64",
+                "region": "GRA11",
+                "totalPrice": 75.2928
+            },
+            {
+                "deploymentMode": "REGION-1-AZ",
+                "details": [
+                    {
+                        "instanceId": "7c9a789a-a6bc-454f-a875-1d3b6ddee9c4",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 448
+                        },
+                        "resourceId": "7c9a789a-a6bc-454f-a875-1d3b6ddee9c4",
+                        "totalPrice": 15.5456
+                    },
+                    {
+                        "instanceId": "c359edcd-8a90-4f78-a1ff-e3822c08f481",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 32
+                        },
+                        "resourceId": "c359edcd-8a90-4f78-a1ff-e3822c08f481",
+                        "totalPrice": 1.1104
+                    },
+                    {
+                        "instanceId": "a55126a0-8511-4851-b501-6d905d72ba20",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 96
+                        },
+                        "resourceId": "a55126a0-8511-4851-b501-6d905d72ba20",
+                        "totalPrice": 3.3312
+                    },
+                    {
+                        "instanceId": "1bf49fee-7e28-432e-8d22-2b813aa9d263",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 144
+                        },
+                        "resourceId": "1bf49fee-7e28-432e-8d22-2b813aa9d263",
+                        "totalPrice": 4.9968
+                    },
+                    {
+                        "instanceId": "b6681869-26ac-42aa-8408-09cee96fd14a",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 144
+                        },
+                        "resourceId": "b6681869-26ac-42aa-8408-09cee96fd14a",
+                        "totalPrice": 4.9968
+                    },
+                    {
+                        "instanceId": "b0ccdbe0-58fb-4ddd-a03a-87608ab4da43",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 96
+                        },
+                        "resourceId": "b0ccdbe0-58fb-4ddd-a03a-87608ab4da43",
+                        "totalPrice": 3.3312
+                    },
+                    {
+                        "instanceId": "61b968a7-82b8-4568-9ce4-8d619c688e5e",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 1936
+                        },
+                        "resourceId": "61b968a7-82b8-4568-9ce4-8d619c688e5e",
+                        "totalPrice": 67.1792
+                    },
+                    {
+                        "instanceId": "ac1f9a9a-c7d9-4db2-8a46-30a7517a386d",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 96
+                        },
+                        "resourceId": "ac1f9a9a-c7d9-4db2-8a46-30a7517a386d",
+                        "totalPrice": 3.3312
+                    },
+                    {
+                        "instanceId": "30d14d02-7b36-414b-a861-5f926428cb8f",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 96
+                        },
+                        "resourceId": "30d14d02-7b36-414b-a861-5f926428cb8f",
+                        "totalPrice": 3.3312
+                    },
+                    {
+                        "instanceId": "7d8c8c43-791e-48a9-82d0-75278e5801fc",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 64
+                        },
+                        "resourceId": "7d8c8c43-791e-48a9-82d0-75278e5801fc",
+                        "totalPrice": 2.2208
+                    },
+                    {
+                        "instanceId": "8a4220f2-c87b-4920-9288-7bedd9c60feb",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 48
+                        },
+                        "resourceId": "8a4220f2-c87b-4920-9288-7bedd9c60feb",
+                        "totalPrice": 1.6656
+                    }
+                ],
+                "quantity": {
+                    "unit": "Hour",
+                    "value": 3200
+                },
+                "reference": "win-b3-64.windows-vcore-license",
+                "region": "GRA11",
+                "totalPrice": 111.04
+            }
+        ],
+        "instanceBandwidth": [],
+        "instanceOption": [],
+        "managedKubernetesService": [],
+        "quantum": {
+            "notebook": [],
+            "processingUnit": []
+        },
+        "rancher": [],
+        "snapshot": [
+            {
+                "deploymentMode": "REGION-1-AZ",
+                "instance": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 60914.86456298828
+                    },
+                    "totalPrice": 0.913723
+                },
+                "region": "GRA11",
+                "totalPrice": 0.913723,
+                "volume": null
+            }
+        ],
+        "storage": [
+            {
+                "bucketName": "NoSuchBucket_error",
+                "deploymentMode": "REGION-3-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 6.649643183e-07
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "EU-WEST-PAR",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "divers-sample",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0.2485108776018023
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 2.57436186075e-05
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "GRA",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 133635.0498027252
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 1.298933
+                },
+                "totalPrice": 1.298933,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "asp-data-provision-2025",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 1.2146117454394698
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0.0021005123853683
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "GRA",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 112413.99715039227
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 1.092664
+                },
+                "totalPrice": 1.092664,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 9.87201929e-08
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "SBG",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "pcs"
+            },
+            {
+                "bucketName": "asp-data-provision-2026",
+                "deploymentMode": "REGION-3-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 49.23771228455007
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 146.75482584815472
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 116.10923353210092
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 1806.7977222837508
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "EU-WEST-PAR",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 118655.91243368108
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 2.274634
+                },
+                "totalPrice": 2.274634,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 9.87201929e-08
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "GRA",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "pcs"
+            },
+            {
+                "bucketName": "",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 9.87201929e-08
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "BHS",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "pcs"
+            },
+            {
+                "bucketName": "",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 9.87201929e-08
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "DE",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "pcs"
+            },
+            {
+                "bucketName": "",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 9.87201929e-08
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "UK",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "pcs"
+            },
+            {
+                "bucketName": "",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 9.87201929e-08
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "WAW",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "pcs"
+            }
+        ],
+        "volume": [
+            {
+                "deploymentMode": "REGION-1-AZ",
+                "details": [
+                    {
+                        "quantity": {
+                            "unit": "GiBh",
+                            "value": 319000
+                        },
+                        "resourceId": "9856f2b6-e908-4ec3-bf86-284d929e9834",
+                        "totalPrice": 18.821,
+                        "volumeId": "9856f2b6-e908-4ec3-bf86-284d929e9834"
+                    }
+                ],
+                "quantity": {
+                    "unit": "GiBh",
+                    "value": 319000
+                },
+                "region": "GRA11",
+                "totalPrice": 18.821,
+                "type": "classic-luks"
+            }
+        ]
+    },
+    "lastUpdate": "2026-05-18T14:00:58.889Z",
+    "monthlyUsage": {
+        "certification": [],
+        "instance": [],
+        "instanceOption": [],
+        "savingsPlan": []
+    },
+    "period": {
+        "from": "2026-05-01T00:00:00.000Z",
+        "to": "2026-06-01T00:00:00.000Z"
+    },
+    "resourcesUsage": [
+        {
+            "resources": [
+                {
+                    "components": [
+                        {
+                            "id": "ip.df3e14bf-9e30-4f12-bbd5-3ab5578eba01.d3ff3265-5498-48bd-81c9-d4e00af1942e",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 6
+                            },
+                            "resourceId": "d3ff3265-5498-48bd-81c9-d4e00af1942e",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.15ce2bdb-b3c5-4905-b7d7-6eb541e82da5.88b486b8-de25-4792-94f8-c063c93b98b4",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 6
+                            },
+                            "resourceId": "88b486b8-de25-4792-94f8-c063c93b98b4",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.ec181c02-652a-4149-a7b0-8c5f3215c8be.75ed7326-c285-4251-b6bf-a0ee75e0309f",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 9
+                            },
+                            "resourceId": "75ed7326-c285-4251-b6bf-a0ee75e0309f",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.7291f98c-73a7-4e14-a94f-59f7f98a97f6.810621a4-226a-4d07-af41-c7e89e92f308",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 6
+                            },
+                            "resourceId": "810621a4-226a-4d07-af41-c7e89e92f308",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.2f076a0a-fc17-4881-b934-02f57f86459a.c716e3b9-10c7-443f-ab16-3303f9df326f",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 8
+                            },
+                            "resourceId": "c716e3b9-10c7-443f-ab16-3303f9df326f",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.7171614c-00e7-43f4-8fa3-1eb9cfac57e2.6c795da3-3e1f-4f0d-b4a3-85c39aa22baa",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 2
+                            },
+                            "resourceId": "6c795da3-3e1f-4f0d-b4a3-85c39aa22baa",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.be2ef6b5-19cb-4566-8c5b-350fbd4c97ef.972f0eda-1153-47a4-88d3-ac94d79adfcd",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 3
+                            },
+                            "resourceId": "972f0eda-1153-47a4-88d3-ac94d79adfcd",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.accfad7d-02ac-4839-b278-b0e57d2d12d9.12d4ac6b-1578-4696-86b4-fdbe153bec80",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 10
+                            },
+                            "resourceId": "12d4ac6b-1578-4696-86b4-fdbe153bec80",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.4bbd0ecb-aaca-4be4-9034-f617dda7cffd.3700cb53-4d8c-456e-b3b3-3830cf0a61d0",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 7
+                            },
+                            "resourceId": "3700cb53-4d8c-456e-b3b3-3830cf0a61d0",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.4ae14545-f994-4ed9-8d17-e941f8af8879.2be23c59-d3c4-45b0-9db2-0ffa6d064b40",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 28
+                            },
+                            "resourceId": "2be23c59-d3c4-45b0-9db2-0ffa6d064b40",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.cad98e8a-ad16-49c3-8a98-df47c99df216.261be6f8-57b8-42de-91d9-db7125ff5b58",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 5
+                            },
+                            "resourceId": "261be6f8-57b8-42de-91d9-db7125ff5b58",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.9bd46775-2af0-43f6-9c3d-9ec7de5c9fc9.f508b31c-9ea8-4f96-8345-43ccb7314eaf",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 2
+                            },
+                            "resourceId": "f508b31c-9ea8-4f96-8345-43ccb7314eaf",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.22020af1-6956-4878-ae53-5040dfb5180c.0dd325db-3e9c-44e0-b2ed-b993dfe9c38b",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 2
+                            },
+                            "resourceId": "0dd325db-3e9c-44e0-b2ed-b993dfe9c38b",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.f6bcab2a-8202-4a9e-a0e0-fb8f41628491.d3bb1347-164b-42ad-905b-295b011d82c9",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 7
+                            },
+                            "resourceId": "d3bb1347-164b-42ad-905b-295b011d82c9",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.92caf03b-884c-4b13-9564-d1a1587c6d1c.0916c6d5-aefe-479b-bf14-fa5cf167f3a3",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 8
+                            },
+                            "resourceId": "0916c6d5-aefe-479b-bf14-fa5cf167f3a3",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.7f54c198-adb1-4ced-85c4-1ce92072c499.3ae8303e-4494-47f0-863c-d79e21a02261",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 4
+                            },
+                            "resourceId": "3ae8303e-4494-47f0-863c-d79e21a02261",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.11a0cc1d-9c66-4bd1-b5de-4fdea522b6e1.d0dbf4ec-82b7-4197-94f0-25e7bd1ec089",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 9
+                            },
+                            "resourceId": "d0dbf4ec-82b7-4197-94f0-25e7bd1ec089",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.14f956ca-84f1-4d0c-ab8d-cdcf29a41590.90f0d81f-dd37-4599-819e-3add64d24043",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 13
+                            },
+                            "resourceId": "90f0d81f-dd37-4599-819e-3add64d24043",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.358e0573-663a-468d-a7d3-5299cd64f580.e0aacb1e-b00e-4766-94e9-db56a74ac787",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 6
+                            },
+                            "resourceId": "e0aacb1e-b00e-4766-94e9-db56a74ac787",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.3022b191-d427-4891-8f87-7f553796b174.1e3df413-69c6-4b02-a26e-8f81fac98b77",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 57
+                            },
+                            "resourceId": "1e3df413-69c6-4b02-a26e-8f81fac98b77",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.a6905b56-2d94-4309-8d36-d8b40291de9f.83c81e39-852a-4ec4-b85c-40f78d3bf07c",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 122
+                            },
+                            "resourceId": "83c81e39-852a-4ec4-b85c-40f78d3bf07c",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.043a7955-ba70-4e43-a7a6-e2360473b862.7881b075-ff65-4047-8b3f-28341d2b04f4",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 9
+                            },
+                            "resourceId": "7881b075-ff65-4047-8b3f-28341d2b04f4",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.26465374-7d53-4f59-b61d-45caa9e838ce.e745daf5-68da-4e42-b9eb-ec35b0802d56",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 3
+                            },
+                            "resourceId": "e745daf5-68da-4e42-b9eb-ec35b0802d56",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.64f20e51-5dbc-4ea3-a115-7091aa76c0b5.5b86512e-34cc-402d-9229-a21587e98d0b",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 6
+                            },
+                            "resourceId": "5b86512e-34cc-402d-9229-a21587e98d0b",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.0edd8007-f906-4639-b4ff-a1cdaea49a46.d3d3f364-214f-43cd-90f1-26d632707a19",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 9
+                            },
+                            "resourceId": "d3d3f364-214f-43cd-90f1-26d632707a19",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.68b8e726-d523-4640-9ecf-887356a06f95.2be305ae-bcdc-4919-ba5d-b76cb2ed0b8c",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 3
+                            },
+                            "resourceId": "2be305ae-bcdc-4919-ba5d-b76cb2ed0b8c",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.bd7b98d3-b747-4435-be45-8a9fa84d6de8.1e038151-3fb4-4915-bf4d-fd7b094b9ef0",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 2
+                            },
+                            "resourceId": "1e038151-3fb4-4915-bf4d-fd7b094b9ef0",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.5a5b177b-9f90-4f72-9116-337c6c042d6e.766a2326-38c0-43a5-a223-402c848a66da",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 11
+                            },
+                            "resourceId": "766a2326-38c0-43a5-a223-402c848a66da",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.88d59a56-bf7a-4dcc-bc4b-65ee5c8a8bea.94922fe5-9147-430e-bbdb-957baf05c379",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 3
+                            },
+                            "resourceId": "94922fe5-9147-430e-bbdb-957baf05c379",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.bd0c0b5d-3cac-49c2-a221-e4ac20083978.bfc8b56e-db59-4b43-b458-aae41a3b7bf6",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 12
+                            },
+                            "resourceId": "bfc8b56e-db59-4b43-b458-aae41a3b7bf6",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.c786c2f5-067c-467b-b0b3-ac258c4e54ee.085c376f-6f47-4140-bcd3-2ff01e86c95b",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 4
+                            },
+                            "resourceId": "085c376f-6f47-4140-bcd3-2ff01e86c95b",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.3635fa76-cad8-4be5-8ab5-099a8861e4ec.c7b43343-a137-40b0-bb73-b5d6cbae6ffb",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 6
+                            },
+                            "resourceId": "c7b43343-a137-40b0-bb73-b5d6cbae6ffb",
+                            "totalPrice": 0
+                        }
+                    ],
+                    "deploymentMode": "REGION-1-AZ",
+                    "region": "GRA11"
+                }
+            ],
+            "totalPrice": 0,
+            "type": "publicip"
+        }
+    ],
+    "totalPrice": {
+        "currencyCode": "EUR",
+        "priceInUcents": 30028935400,
+        "text": "300.29 EUR",
+        "value": 300.289354
+    }
+}

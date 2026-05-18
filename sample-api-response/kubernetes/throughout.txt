@@ -158,20 +158,6 @@ Service b41a8077d3ed49c69ddc77ed0b16572e details:
       "createdAt": "2026-04-30T13:54:25Z",
       "updatedAt": "2026-04-30T13:56:29Z",
       "deployedAt": "2026-04-30T13:56:29Z"
-   },
-   {
-      "id": "5823bb69-a796-4260-b49d-fc6e45ddc932",
-      "projectId": "b41a8077d3ed49c69ddc77ed0b16572e",
-      "instanceId": "fb8f2d3c-73d9-45f3-b5a0-3adebc5e4d13",
-      "nodePoolId": "d0696bd6-7a1f-4317-bbbc-c499b9dc45aa",
-      "name": "k8s-asp-iadv-pool-var-r3-256-node-5823bb",
-      "flavor": "r3-256",
-      "status": "READY",
-      "isUpToDate": true,
-      "version": "1.34.2-1576",
-      "createdAt": "2026-05-04T13:48:14Z",
-      "updatedAt": "2026-05-04T13:50:09Z",
-      "deployedAt": "2026-05-04T13:50:09Z"
    }
 ]
 

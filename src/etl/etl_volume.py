@@ -48,6 +48,7 @@ class ETLVolume(ETLInterface):
         self.period_to = period_to
 
     def extract_data(self, raw_data: list[dict[str, Any]]) -> None:
+        print(f"Raw input data {raw_data}")
         for volume_group in raw_data:
             volume = Volume()
             volume.deployment_mode = volume_group["deploymentMode"]
@@ -70,6 +71,8 @@ class ETLVolume(ETLInterface):
                 volume.details.append(details)
             self.volumes.append(volume)
 
+        print(f"Formatted output data {self.volumes}")
+
     def load_data(self) -> None:
 
         for volume in self.volumes:
@@ -83,9 +86,9 @@ class ETLVolume(ETLInterface):
                 for details in volume.details:
                     dim_volume: DimVolume = DimVolume(
                         volume_uuid=details.volume_uuid,
-                        deployment_mode_fk=fk_dep_mode,
-                        region_fk=fk_region,
-                        type_id=fk_type,
+                        fk_deployment_mode=fk_dep_mode,
+                        fk_region=fk_region,
+                        fk_type=fk_type,
                     )
 
                     node_id: str = details.resource_id

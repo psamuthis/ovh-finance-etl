@@ -10,7 +10,7 @@ with RawSessionLocal() as db:
     latest_record: CurrentUsageRaw | None = CurrentUsageRaw.retrieve_latest_record(db)
 
 if latest_record is None:
-    exit(0)
+    raise ValueError("Latest raw record wasn't retrieved...")
 
 """
 For each tenant handle:

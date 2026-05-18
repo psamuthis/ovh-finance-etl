@@ -66,7 +66,7 @@ class APIServiceKubernetes:
                     cluster_id = cluster
 
         if cluster_id is None:
-            raise ValueError(f"Node {node_id} was not found in any cluster.")
+            raise ValueError(f"Node {node_id} was not found in any clusters...")
 
         return cluster_id
 

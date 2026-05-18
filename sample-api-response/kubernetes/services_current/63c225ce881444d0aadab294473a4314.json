@@ -1,0 +1,788 @@
+{
+    "hourlyUsage": {
+        "instance": [
+            {
+                "details": [],
+                "quantity": {
+                    "unit": "Hour",
+                    "value": 0
+                },
+                "reference": "b3-8.over-quota",
+                "region": "",
+                "savingsPlanIds": [
+                    "9ea0e691-98d9-45aa-beb5-887867003255"
+                ],
+                "totalPrice": 0
+            },
+            {
+                "deploymentMode": "REGION-1-AZ",
+                "details": [
+                    {
+                        "instanceId": "d3e44dfd-a4e5-4baf-bca9-4b69d3128706",
+                        "quantity": {
+                            "unit": "Hour",
+                            "value": 844
+                        },
+                        "resourceId": "d3e44dfd-a4e5-4baf-bca9-4b69d3128706",
+                        "totalPrice": 29.2868
+                    }
+                ],
+                "quantity": {
+                    "unit": "Hour",
+                    "value": 844
+                },
+                "reference": "win-b3-8.windows-vcore-license",
+                "region": "SBG5",
+                "totalPrice": 29.2868
+            }
+        ],
+        "instanceBandwidth": [],
+        "instanceOption": [],
+        "managedKubernetesService": [],
+        "quantum": {
+            "notebook": [],
+            "processingUnit": []
+        },
+        "rancher": [],
+        "snapshot": [
+            {
+                "deploymentMode": "REGION-1-AZ",
+                "instance": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 86431.84375
+                    },
+                    "totalPrice": 1.296478
+                },
+                "region": "SBG5",
+                "totalPrice": 1.296478,
+                "volume": null
+            },
+            {
+                "deploymentMode": "REGION-1-AZ",
+                "instance": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 3844.4733276367188
+                    },
+                    "totalPrice": 0.057667
+                },
+                "region": "GRA11",
+                "totalPrice": 0.057667,
+                "volume": null
+            }
+        ],
+        "storage": [
+            {
+                "bucketName": "",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 3.7252903e-09
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "BHS",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "pcs"
+            },
+            {
+                "bucketName": "new-bucket-4b8ee566",
+                "deploymentMode": "REGION-3-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 1.0095536709e-06
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "EU-WEST-PAR",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "storage-standard"
+            },
+            {
+                "bucketName": "",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 2.36555934e-07
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "GRA",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0.0910221263766289
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 1e-06
+                },
+                "totalPrice": 1e-06,
+                "type": "pcs"
+            },
+            {
+                "bucketName": "",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 3.7252903e-09
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "WAW",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "pcs"
+            },
+            {
+                "bucketName": "",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 3.7252903e-09
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "UK",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "pcs"
+            },
+            {
+                "bucketName": "",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 3.7252903e-09
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "DE",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "pcs"
+            },
+            {
+                "bucketName": "",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 3.7252903e-09
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "SBG",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "totalPrice": 0,
+                "type": "pcs"
+            },
+            {
+                "bucketName": "3-str-opnsense-backup",
+                "deploymentMode": "REGION-1-AZ",
+                "incomingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "incomingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0.0021665915846825
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "outgoingInternalBandwidth": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0.0008145440369844
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0
+                },
+                "region": "GRA",
+                "retrievalFees": {
+                    "quantity": {
+                        "unit": "GiB",
+                        "value": 0
+                    },
+                    "resourceIds": [],
+                    "totalPrice": {
+                        "currencyCode": "EUR",
+                        "priceInUcents": 0,
+                        "text": "0.00 EUR",
+                        "value": 0
+                    }
+                },
+                "stored": {
+                    "quantity": {
+                        "unit": "GiBh",
+                        "value": 46.1027617752552
+                    },
+                    "resourceIds": [],
+                    "totalPrice": 0.000448
+                },
+                "totalPrice": 0.000448,
+                "type": "storage-standard"
+            }
+        ],
+        "volume": []
+    },
+    "lastUpdate": "2026-05-18T14:00:58.889Z",
+    "monthlyUsage": {
+        "certification": [],
+        "instance": [
+            {
+                "deploymentMode": "REGION-1-AZ",
+                "details": [
+                    {
+                        "activation": "2025-05-23T00:00:00.000Z",
+                        "instanceId": "f452e048-1aa2-4118-8d57-4a16d1769955",
+                        "resourceId": "f452e048-1aa2-4118-8d57-4a16d1769955",
+                        "totalPrice": 20.6
+                    }
+                ],
+                "reference": "d2-8",
+                "region": "SBG5",
+                "totalPrice": 20.6
+            }
+        ],
+        "instanceOption": [],
+        "savingsPlan": [
+            {
+                "details": [
+                    {
+                        "id": "9ea0e691-98d9-45aa-beb5-887867003255",
+                        "period": {
+                            "from": "2026-05-01T00:00:00.000Z",
+                            "to": "2026-05-25T23:59:59.000Z"
+                        },
+                        "planName": "savings-plan-gp-2025-11-25",
+                        "size": 1,
+                        "totalPrice": {
+                            "currencyCode": "EUR",
+                            "priceInUcents": 2260483870,
+                            "text": "22.60 EUR",
+                            "value": 22.60483870967742
+                        },
+                        "unitPrice": {
+                            "currencyCode": "EUR",
+                            "priceInUcents": 2803000000,
+                            "text": "28.03 EUR",
+                            "value": 28.03
+                        }
+                    }
+                ],
+                "totalPrice": {
+                    "currencyCode": "EUR",
+                    "priceInUcents": 2260483870,
+                    "text": "22.60 EUR",
+                    "value": 22.60483870967742
+                },
+                "flavor": "b3-8"
+            }
+        ]
+    },
+    "period": {
+        "from": "2026-05-01T00:00:00.000Z",
+        "to": "2026-06-01T00:00:00.000Z"
+    },
+    "resourcesUsage": [
+        {
+            "resources": [
+                {
+                    "components": [
+                        {
+                            "id": "mysql-essential-db1-4.0c3db5c4-c23c-43ef-9da1-aed01aa912a4.6cce8e9e-a565-4b81-92cf-5552ecdcab8e",
+                            "name": "mysql-essential-db1-4",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 422
+                            },
+                            "resourceId": "6cce8e9e-a565-4b81-92cf-5552ecdcab8e",
+                            "totalPrice": 31.4812
+                        }
+                    ],
+                    "deploymentMode": "REGION-1-AZ",
+                    "region": "GRA"
+                }
+            ],
+            "totalPrice": 31.4812,
+            "type": "databases"
+        },
+        {
+            "resources": [
+                {
+                    "components": [
+                        {
+                            "id": "s.4154ddd8-3e2e-451d-a21c-fa86a5b359a9.152b878b-4a6e-4e5b-a376-07294e8abdb4",
+                            "name": "s",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 422
+                            },
+                            "resourceId": "152b878b-4a6e-4e5b-a376-07294e8abdb4",
+                            "totalPrice": 1.1816
+                        }
+                    ],
+                    "deploymentMode": "REGION-1-AZ",
+                    "region": "SBG5"
+                },
+                {
+                    "components": [
+                        {
+                            "id": "s.f1d821c4-9093-454e-af5f-73dfa44cf4cf.8410cd57-accd-4661-83fe-c7bdd85dfada",
+                            "name": "s",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 422
+                            },
+                            "resourceId": "8410cd57-accd-4661-83fe-c7bdd85dfada",
+                            "totalPrice": 1.1816
+                        }
+                    ],
+                    "deploymentMode": "REGION-1-AZ",
+                    "region": "GRA11"
+                }
+            ],
+            "totalPrice": 2.3632,
+            "type": "gateway"
+        },
+        {
+            "resources": [
+                {
+                    "components": [
+                        {
+                            "id": "floatingip.4aa5522a-738d-4522-8528-9c879b56a73d.3cedc908-1bd9-4146-ada8-7fad3f7cdb5b",
+                            "name": "floatingip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 422
+                            },
+                            "resourceId": "3cedc908-1bd9-4146-ada8-7fad3f7cdb5b",
+                            "totalPrice": 1.1394
+                        }
+                    ],
+                    "deploymentMode": "REGION-1-AZ",
+                    "region": "SBG5"
+                }
+            ],
+            "totalPrice": 1.1394,
+            "type": "floatingip"
+        },
+        {
+            "resources": [
+                {
+                    "components": [
+                        {
+                            "id": "ip.9d674602-9866-42af-84a1-8998139dd140.298ca49b-18c3-45ca-b795-b975bdfe5dee",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 422
+                            },
+                            "resourceId": "298ca49b-18c3-45ca-b795-b975bdfe5dee",
+                            "totalPrice": 0
+                        }
+                    ],
+                    "deploymentMode": "REGION-1-AZ",
+                    "region": "GRA11"
+                },
+                {
+                    "components": [
+                        {
+                            "id": "ip.3fb30970-f026-47db-bad4-937385a63595.3e4023a2-85a5-485c-8098-26da9e2c0779",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 422
+                            },
+                            "resourceId": "3e4023a2-85a5-485c-8098-26da9e2c0779",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.b2aee339-8185-4f45-94a5-1ea98b8725c3.2f8fb12e-5427-44de-847b-f83e1225856c",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 422
+                            },
+                            "resourceId": "2f8fb12e-5427-44de-847b-f83e1225856c",
+                            "totalPrice": 0
+                        },
+                        {
+                            "id": "ip.0ae5206e-f990-459f-a948-61cb7736d066.5137bfb2-3d3b-4aa0-a571-f203f1f9ecd5",
+                            "name": "ip",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 422
+                            },
+                            "resourceId": "5137bfb2-3d3b-4aa0-a571-f203f1f9ecd5",
+                            "totalPrice": 0
+                        }
+                    ],
+                    "deploymentMode": "REGION-1-AZ",
+                    "region": "SBG5"
+                }
+            ],
+            "totalPrice": 0,
+            "type": "publicip"
+        },
+        {
+            "resources": [
+                {
+                    "components": [
+                        {
+                            "id": "workspace-storage.7388cd17-0b6b-4177-a30b-5b5f80f230fe.ceb908c6-ff57-4caa-8fc4-8d1c82d70992",
+                            "name": "workspace-storage",
+                            "quantity": {
+                                "unit": "Hour",
+                                "value": 4220
+                            },
+                            "resourceId": "ceb908c6-ff57-4caa-8fc4-8d1c82d70992",
+                            "totalPrice": 0.05908
+                        }
+                    ],
+                    "deploymentMode": "REGION-1-AZ",
+                    "region": "GRA"
+                }
+            ],
+            "totalPrice": 0.05908,
+            "type": "ai-notebook-workspace"
+        }
+    ],
+    "totalPrice": {
+        "currencyCode": "EUR",
+        "priceInUcents": 10888911300,
+        "text": "108.89 EUR",
+        "value": 108.889113
+    }
+}

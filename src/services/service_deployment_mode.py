@@ -27,13 +27,13 @@ class ServiceDeploymentMode(DBService[DimDeploymentMode]):
         ServiceDeploymentMode._cache[record.name] = record.id
         return record.id
 
-    def get_or_create(self, dep_name: str) -> int:
+    def get_or_create(self, dep: str) -> int:
         self._load_cache()
 
-        if dep_name in ServiceDeploymentMode._cache:
-            return ServiceDeploymentMode._cache[dep_name]
+        if dep in ServiceDeploymentMode._cache:
+            return ServiceDeploymentMode._cache[dep]
 
-        return self.insert_one(DimDeploymentMode(dep_name))
+        return self.insert_one(DimDeploymentMode(name=dep))
 
     def _load_cache(self) -> None:
         if ServiceDeploymentMode._cache_loaded:

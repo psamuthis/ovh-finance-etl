@@ -13,7 +13,7 @@ from models.raw.current_usage_raw import CurrentUsageRaw
 
 ENDPOINT_PREFIX: str = "/cloud/project/"
 ENDPOINT_SUFFIX: str = "/usage/current"
-SERVICE_ID: str = "11039156c26e49459b541a3d7590e08b"
+SERVICE_ID: str = "b41a8077d3ed49c69ddc77ed0b16572e"
 
 ovh_client: ovh.Client = OVHConnector._get_client()
 
@@ -31,7 +31,8 @@ data: dict[str, Any] = {
     "service_id": SERVICE_ID,
     "period_from": api_response["period"]["from"],
     "period_to": api_response["period"]["to"],
-    "call_timestamp": call_timestamp,
+    # "call_timestamp": call_timestamp,
+    "call_timestamp": datetime.now(timezone.utc),
     "last_update": api_response["lastUpdate"],
     "total_price": api_response["totalPrice"]["value"],
     "total_price_currency": api_response["totalPrice"]["currencyCode"],
