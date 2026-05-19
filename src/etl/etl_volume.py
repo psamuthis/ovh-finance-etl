@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Optional
 
 from connector.postgres_connection import WarehouseSessionLocal
 from models.dimension.dim_deployment_mode import DimDeploymentMode
@@ -48,7 +48,6 @@ class ETLVolume(ETLInterface):
         self.period_to = period_to
 
     def extract_data(self, raw_data: list[dict[str, Any]]) -> None:
-        print(f"Raw input data {raw_data}")
         for volume_group in raw_data:
             volume = Volume()
             volume.deployment_mode = volume_group["deploymentMode"]
@@ -71,8 +70,6 @@ class ETLVolume(ETLInterface):
                 volume.details.append(details)
             self.volumes.append(volume)
 
-        print(f"Formatted output data {self.volumes}")
-
     def load_data(self) -> None:
 
         for volume in self.volumes:
@@ -91,10 +88,16 @@ class ETLVolume(ETLInterface):
                         fk_type=fk_type,
                     )
 
+                    print(details.resource_id)
                     node_id: str = details.resource_id
-                    dim_kubernetes: DimKubernetes = DBServiceKubernetes(
+                    dim_kubernetes: Optional[DimKubernetes] = DBServiceKubernetes(
                         db
                     ).create_record(self.service_id, node_id)
+
+                    if dim_kubernetes is None:
+                        fk_resource = None
+                    else:
+                        fk_resource = DBServiceKubernetes(db).insert_one(dim_kubernetes)
 
                     record: FactVolume = FactVolume(
                         fk_volume=ServiceDimVolume(db).insert_one(dim_volume),
@@ -103,7 +106,7 @@ class ETLVolume(ETLInterface):
                         fk_created_at=ServiceTime(db).get_or_create(
                             datetime.now(timezone.utc)
                         ),
-                        fk_resource=DBServiceKubernetes(db).insert_one(dim_kubernetes),
+                        fk_resource=fk_resource,
                         fk_unit=ServiceUnit(db).get_or_create(details.quantity.unit),
                         # TODO: transformer le cumulé en non cumulé
                         value=69,
@@ -111,3 +114,4 @@ class ETLVolume(ETLInterface):
                     )
 
                     DBService(db, FactVolume).insert_one(record)
+                    db.commit()

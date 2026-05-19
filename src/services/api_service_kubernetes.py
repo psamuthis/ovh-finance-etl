@@ -1,34 +1,34 @@
-from typing import Any
+from typing import Any, Optional
 
 import ovh
 
 from connector.ovh_connection import OVHConnector
 
-ALL_PROJECTS = "/cloud/project/"
+ALL_PROJECTS = "/cloud/project"
 
 
 def SERVICE(service_id: str) -> str:
-    return f"{ALL_PROJECTS}{service_id}"
+    return f"{ALL_PROJECTS}/{service_id}"
 
 
 def CURRENT(service_id: str) -> str:
-    return f"{ALL_PROJECTS}{service_id}/usage/current"
+    return f"{ALL_PROJECTS}/{service_id}/usage/current"
 
 
 def ALL_CLUSTER(service_id: str) -> str:
-    return f"{ALL_PROJECTS}{service_id}/kube/"
+    return f"{ALL_PROJECTS}/{service_id}/kube/"
 
 
 def CLUSTER(service_id: str, cluster_id: str) -> str:
-    return f"{ALL_PROJECTS}{service_id}/kube/{cluster_id}"
+    return f"{ALL_PROJECTS}/{service_id}/kube/{cluster_id}"
 
 
 def ALL_NODE(service_id: str, cluster_id: str) -> str:
-    return f"{ALL_PROJECTS}{service_id}/kube/{cluster_id}/node"
+    return f"{ALL_PROJECTS}/{service_id}/kube/{cluster_id}/node"
 
 
 def NODE(service_id: str, cluster_id: str, node_id: str) -> str:
-    return f"{ALL_PROJECTS}{service_id}/kube/{cluster_id}/node/{node_id}"
+    return f"{ALL_PROJECTS}/{service_id}/kube/{cluster_id}/node/{node_id}"
 
 
 class APIServiceKubernetes:
@@ -36,6 +36,13 @@ class APIServiceKubernetes:
 
     def __init__(self, service_id: str):
         self.service_id = service_id
+
+    def list_services(self) -> list[str]:
+        api_response = self.ovh_client.get(ALL_PROJECTS)
+        if not isinstance(api_response, list):
+            raise TypeError(f"Expected list in API response: {ALL_PROJECTS}")
+
+        return api_response
 
     def list_clusters(self) -> list[str]:
         api_response = self.ovh_client.get(ALL_CLUSTER(self.service_id))
@@ -55,7 +62,7 @@ class APIServiceKubernetes:
 
         return [node for node in api_response]
 
-    def get_node_cluster(self, node_id: str) -> str:
+    def get_node_cluster(self, node_id: str) -> Optional[str]:
         cluster_id: str | None = None
 
         for cluster in self.list_clusters():
@@ -65,18 +72,18 @@ class APIServiceKubernetes:
                 if node["id"] == node_id:
                     cluster_id = cluster
 
-        if cluster_id is None:
-            raise ValueError(f"Node {node_id} was not found in any clusters...")
-
         return cluster_id
 
-    def get_node_data(self, node_id: str) -> dict[str, Any]:
-        api_response = self.ovh_client.get(
-            NODE(self.service_id, self.get_node_cluster(node_id), node_id)
-        )
+    def get_node_data(self, node_id: str) -> Optional[dict[str, Any]]:
+        node_cluster: str | None = self.get_node_cluster(node_id)
+
+        if node_cluster is None:
+            return None
+
+        api_response = self.ovh_client.get(NODE(self.service_id, node_cluster, node_id))
         if not isinstance(api_response, dict):
             raise TypeError(
-                f"Expected dict in API response: {NODE(self.service_id, self.get_node_cluster(node_id), node_id)}"
+                f"Expected dict in API response: {NODE(self.service_id, node_cluster, node_id)}"
             )
 
         return api_response

@@ -15,12 +15,12 @@ class ServiceTime:
 
     def get_or_create(self, timestamp: datetime) -> int:
         existing_record: DimTime | None = (
-            self.db.query(DimTime).filter_by(timestamp=timestamp).first()
+            self.db.query(DimTime).filter_by(timestamptz=timestamp).first()
         )
 
         if existing_record is None:
             new_record: DimTime = DimTime(
-                timestamp=timestamp,
+                timestamptz=timestamp,
                 year=timestamp.year,
                 month=timestamp.month,
                 day=timestamp.day,

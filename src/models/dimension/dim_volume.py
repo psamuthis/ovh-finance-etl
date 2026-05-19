@@ -15,7 +15,7 @@ class DimVolume(Base):
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
     volume_uuid: Mapped[str] = mapped_column(Uuid)
     fk_deployment_mode: Mapped[int] = mapped_column(
-        SmallInteger, ForeignKey("dim_deployment_mode")
+        SmallInteger, ForeignKey("dim_deployment_mode.id")
     )
     fk_region: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_region.id"))
     fk_type: Mapped[int] = mapped_column(

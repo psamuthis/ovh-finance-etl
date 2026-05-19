@@ -14,7 +14,7 @@ class DimTime(Base):
     __tablename__ = "dim_time"
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
-    timestamp: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True))
+    timestamptz: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True))
     year: Mapped[int] = mapped_column(SmallInteger)
     month: Mapped[int] = mapped_column(SmallInteger)
     day: Mapped[int] = mapped_column(SmallInteger)

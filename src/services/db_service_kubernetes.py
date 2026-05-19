@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 
 from sqlalchemy.orm import Session
 
@@ -12,11 +12,14 @@ class DBServiceKubernetes(DBService[DimKubernetes]):
     def __init__(self, db: Session):
         super().__init__(db, DimKubernetes)
 
-    def create_record(self, service_id: str, node_id: str) -> DimKubernetes:
+    def create_record(self, service_id: str, node_id: str) -> Optional[DimKubernetes]:
         api_kube_service: APIServiceKubernetes = APIServiceKubernetes(service_id)
         time_service: ServiceTime = ServiceTime(self.db)
 
-        node_data: dict[str, Any] = api_kube_service.get_node_data(node_id)
+        node_data: Optional[dict[str, Any]] = api_kube_service.get_node_data(node_id)
+        if node_data is None:
+            return None
+
         fk_created_at: int = time_service.get_or_create(
             time_service.parse_iso_date(node_data["createdAt"])
         )

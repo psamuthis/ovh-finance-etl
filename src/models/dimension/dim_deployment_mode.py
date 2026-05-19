@@ -1,5 +1,7 @@
 from sqlalchemy import (
-    BigInteger,
+    Identity,
+    Integer,
+    SmallInteger,
     String,
 )
 from sqlalchemy.orm import (
@@ -14,5 +16,5 @@ from models.base import Base
 class DimDeploymentMode(Base):
     __tablename__ = "dim_deployment_mode"
 
-    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String)

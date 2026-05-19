@@ -16,7 +16,7 @@ class FactVolume(Base):
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
     fk_period_from: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
     fk_period_to: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
-    fk_created_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time"))
+    fk_created_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
     fk_volume: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_volume.id"))
     fk_resource: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("dim_kubernetes.id")

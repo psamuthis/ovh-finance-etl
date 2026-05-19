@@ -33,7 +33,7 @@ class ServiceUnit(DBService[DimUnit]):
         if unit_str in ServiceUnit._cache:
             return ServiceUnit._cache[unit_str]
 
-        return self.insert_one(DimUnit(unit_str))
+        return self.insert_one(DimUnit(unit=unit_str))
 
     def _load_cache(self) -> None:
         if ServiceUnit._cache_loaded:
