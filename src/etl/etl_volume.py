@@ -88,7 +88,6 @@ class ETLVolume(ETLInterface):
                         fk_type=fk_type,
                     )
 
-                    print(details.resource_id)
                     node_id: str = details.resource_id
                     dim_kubernetes: Optional[DimKubernetes] = DBServiceKubernetes(
                         db

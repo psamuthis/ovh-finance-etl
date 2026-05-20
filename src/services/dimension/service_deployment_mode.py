@@ -22,23 +22,8 @@ class ServiceDeploymentMode(DBService[DimDeploymentMode]):
 
     @override
     def insert_one(self, record: DimDeploymentMode) -> int:
-        print("Before add")
-        print("Before add")
-        print("Before add")
-        print("Before add")
-        print("Before add")
         self.db.add(record)
-        print("After add")
-        print("After add")
-        print("After add")
-        print("After add")
-        print("After add")
         self.db.flush()
-        print(record.id)
-        print(record.id)
-        print(record.id)
-        print(record.id)
-        print(record.id)
         ServiceDeploymentMode._cache[record.name] = record.id
         return record.id
 
