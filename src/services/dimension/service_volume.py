@@ -2,14 +2,14 @@ from sqlalchemy.orm import Session
 
 from models.dimension.dim_volume import DimVolume
 from models.fact.fact_volume import FactVolume
-from services.db_service import DBService
+from src.services.dimension.dim_db_service import DIMDBService
 
 
-class ServiceDimVolume(DBService[DimVolume]):
+class ServiceDimVolume(DIMDBService[DimVolume]):
     def __init__(self, db: Session):
         super().__init__(db, DimVolume)
 
 
-class ServiceFactVolume(DBService[FactVolume]):
+class ServiceFactVolume(DIMDBService[FactVolume]):
     def __init__(self, db: Session):
         super().__init__(db, FactVolume)

@@ -8,16 +8,16 @@ from models.dimension.dim_kubernetes import DimKubernetes
 from models.dimension.dim_region import DimRegion
 from models.dimension.dim_storage_type import DimStorageType
 from models.dimension.dim_volume import DimVolume
-from services.api_service_kubernetes import APIServiceKubernetes
-from services.db_service_kubernetes import DBServiceKubernetes
-from services.service_deployment_mode import ServiceDeploymentMode
-from services.service_region import ServiceRegion
-from services.service_storage_type import ServiceStorageType
-from services.service_time import ServiceTime
-from services.service_volume import ServiceDimVolume, ServiceFactVolume
-from services.service_unit import ServiceUnit
+from src.services.dimension.api_service_kubernetes import APIServiceKubernetes
+from src.services.dimension.db_service_kubernetes import DBServiceKubernetes
+from src.services.dimension.service_deployment_mode import ServiceDeploymentMode
+from src.services.dimension.service_region import ServiceRegion
+from src.services.dimension.service_storage_type import ServiceStorageType
+from src.services.dimension.service_time import ServiceTime
+from src.services.dimension.service_volume import ServiceDimVolume, ServiceFactVolume
+from src.services.dimension.service_unit import ServiceUnit
 from models.fact.fact_volume import FactVolume
-from services.db_service import DBService
+from src.services.dimension.dim_db_service import DIMDBService
 
 from .shared import Quantity
 from .etl_interface import ETLInterface
@@ -112,5 +112,5 @@ class ETLVolume(ETLInterface):
                         price=69,
                     )
 
-                    DBService(db, FactVolume).insert_one(record)
+                    DIMDBService(db, FactVolume).insert_one(record)
                     db.commit()

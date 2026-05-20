@@ -1,7 +1,9 @@
+from datetime import datetime
 from typing import Type, TypeVar, Generic
 from sqlalchemy.orm import Mapped, Session, mapped_column
 
 from models.base import Base
+from models.dimension.dim_time import DimTime
 
 
 class HasIdModel(Base):
@@ -12,7 +14,7 @@ class HasIdModel(Base):
 T = TypeVar("T", bound=HasIdModel)
 
 
-class DBService(Generic[T]):
+class DIMDBService(Generic[T]):
     def __init__(self, db: Session, model_class: Type[T]):
         self.db: Session = db
         self.model_class: Type[T] = model_class

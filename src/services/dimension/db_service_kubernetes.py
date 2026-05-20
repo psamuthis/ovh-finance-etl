@@ -3,12 +3,12 @@ from typing import Any, Optional
 from sqlalchemy.orm import Session
 
 from models.dimension.dim_kubernetes import DimKubernetes
-from services.api_service_kubernetes import APIServiceKubernetes
-from services.db_service import DBService
-from services.service_time import ServiceTime
+from src.services.dimension.api_service_kubernetes import APIServiceKubernetes
+from src.services.dimension.dim_db_service import DIMDBService
+from src.services.dimension.service_time import ServiceTime
 
 
-class DBServiceKubernetes(DBService[DimKubernetes]):
+class DBServiceKubernetes(DIMDBService[DimKubernetes]):
     def __init__(self, db: Session):
         super().__init__(db, DimKubernetes)
 

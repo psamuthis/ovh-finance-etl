@@ -6,10 +6,10 @@ from sqlalchemy.orm import Session
 
 from connector.postgres_connection import WarehouseSessionLocal
 from models.dimension.dim_region import DimRegion
-from services.db_service import DBService
+from src.services.dimension.dim_db_service import DIMDBService
 
 
-class ServiceRegion(DBService[DimRegion]):
+class ServiceRegion(DIMDBService[DimRegion]):
     _cache: ClassVar[dict[str, int]] = {}
     _cache_loaded: ClassVar[bool] = False
 
