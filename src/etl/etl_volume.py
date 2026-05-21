@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+import decimal
 from typing import Any, Optional
 
 from connector.postgres_connection import WarehouseSessionLocal
@@ -8,16 +9,18 @@ from models.dimension.dim_kubernetes import DimKubernetes
 from models.dimension.dim_region import DimRegion
 from models.dimension.dim_storage_type import DimStorageType
 from models.dimension.dim_volume import DimVolume
-from src.services.dimension.api_service_kubernetes import APIServiceKubernetes
-from src.services.dimension.db_service_kubernetes import DBServiceKubernetes
-from src.services.dimension.service_deployment_mode import ServiceDeploymentMode
-from src.services.dimension.service_region import ServiceRegion
-from src.services.dimension.service_storage_type import ServiceStorageType
-from src.services.dimension.service_time import ServiceTime
-from src.services.dimension.service_volume import ServiceDimVolume, ServiceFactVolume
-from src.services.dimension.service_unit import ServiceUnit
+from services.dimension.api_service_kubernetes import APIServiceKubernetes
+from services.dimension.db_service_kubernetes import DBServiceKubernetes
+from services.dimension.service_deployment_mode import ServiceDeploymentMode
+from services.dimension.service_region import ServiceRegion
+from services.dimension.service_storage_type import ServiceStorageType
+from services.dimension.service_time import ServiceTime
+from services.dimension.service_volume import ServiceDimVolume
+from services.dimension.service_unit import ServiceUnit
 from models.fact.fact_volume import FactVolume
-from src.services.dimension.dim_db_service import DIMDBService
+from services.dim_db_service import DimDBService
+from services.fact.service_volume import ServiceFactVolume
+from services.dimension.service_tenant import ServiceTenant
 
 from .shared import Quantity
 from .etl_interface import ETLInterface
@@ -27,7 +30,7 @@ from .etl_interface import ETLInterface
 class VolumeDetails:
     quantity: Quantity
     resource_id: str
-    total_price: float
+    total_price: decimal.Decimal
     volume_uuid: str
 
 
@@ -63,7 +66,7 @@ class ETLVolume(ETLInterface):
                 details = VolumeDetails(
                     quantity=quantity,
                     resource_id=volume_details["resourceId"],
-                    total_price=volume_details["totalPrice"],
+                    total_price=round(decimal.Decimal(volume_details["totalPrice"]), 5),
                     volume_uuid=volume_details["volumeId"],
                 )
 
@@ -74,11 +77,10 @@ class ETLVolume(ETLInterface):
 
         for volume in self.volumes:
             with WarehouseSessionLocal() as db:
-                fk_dep_mode: int = ServiceDeploymentMode(db).get_or_create(
-                    volume.deployment_mode
-                )
+                fk_dep_mode: int = ServiceDeploymentMode(db).get_or_create(volume.deployment_mode)
                 fk_region: int = ServiceRegion(db).get_or_create(volume.region)
                 fk_type: int = ServiceStorageType(db).get_or_create(volume.type)
+                fk_tenant: int = ServiceTenant(db).get_or_create(self.service_id)
 
                 for details in volume.details:
                     dim_volume: DimVolume = DimVolume(
@@ -86,31 +88,31 @@ class ETLVolume(ETLInterface):
                         fk_deployment_mode=fk_dep_mode,
                         fk_region=fk_region,
                         fk_type=fk_type,
+                        fk_tenant=fk_tenant,
                     )
 
-                    node_id: str = details.resource_id
-                    dim_kubernetes: Optional[DimKubernetes] = DBServiceKubernetes(
-                        db
-                    ).create_record(self.service_id, node_id)
-
-                    if dim_kubernetes is None:
-                        fk_resource = None
-                    else:
-                        fk_resource = DBServiceKubernetes(db).insert_one(dim_kubernetes)
+                    created_at: datetime = datetime.now(timezone.utc)
+                    fk_created_at: int = ServiceTime(db).get_or_create(created_at)
+                    fk_volume: int = ServiceDimVolume(db).insert_one(dim_volume)
+                    non_cumulative_price: decimal.Decimal = ServiceFactVolume(db).cumulative_to_daily_cost(
+                        created_at,
+                        details.volume_uuid,
+                        details.total_price,
+                    )
+                    non_cumulative_value: int = ServiceFactVolume(db).cumulative_to_daily_value(
+                        created_at, details.volume_uuid, details.quantity.value
+                    )
 
                     record: FactVolume = FactVolume(
-                        fk_volume=ServiceDimVolume(db).insert_one(dim_volume),
+                        fk_volume=fk_volume,
                         fk_period_from=ServiceTime(db).get_or_create(self.period_from),
                         fk_period_to=ServiceTime(db).get_or_create(self.period_to),
-                        fk_created_at=ServiceTime(db).get_or_create(
-                            datetime.now(timezone.utc)
-                        ),
-                        fk_resource=fk_resource,
+                        fk_created_at=fk_created_at,
                         fk_unit=ServiceUnit(db).get_or_create(details.quantity.unit),
-                        # TODO: transformer le cumulé en non cumulé
-                        value=69,
-                        price=69,
+                        value=non_cumulative_value,
+                        price=non_cumulative_price,
                     )
 
-                    DIMDBService(db, FactVolume).insert_one(record)
-                    db.commit()
+                    DimDBService(db, FactVolume).insert_one(record)
+
+                db.commit()

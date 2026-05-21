@@ -21,3 +21,4 @@ class DimVolume(Base):
     fk_type: Mapped[int] = mapped_column(
         SmallInteger, ForeignKey("dim_storage_type.id")
     )
+    fk_tenant: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_tenant.id"))

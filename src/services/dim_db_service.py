@@ -4,17 +4,12 @@ from sqlalchemy.orm import Mapped, Session, mapped_column
 
 from models.base import Base
 from models.dimension.dim_time import DimTime
-
-
-class HasIdModel(Base):
-    __abstract__ = True
-    id: Mapped[int] = mapped_column(primary_key=True)
-
+from services.has_id_model import HasIdModel
 
 T = TypeVar("T", bound=HasIdModel)
 
 
-class DIMDBService(Generic[T]):
+class DimDBService(Generic[T]):
     def __init__(self, db: Session, model_class: Type[T]):
         self.db: Session = db
         self.model_class: Type[T] = model_class

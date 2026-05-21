@@ -4,7 +4,7 @@ from dataclasses import dataclass
 @dataclass
 class Quantity:
     unit: str
-    value: float
+    value: int
 
 
 @dataclass

@@ -1,5 +1,8 @@
+from decimal import Decimal
+
 from sqlalchemy import (
     BigInteger,
+    Integer,
     SmallInteger,
     String,
     Numeric,
@@ -18,9 +21,6 @@ class FactVolume(Base):
     fk_period_to: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
     fk_created_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
     fk_volume: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_volume.id"))
-    fk_resource: Mapped[int] = mapped_column(
-        BigInteger, ForeignKey("dim_kubernetes.id")
-    )
     fk_unit: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_unit.id"))
-    value: Mapped[float] = mapped_column(Numeric)
-    price: Mapped[float] = mapped_column(Numeric)
+    value: Mapped[int] = mapped_column(Integer)
+    price: Mapped[Decimal] = mapped_column(Numeric)

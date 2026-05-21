@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 
 from connector.ovh_connection import OVHConnector
-from services.api_service_kubernetes import APIServiceKubernetes
+from services.dimension.api_service_kubernetes import APIServiceKubernetes
 
 load_dotenv()
 

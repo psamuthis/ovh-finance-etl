@@ -43,10 +43,9 @@ CREATE TABLE IF NOT EXISTS "fact_current_dynamic_volume" (
 	"fk_period_from" BIGSERIAL,
 	"fk_period_to" BIGSERIAL,
 	"fk_unit" INTEGER,
-	"value" NUMERIC,
+	"value" INTEGER,
 	"price" NUMERIC,
 	"fk_created_at" BIGSERIAL,
-	"fk_resource" BIGINT,
 	PRIMARY KEY("id")
 );
 
@@ -125,7 +124,7 @@ CREATE TABLE IF NOT EXISTS "fact_current_savings_plan" (
 	"fk_period_from" BIGSERIAL,
 	"fk_period_to" BIGSERIAL,
 	"size" INTEGER,
-	"flavor" VARCHAR(255),
+	"flavor" VARCHAR(50),
 	"price" NUMERIC,
 	PRIMARY KEY("id")
 );
@@ -153,6 +152,7 @@ CREATE TABLE IF NOT EXISTS "dim_volume" (
 	"fk_deployment_mode" SMALLSERIAL,
 	"fk_region" SMALLSERIAL,
 	"fk_type" SMALLSERIAL,
+	"fk_tenant" SMALLSERIAL,
 	PRIMARY KEY("id")
 );
 
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS "dim_storage" (
 
 CREATE TABLE IF NOT EXISTS "dim_deployment_mode" (
 	"id" SERIAL NOT NULL,
-	"name" VARCHAR(255),
+	"name" VARCHAR(50),
 	PRIMARY KEY("id")
 );
 
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS "dim_time" (
 
 CREATE TABLE IF NOT EXISTS "dim_region" (
 	"id" SMALLSERIAL NOT NULL,
-	"name" VARCHAR(255),
+	"name" VARCHAR(50),
 	PRIMARY KEY("id")
 );
 
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS "dim_region" (
 
 CREATE TABLE IF NOT EXISTS "dim_unit" (
 	"id" SMALLSERIAL NOT NULL,
-	"unit" VARCHAR(255),
+	"unit" VARCHAR(50),
 	PRIMARY KEY("id")
 );
 
@@ -217,15 +217,20 @@ CREATE TABLE IF NOT EXISTS "dim_kubernetes" (
 	"fk_updated_at" BIGSERIAL,
 	"fk_deployed_at" BIGSERIAL,
 	"fk_deleted_at" BIGSERIAL,
-	"project_id" VARCHAR(255),
+	"fk_tenant" SMALLSERIAL,
 	"cluster_id" UUID,
 	"nodepool_id" UUID,
 	"instance_id" UUID,
 	"flavor" VARCHAR(255),
 	"status" VARCHAR(255),
 	"version" VARCHAR(255),
-	"tenant_name" VARCHAR(255),
 	PRIMARY KEY("id")
+);
+
+CREATE TABLE IF NOT EXISTS "dim_tenant" (
+	"id" SMALLSERIAL,
+	"name" VARCHAR(100),
+	"project_id" VARCHAR(50)
 );
 
 
@@ -319,12 +324,17 @@ ADD FOREIGN KEY("fk_updated_at") REFERENCES "dim_time"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "dim_kubernetes"
 ADD FOREIGN KEY("fk_created_at") REFERENCES "dim_time"("id")
+ALTER TABLE "dim_kubernetes"
+ADD FOREIGN KEY("fk_tenant") REFERENCES "dim_tenant"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "dim_volume"
 ADD FOREIGN KEY("fk_region") REFERENCES "dim_region"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "dim_volume"
 ADD FOREIGN KEY("fk_deployment_mode") REFERENCES "dim_deployment_mode"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "dim_volume"
+ADD FOREIGN KEY("fk_tenant") REFERENCES "dim_tenant"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_current_dynamic_volume"
 ADD FOREIGN KEY("fk_volume") REFERENCES "dim_volume"("id")
@@ -409,9 +419,6 @@ ADD FOREIGN KEY("fk_period_from") REFERENCES "dim_time"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_current_savings_plan"
 ADD FOREIGN KEY("fk_period_to") REFERENCES "dim_time"("id")
-ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "fact_current_dynamic_volume"
-ADD FOREIGN KEY("fk_resource") REFERENCES "dim_kubernetes"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_current_dynamic_rancher"
 ADD FOREIGN KEY("fk_resource") REFERENCES "dim_kubernetes"("id")

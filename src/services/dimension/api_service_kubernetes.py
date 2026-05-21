@@ -88,7 +88,7 @@ class APIServiceKubernetes:
 
         return api_response
 
-    def get_tenant(self) -> str:
+    def get_project_tenant(self) -> str:
         api_response = self.ovh_client.get(SERVICE(self.service_id))
         if not isinstance(api_response, dict):
             raise TypeError(
@@ -96,3 +96,12 @@ class APIServiceKubernetes:
             )
 
         return api_response["description"]
+
+    def get_project_details(self) -> dict[str, Any]:
+        api_response = self.ovh_client.get(SERVICE(self.service_id))
+        if not isinstance(api_response, dict):
+            raise TypeError(
+                f"Expected dict in API response: {SERVICE(self.service_id)}"
+            )
+
+        return api_response
