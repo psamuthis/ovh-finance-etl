@@ -7,7 +7,7 @@ from models.base import Base
 from models.dimension.dim_time import DimTime
 from services.has_id_model import HasIdModel
 from models.fact.fact_volume import FactVolume
-from services.dim_db_service import DimDBService
+from services.db_service import DBService
 from models.dimension.dim_volume import DimVolume
 
 
@@ -15,7 +15,9 @@ class ServiceFactVolume:
     def __init__(self, db: Session):
         self.db: Session = db
 
-    def cumulative_to_daily_cost(self, created_at: datetime, volume_uuid: str, current_price: decimal.Decimal) -> decimal.Decimal:
+    def cumulative_to_daily_cost(
+        self, created_at: datetime, volume_uuid: str, current_price: decimal.Decimal
+    ) -> decimal.Decimal:
         month_start: datetime = created_at.replace(day=1, minute=0, second=0, microsecond=0)
 
         resource_entries = (
@@ -33,7 +35,9 @@ class ServiceFactVolume:
 
         return current_price - cumulated_price
 
-    def cumulative_to_daily_value(self, created_at: datetime, volume_uuid: str, current_value: int) -> int:
+    def cumulative_to_daily_value(
+        self, created_at: datetime, volume_uuid: str, current_value: int
+    ) -> int:
         month_start: datetime = created_at.replace(day=1, minute=0, second=0, microsecond=0)
 
         resource_entries = (

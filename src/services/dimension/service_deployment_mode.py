@@ -4,10 +4,10 @@ from typing_extensions import override
 from sqlalchemy.orm import Session
 
 from models.dimension.dim_deployment_mode import DimDeploymentMode
-from services.dim_db_service import DimDBService
+from services.db_service import DBService
 
 
-class ServiceDeploymentMode(DimDBService[DimDeploymentMode]):
+class ServiceDeploymentMode(DBService[DimDeploymentMode]):
     _cache: ClassVar[dict[str, int]] = {}
     _cache_loaded: ClassVar[bool] = False
 

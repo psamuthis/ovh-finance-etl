@@ -1,4 +1,11 @@
 from dataclasses import dataclass
+from datetime import datetime
+
+
+@dataclass
+class Period:
+    period_from: datetime
+    period_to: datetime
 
 
 @dataclass

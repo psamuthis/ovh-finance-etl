@@ -9,7 +9,7 @@ from services.has_id_model import HasIdModel
 T = TypeVar("T", bound=HasIdModel)
 
 
-class DimDBService(Generic[T]):
+class DBService(Generic[T]):
     def __init__(self, db: Session, model_class: Type[T]):
         self.db: Session = db
         self.model_class: Type[T] = model_class

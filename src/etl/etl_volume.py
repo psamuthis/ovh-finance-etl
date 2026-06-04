@@ -18,7 +18,7 @@ from services.dimension.service_time import ServiceTime
 from services.dimension.service_volume import ServiceDimVolume
 from services.dimension.service_unit import ServiceUnit
 from models.fact.fact_volume import FactVolume
-from services.dim_db_service import DimDBService
+from services.db_service import DBService
 from services.fact.service_volume import ServiceFactVolume
 from services.dimension.service_tenant import ServiceTenant
 
@@ -94,7 +94,9 @@ class ETLVolume(ETLInterface):
                     created_at: datetime = datetime.now(timezone.utc)
                     fk_created_at: int = ServiceTime(db).get_or_create(created_at)
                     fk_volume: int = ServiceDimVolume(db).insert_one(dim_volume)
-                    non_cumulative_price: decimal.Decimal = ServiceFactVolume(db).cumulative_to_daily_cost(
+                    non_cumulative_price: decimal.Decimal = ServiceFactVolume(
+                        db
+                    ).cumulative_to_daily_cost(
                         created_at,
                         details.volume_uuid,
                         details.total_price,
@@ -113,6 +115,6 @@ class ETLVolume(ETLInterface):
                         price=non_cumulative_price,
                     )
 
-                    DimDBService(db, FactVolume).insert_one(record)
+                    DBService(db, FactVolume).insert_one(record)
 
                 db.commit()

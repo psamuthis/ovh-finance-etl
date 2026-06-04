@@ -16,7 +16,7 @@ def CURRENT(service_id: str) -> str:
 
 
 def ALL_CLUSTER(service_id: str) -> str:
-    return f"{ALL_PROJECTS}/{service_id}/kube/"
+    return f"{ALL_PROJECTS}/{service_id}/kube"
 
 
 def CLUSTER(service_id: str, cluster_id: str) -> str:
@@ -37,8 +37,9 @@ class APIServiceKubernetes:
     def __init__(self, service_id: str):
         self.service_id = service_id
 
-    def list_services(self) -> list[str]:
-        api_response = self.ovh_client.get(ALL_PROJECTS)
+    @classmethod
+    def list_services(cls) -> list[str]:
+        api_response = cls.ovh_client.get(ALL_PROJECTS)
         if not isinstance(api_response, list):
             raise TypeError(f"Expected list in API response: {ALL_PROJECTS}")
 
@@ -47,9 +48,7 @@ class APIServiceKubernetes:
     def list_clusters(self) -> list[str]:
         api_response = self.ovh_client.get(ALL_CLUSTER(self.service_id))
         if not isinstance(api_response, list):
-            raise TypeError(
-                f"Expected array in API response: {ALL_CLUSTER(self.service_id)}"
-            )
+            raise TypeError(f"Expected array in API response: {ALL_CLUSTER(self.service_id)}")
 
         return api_response
 
@@ -91,17 +90,13 @@ class APIServiceKubernetes:
     def get_project_tenant(self) -> str:
         api_response = self.ovh_client.get(SERVICE(self.service_id))
         if not isinstance(api_response, dict):
-            raise TypeError(
-                f"Expected dict in API response: {SERVICE(self.service_id)}"
-            )
+            raise TypeError(f"Expected dict in API response: {SERVICE(self.service_id)}")
 
         return api_response["description"]
 
     def get_project_details(self) -> dict[str, Any]:
         api_response = self.ovh_client.get(SERVICE(self.service_id))
         if not isinstance(api_response, dict):
-            raise TypeError(
-                f"Expected dict in API response: {SERVICE(self.service_id)}"
-            )
+            raise TypeError(f"Expected dict in API response: {SERVICE(self.service_id)}")
 
         return api_response

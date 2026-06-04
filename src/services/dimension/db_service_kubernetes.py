@@ -4,11 +4,11 @@ from sqlalchemy.orm import Session
 
 from models.dimension.dim_kubernetes import DimKubernetes
 from services.dimension.api_service_kubernetes import APIServiceKubernetes
-from services.dim_db_service import DimDBService
+from services.db_service import DBService
 from services.dimension.service_time import ServiceTime
 
 
-class DBServiceKubernetes(DimDBService[DimKubernetes]):
+class DBServiceKubernetes(DBService[DimKubernetes]):
     def __init__(self, db: Session):
         super().__init__(db, DimKubernetes)
 
@@ -16,8 +16,11 @@ class DBServiceKubernetes(DimDBService[DimKubernetes]):
         api_kube_service: APIServiceKubernetes = APIServiceKubernetes(service_id)
         time_service: ServiceTime = ServiceTime(self.db)
 
-        tenant_name: str = api_kube_service.get_project_tenant(name_only=False)
+        tenant_name: str = api_kube_service.get_project_tenant()
         node_data: Optional[dict[str, Any]] = api_kube_service.get_node_data(node_id)
+        if node_data is None:
+            raise ValueError(f"Did not find any data for node id: {node_id}")
+
         if node_data is None:
             return DimKubernetes(
                 fk_created_at=None,
@@ -27,7 +30,6 @@ class DBServiceKubernetes(DimDBService[DimKubernetes]):
                 cluster_id=None,
                 nodepool_id=None,
                 instance_id=None,
-                tenant_name=tenant_name,
                 flavor=None,
                 status=None,
                 version=None,

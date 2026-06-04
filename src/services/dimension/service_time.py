@@ -10,7 +10,8 @@ class ServiceTime:
     def __init__(self, db: Session):
         self.db: Session = db
 
-    def parse_iso_date(self, date_str: str) -> datetime:
+    @classmethod
+    def parse_iso_date(cls, date_str: str) -> datetime:
         return datetime.fromisoformat(date_str.replace("Z", "+00:00"))
 
     def get_or_create(self, timestamp: datetime) -> int:

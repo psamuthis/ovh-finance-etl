@@ -20,11 +20,9 @@ class DimKubernetes(Base):
     fk_deployed_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
     fk_deleted_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
 
-    project_id: Mapped[str] = mapped_column(String)
     cluster_id: Mapped[UUID] = mapped_column(Uuid)
     nodepool_id: Mapped[UUID] = mapped_column(Uuid)
     instance_id: Mapped[UUID] = mapped_column(Uuid)
     flavor: Mapped[str] = mapped_column(String)
     status: Mapped[str] = mapped_column(String)
     version: Mapped[str] = mapped_column(String)
-    tenant_name: Mapped[str] = mapped_column(String)

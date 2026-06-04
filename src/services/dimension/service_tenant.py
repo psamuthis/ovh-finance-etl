@@ -5,12 +5,12 @@ from sqlalchemy.orm import Session
 
 from models.dimension.dim_kubernetes import DimKubernetes
 from services.dimension.api_service_kubernetes import APIServiceKubernetes
-from services.dim_db_service import DimDBService
+from services.db_service import DBService
 from services.dimension.service_time import ServiceTime
 from models.dimension.dim_tenant import DimTenant
 
 
-class ServiceTenant(DimDBService[DimTenant]):
+class ServiceTenant(DBService[DimTenant]):
     _cache: ClassVar[dict[str, int]] = {}
     _cache_loaded: ClassVar[bool] = False
 
@@ -33,9 +33,7 @@ class ServiceTenant(DimDBService[DimTenant]):
         if service_id in ServiceTenant._cache:
             return ServiceTenant._cache[service_id]
 
-        service_details: dict[str, Any] = APIServiceKubernetes(
-            service_id
-        ).get_project_details()
+        service_details: dict[str, Any] = APIServiceKubernetes(service_id).get_project_details()
         return self.insert_one(
             DimTenant(
                 name=service_details["description"],
