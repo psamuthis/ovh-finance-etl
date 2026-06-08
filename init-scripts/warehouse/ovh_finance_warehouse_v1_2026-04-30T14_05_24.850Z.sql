@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS "fact_current_fixed_compute" (
 	"fk_activation" BIGSERIAL,
 	"fk_resource" BIGINT,
 	"fk_created_at" BIGSERIAL,
+	"fk_tenant" SMALLSERIAL,
 	"instance_id" UUID,
 	"price" NUMERIC,
 	PRIMARY KEY("id")

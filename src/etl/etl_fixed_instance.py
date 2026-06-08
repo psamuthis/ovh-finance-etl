@@ -12,6 +12,7 @@ from models.fact.fact_fixed_instance_option import FactFixedInstanceOption
 from services.db_service import DBService
 from services.dimension.service_deployment_mode import ServiceDeploymentMode
 from services.dimension.service_region import ServiceRegion
+from services.dimension.service_tenant import ServiceTenant
 from services.dimension.service_time import ServiceTime
 from services.fact.service_fixed_instance import ServiceFixedInstance
 from sqlalchemy.orm import Session
@@ -58,6 +59,7 @@ class ETLFixedInstance:
 
     def load_data(self) -> None:
         with WarehouseSessionLocal() as db:
+            fk_tenant: int = ServiceTenant(db).get_or_create(self.service_id)
 
             for fixed_instance in self.fixed_instances:
                 fk_deployment_mode: int = ServiceDeploymentMode(db).get_or_create(
@@ -74,6 +76,7 @@ class ETLFixedInstance:
                         fk_activation=fk_activation,
                         fk_resource=None,
                         fk_created_at=ServiceTime(db).get_or_create(datetime.now(timezone.utc)),
+                        fk_tenant=fk_tenant,
                         instance_id=fixed_instance.instance_id,
                         price=fixed_instance.total_price,
                     )
