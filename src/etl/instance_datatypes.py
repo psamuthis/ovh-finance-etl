@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from datetime import datetime
-import decimal
+from decimal import Decimal
 
 from etl.shared import Period, Quantity, TotalPrice
 
@@ -9,14 +9,14 @@ from etl.shared import Period, Quantity, TotalPrice
 class DynamicInstanceDetails:
     instance_id: str
     quantity: Quantity
-    total_price: decimal.Decimal
+    total_price: Decimal
     resource_id: str
 
 
 @dataclass
 class Bandwidth:
     quantity: Quantity
-    total_price: decimal.Decimal
+    total_price: Decimal
 
 
 @dataclass
@@ -26,10 +26,21 @@ class InstanceBandwidth:
 
 
 @dataclass
-class InstanceOptionDetails:
+class DynamicInstanceOption:
+    deployment_mode: str
+    region: str
     instance_id: str
     quantity: Quantity
-    total_price: decimal.Decimal
+    total_price: Decimal
+    flavor: str
+
+@dataclass
+class FixedInstanceOption:
+    deployment_mode: str
+    region: str
+    instance_id: str
+    total_price: Decimal
+    flavor: str
 
 
 @dataclass
@@ -48,7 +59,7 @@ class FixedInstance:
     resource_id: str
     flavor: str
     region: str
-    total_price: decimal.Decimal
+    total_price: Decimal
 
 
 @dataclass

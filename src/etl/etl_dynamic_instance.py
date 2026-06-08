@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+from decimal import Decimal
 from typing import Any, Optional
 
 from sqlalchemy.orm import Session
@@ -10,7 +11,7 @@ from etl.instance_datatypes import (
     DynamicInstance,
     DynamicInstanceDetails,
     FixedInstance,
-    InstanceOptionDetails,
+    DynamicInstanceOption
 )
 from connector.postgres_connection import WarehouseSessionLocal
 from services.dimension.service_deployment_mode import ServiceDeploymentMode
@@ -22,11 +23,10 @@ from models.dimension.dim_kubernetes import DimKubernetes
 from services.dimension.db_service_kubernetes import DBServiceKubernetes
 from models.dimension.dim_time import DimTime
 from models.fact.fact_current_dynamic_compute import FactCurrentDynamicCompute
-from models.fact.fact_current_instance_option import FactCurrentInstanceOption
+from models.fact.fact_dynamic_instance_option import FactDynamicInstanceOption
 from services.db_service import DBService
-from services.fact.service_instance import ServiceInstance
-from models.bridge.bridge_dynamic_instance_options import BridgeDynamicInstanceOption
-
+from services.fact.service_dynamic_instance import ServiceDynamicInstance
+from models.bridge.bridge_dynamic_instance_options import BridgeInstanceOption
 
 class ETLDynamicInstance:
     def __init__(self, service_id: str, period_from: datetime, period_to: datetime):
@@ -34,7 +34,7 @@ class ETLDynamicInstance:
         self.period_from = period_from
         self.period_to = period_to
         self.dynamic_instances: list[DynamicInstance] = []
-        self.instance_options: dict[str, InstanceOptionDetails] = {}
+        self.instance_options: dict[str, DynamicInstanceOption] = {}
 
     def extract_data(
         self,
@@ -44,14 +44,17 @@ class ETLDynamicInstance:
         self.transform_instance(instance_data)
 
         for option_group in instance_option_data:
+            deployment_mode: str = option_group["deploymentMode"]
+            region: str = option_group["region"]
+            flavor: str = option_group["flavor"]
+
             for details in option_group["details"]:
                 self.instance_options[details["instanceId"]] = self.transform_option_details(
-                    details
+                    details,
+                    deployment_mode,
+                    region,
+                    flavor
                 )
-
-    def load_data(self) -> None:
-        with WarehouseSessionLocal() as db:
-            self.load_dynamic_instances(db)
 
     def transform_instance(self, instance_data) -> None:
         for instance_group in instance_data:
@@ -78,19 +81,26 @@ class ETLDynamicInstance:
             instance_id=details["instanceId"],
             quantity=quantity,
             resource_id=details["resourceId"],
-            total_price=details["totalPrice"],
+            total_price=Decimal(details["totalPrice"]),
         )
 
-    def transform_option_details(self, details: dict[str, Any]) -> InstanceOptionDetails:
+    def transform_option_details(self, details: dict[str, Any], dep_mode: str, region: str, flavor: str) -> DynamicInstanceOption:
         quantity: Quantity = Quantity(
             unit=details["quantity"]["unit"], value=details["quantity"]["value"]
         )
 
-        return InstanceOptionDetails(
+        return DynamicInstanceOption(
+            deployment_mode=dep_mode,
+            region=region,
             instance_id=details["instanceId"],
             quantity=quantity,
             total_price=details["totalPrice"],
+            flavor=flavor
         )
+
+    def load_data(self) -> None:
+        with WarehouseSessionLocal() as db:
+            self.load_dynamic_instances(db)
 
     def load_dynamic_instances(self, db: Session) -> None:
         fk_tenant: int = ServiceTenant(db).get_or_create(self.service_id)
@@ -103,6 +113,9 @@ class ETLDynamicInstance:
 
             for instance in flavor.details:
                 fk_usage_unit: int = ServiceUnit(db).get_or_create(instance.quantity.unit)
+
+                instance.total_price = ServiceDynamicInstance(db).get_non_cumulative_cost(instance.instance_id, instance.total_price)
+                instance.quantity.value = ServiceDynamicInstance(db).get_non_cumulative_value(instance.instance_id, instance.quantity.value)
 
                 instance_record: FactCurrentDynamicCompute = FactCurrentDynamicCompute(
                     instance_id=instance.instance_id,
@@ -123,15 +136,15 @@ class ETLDynamicInstance:
                 )
                 fk_option: Optional[int] = None
                 if instance.instance_id in self.instance_options:
-                    fk_option = DBService(db, FactCurrentInstanceOption).insert_one(
-                        FactCurrentInstanceOption(
+                    fk_option = DBService(db, FactDynamicInstanceOption).insert_one(
+                        FactDynamicInstanceOption(
                             fk_unit=self.instance_options[instance.instance_id].quantity.unit,
                             value=self.instance_options[instance.instance_id].quantity.value,
                             price=self.instance_options[instance.instance_id].total_price,
                         )
                     )
-                    DBService(db, BridgeDynamicInstanceOption).insert_one(
-                        BridgeDynamicInstanceOption(fk_instance=fk_instance, fk_option=fk_option)
+                    DBService(db, BridgeInstanceOption).insert_one(
+                        BridgeInstanceOption(fk_instance=fk_instance, fk_option=fk_option)
                     )
 
             db.commit()

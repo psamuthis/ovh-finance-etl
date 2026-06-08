@@ -24,16 +24,16 @@ class ServiceTenant(DBService[DimTenant]):
     def insert_one(self, record: DimTenant) -> int:
         self.db.add(record)
         self.db.flush()
-        ServiceTenant._cache[record.name] = record.id
+        ServiceTenant._cache[record.project_id] = record.id
         return record.id
 
-    def get_or_create(self, service_id: str) -> int:
+    def get_or_create(self, project_id: str) -> int:
         self._load_cache()
 
-        if service_id in ServiceTenant._cache:
-            return ServiceTenant._cache[service_id]
+        if project_id in ServiceTenant._cache:
+            return ServiceTenant._cache[project_id]
 
-        service_details: dict[str, Any] = APIServiceKubernetes(service_id).get_project_details()
+        service_details: dict[str, Any] = APIServiceKubernetes(project_id).get_project_details()
         return self.insert_one(
             DimTenant(
                 name=service_details["description"],
@@ -46,7 +46,7 @@ class ServiceTenant(DBService[DimTenant]):
             return
 
         tenants: list[DimTenant] = self.get_all()
-        ServiceTenant._cache = {tenant.name: tenant.id for tenant in tenants}
+        ServiceTenant._cache = {tenant.project_id: tenant.id for tenant in tenants}
         ServiceTenant._cache_loaded = True
 
     def _refresh_cache(self) -> None:

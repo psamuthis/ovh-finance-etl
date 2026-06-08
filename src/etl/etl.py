@@ -41,13 +41,13 @@ class ETL:
         print(f"Dynamic Instances...")
         self.dynamic_instances.extract_data(
             self.json["hourlyUsage"]["instance"],
-            self.json["hourlyUsage"]["instanceBandwidth"],
+            self.json["hourlyUsage"]["instanceOption"],
         )
         self.dynamic_instances.load_data()
         print(f"Dynamic Instances processed.")
 
         print(f"Fixed Instances...")
-        self.fixed_instances.extract_data(self.json["monthlyUsage"]["instance"])
+        self.fixed_instances.extract_data(self.json["monthlyUsage"]["instance"], self.json["monthlyUsage"]["instanceOption"])
         self.fixed_instances.load_data()
         print(f"Fixed Instances processed.")
 
