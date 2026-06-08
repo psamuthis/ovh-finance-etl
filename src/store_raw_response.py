@@ -31,7 +31,6 @@ data: dict[str, Any] = {
     "service_id": SERVICE_ID,
     "period_from": api_response["period"]["from"],
     "period_to": api_response["period"]["to"],
-    # "call_timestamp": call_timestamp,
     "call_timestamp": datetime.now(timezone.utc),
     "last_update": api_response["lastUpdate"],
     "total_price": api_response["totalPrice"]["value"],
