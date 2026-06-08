@@ -264,16 +264,6 @@ CREATE TABLE IF NOT EXISTS "dim_storage_type" (
 
 
 
--- Might be deleted as savings plan will be independent from instances
-CREATE TABLE IF NOT EXISTS "bridge_savings_plan_dynamic_instance" (
-	"fk_instance" BIGSERIAL NOT NULL,
-	"fk_savings_plan" BIGSERIAL NOT NULL,
-	PRIMARY KEY("fk_instance", "fk_savings_plan")
-);
-
-
-
-
 CREATE TABLE IF NOT EXISTS "bridge_instance_option" (
 	"fk_instance" BIGSERIAL NOT NULL,
 	"fk_option" BIGSERIAL NOT NULL,
@@ -282,16 +272,8 @@ CREATE TABLE IF NOT EXISTS "bridge_instance_option" (
 
 
 
--- Might be deleted as savings plan will be independent from instances
-CREATE TABLE IF NOT EXISTS "bridge_savings_plan_fixed_instance" (
-	"fk_instance" BIGSERIAL NOT NULL,
-	"fk_savings_plan" BIGSERIAL NOT NULL,
-	PRIMARY KEY("fk_instance", "fk_savings_plan")
-);
 
-
-
-
+-- TO DELETE ?
 CREATE TABLE IF NOT EXISTS "bridge_savings_plan_rancher" (
 	"fk_rancher" BIGSERIAL NOT NULL,
 	"fk_savings_plan" BIGSERIAL NOT NULL,
