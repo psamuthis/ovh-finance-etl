@@ -22,7 +22,6 @@ class ServiceFixedInstance(DBService):
             .first()
 
         if existing_record is not None:
-            print("existing fixed instance found")
             return existing_record.id
         
         return self.insert_one(record)

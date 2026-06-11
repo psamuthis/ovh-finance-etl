@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-import decimal
+from decimal import Decimal
 from typing import Any, Optional
 
 from connector.postgres_connection import WarehouseSessionLocal
@@ -30,7 +30,7 @@ from .etl_interface import ETLInterface
 class VolumeDetails:
     quantity: Quantity
     resource_id: str
-    total_price: decimal.Decimal
+    total_price: Decimal
     volume_uuid: str
 
 
@@ -66,7 +66,7 @@ class ETLVolume(ETLInterface):
                 details = VolumeDetails(
                     quantity=quantity,
                     resource_id=volume_details["resourceId"],
-                    total_price=round(decimal.Decimal(volume_details["totalPrice"]), 5),
+                    total_price=round(Decimal(volume_details["totalPrice"]), 5),
                     volume_uuid=volume_details["volumeId"],
                 )
 
@@ -94,15 +94,14 @@ class ETLVolume(ETLInterface):
                     created_at: datetime = datetime.now(timezone.utc)
                     fk_created_at: int = ServiceTime(db).get_or_create(created_at)
                     fk_volume: int = ServiceDimVolume(db).insert_one(dim_volume)
-                    non_cumulative_price: decimal.Decimal = ServiceFactVolume(
+                    non_cumulative_price: Decimal = ServiceFactVolume(
                         db
-                    ).cumulative_to_daily_cost(
-                        created_at,
+                    ).get_non_cumulative_cost(
                         details.volume_uuid,
                         details.total_price,
                     )
-                    non_cumulative_value: int = ServiceFactVolume(db).cumulative_to_daily_value(
-                        created_at, details.volume_uuid, details.quantity.value
+                    non_cumulative_value: Decimal = ServiceFactVolume(db).get_non_cumulative_value(
+                        details.volume_uuid, details.quantity.value
                     )
 
                     record: FactVolume = FactVolume(

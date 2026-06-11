@@ -1,5 +1,6 @@
-from datetime import datetime
-from typing import Type, TypeVar, Generic
+from datetime import datetime, timezone
+from decimal import Decimal
+from typing import Any, Callable, Type, TypeVar, Generic
 from sqlalchemy.orm import Mapped, Session, mapped_column
 
 from models.base import Base

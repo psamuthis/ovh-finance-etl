@@ -3,6 +3,7 @@ import json
 from typing import Any
 
 from etl.etl_fixed_instance import ETLFixedInstance
+from etl.etl_savings_plan import ETLSavingsPlan
 from etl.etl_volume import ETLVolume
 from models.raw.current_usage_raw import CurrentUsageRaw
 from etl.etl_dynamic_instance import ETLDynamicInstance
@@ -23,6 +24,7 @@ class ETL:
         self.fixed_instances: ETLFixedInstance = ETLFixedInstance(
             self.service_id, self.period_from, self.period_to
         )
+        self.savings_plans: ETLSavingsPlan = ETLSavingsPlan(self.service_id)
 
     def run(self):
         print(f"Starting ETL process...")
@@ -38,17 +40,22 @@ class ETL:
         # self.volume.load_data()
         # print(f"Volumes processed.")
 
-        print(f"Dynamic Instances...")
-        self.dynamic_instances.extract_data(
-            self.json["hourlyUsage"]["instance"],
-            self.json["hourlyUsage"]["instanceOption"],
-        )
-        self.dynamic_instances.load_data()
-        print(f"Dynamic Instances processed.")
+        #print(f"Dynamic Instances...")
+        #self.dynamic_instances.extract_data(
+            #self.json["hourlyUsage"]["instance"],
+            #self.json["hourlyUsage"]["instanceOption"],
+        #)
+        #self.dynamic_instances.load_data()
+        #print(f"Dynamic Instances processed.")
 
-        print(f"Fixed Instances...")
-        self.fixed_instances.extract_data(self.json["monthlyUsage"]["instance"], self.json["monthlyUsage"]["instanceOption"])
-        self.fixed_instances.load_data()
-        print(f"Fixed Instances processed.")
+        #print(f"Fixed Instances...")
+        #self.fixed_instances.extract_data(self.json["monthlyUsage"]["instance"], self.json["monthlyUsage"]["instanceOption"])
+        #self.fixed_instances.load_data()
+        #print(f"Fixed Instances processed.")
+
+        print(f"Savings Plans...")
+        self.savings_plans.extract_data(self.json["monthlyUsage"]["savingsPlan"], self.json["hourlyUsage"]["instance"])
+        self.savings_plans.load_data()
+        print(f"Savings Plans processed.")
 
         print(f"ETL process done.")

@@ -1,7 +1,8 @@
-from datetime import datetime
-import decimal
+from datetime import datetime, timezone
+from decimal import Decimal
 from typing import Optional, Type, TypeVar, Generic
-from sqlalchemy.orm import Mapped, Session, mapped_column
+from sqlalchemy import func
+from sqlalchemy.orm import Mapped, Session, aliased, mapped_column
 
 from models.base import Base
 from models.dimension.dim_time import DimTime
@@ -9,48 +10,38 @@ from services.has_id_model import HasIdModel
 from models.fact.fact_volume import FactVolume
 from services.db_service import DBService
 from models.dimension.dim_volume import DimVolume
+from dateutil.relativedelta import relativedelta
 
 
 class ServiceFactVolume:
     def __init__(self, db: Session):
         self.db: Session = db
 
-    def cumulative_to_daily_cost(
-        self, created_at: datetime, volume_uuid: str, current_price: decimal.Decimal
-    ) -> decimal.Decimal:
-        month_start: datetime = created_at.replace(day=1, minute=0, second=0, microsecond=0)
+    def get_non_cumulative_cost(self, volume_uuid: str, current_price: Decimal) -> Decimal:
+        month_start: datetime = datetime.now(timezone.utc).replace(day=1, minute=0, second=0, microsecond=0)
+        DimTimeFrom = aliased(DimTime)
+        DimTimeTo = aliased(DimTime)
 
-        resource_entries = (
-            self.db.query(FactVolume)
-            .join(DimTime, DimTime.id == FactVolume.fk_created_at)
-            .join(DimVolume, DimVolume.id == FactVolume.fk_volume)
-            .filter(DimVolume.volume_uuid == volume_uuid)
-            .filter(DimTime.timestamptz < created_at)
-            .filter(DimTime.timestamptz >= month_start)
-        )
+        previous_cumulated_price: Decimal = self.db.query(func.sum(FactVolume.price))\
+            .filter(DimVolume.volume_uuid == volume_uuid)\
+            .join(DimVolume, DimVolume.id == FactVolume.fk_volume)\
+            .join(DimTimeFrom, DimTimeFrom.id == FactVolume.fk_period_from)\
+            .join(DimTimeTo, DimTimeTo.id == FactVolume.fk_period_to)\
+            .filter(DimTime.timestamptz >= month_start)\
+            .filter(DimTimeTo.timestamptz < datetime.now(timezone.utc))\
+            .scalar() or Decimal(0)
 
-        cumulated_price: decimal.Decimal = decimal.Decimal(0.0)
-        for entry in resource_entries:
-            cumulated_price = cumulated_price + entry.price
+        return current_price - previous_cumulated_price
 
-        return current_price - cumulated_price
+    def get_non_cumulative_value(self, volume_uuid: str, current_value: Decimal) -> Decimal:
+        month_start: datetime = datetime.now(timezone.utc).replace(day=1, minute=0, second=0, microsecond=0)
 
-    def cumulative_to_daily_value(
-        self, created_at: datetime, volume_uuid: str, current_value: int
-    ) -> int:
-        month_start: datetime = created_at.replace(day=1, minute=0, second=0, microsecond=0)
+        previous_cumulated_value: Decimal = self.db.query(func.sum(FactVolume.value))\
+            .join(DimTime, DimTime.id == FactVolume.fk_created_at)\
+            .join(DimVolume, DimVolume.id == FactVolume.fk_volume)\
+            .filter(DimVolume.volume_uuid == volume_uuid)\
+            .filter(DimTime.timestamptz >= month_start)\
+            .filter(DimTime.timestamptz < datetime.now(timezone.utc))\
+            .scalar() or Decimal(0)
 
-        resource_entries = (
-            self.db.query(FactVolume)
-            .join(DimTime, DimTime.id == FactVolume.fk_created_at)
-            .join(DimVolume, DimVolume.id == FactVolume.fk_volume)
-            .filter(DimVolume.volume_uuid == volume_uuid)
-            .filter(DimTime.timestamptz < created_at)
-            .filter(DimTime.timestamptz >= month_start)
-        )
-
-        cumulated_value: int = 0
-        for entry in resource_entries:
-            cumulated_value = cumulated_value + entry.value
-
-        return current_value - cumulated_value
+        return current_value - previous_cumulated_value

@@ -8,9 +8,9 @@ CREATE TABLE IF NOT EXISTS "fact_current_dynamic_compute" (
 	"fk_deployment_mode" SMALLSERIAL,
 	"fk_resource" BIGINT,
 	"fk_usage_unit" BIGINT,
+	"fk_tenant" SMALLINT,
 	"usage_value" NUMERIC,
 	"usage_price" NUMERIC,
-	"fk_tenant" SMALLINT,
 	PRIMARY KEY("id")
 );
 
@@ -127,14 +127,29 @@ CREATE TABLE IF NOT EXISTS "fact_current_dynamic_mks" (
 
 
 
-CREATE TABLE IF NOT EXISTS "fact_current_savings_plan" (
+CREATE TABLE IF NOT EXISTS "dim_current_savings_plan" (
 	"id" BIGSERIAL NOT NULL,
 	"name" VARCHAR(255),
 	"fk_period_from" BIGSERIAL,
 	"fk_period_to" BIGSERIAL,
+	"plan_id" UUID,
 	"size" INTEGER,
 	"flavor" VARCHAR(50),
+	"currency_code" VARCHAR(10),
 	"price" NUMERIC,
+	PRIMARY KEY("id")
+);
+
+
+
+
+CREATE TABLE IF NOT EXISTS "fact_savings_plan_over_quota" (
+	"id" BIGSERIAL NOT NULL,
+	"fk_unit" SMALLSERIAL,
+	"fk_created_at" BIGSERIAL,
+	"value" NUMERIC,
+	"price" NUMERIC,
+	"flavor" VARCHAR(50),
 	PRIMARY KEY("id")
 );
 
@@ -202,10 +217,10 @@ CREATE TABLE IF NOT EXISTS "dim_deployment_mode" (
 CREATE TABLE IF NOT EXISTS "dim_time" (
 	"id" BIGSERIAL NOT NULL,
 	"timestamptz" TIMESTAMPTZ,
-	"year" INTEGER,
-	"month" INTEGER,
-	"day" INTEGER,
-	"quarter" INTEGER,
+	"year" SMALLINT,
+	"month" SMALLINT,
+	"day" SMALLINT,
+	"quarter" SMALLINT,
 	PRIMARY KEY("id")
 );
 
@@ -249,7 +264,8 @@ CREATE TABLE IF NOT EXISTS "dim_kubernetes" (
 CREATE TABLE IF NOT EXISTS "dim_tenant" (
 	"id" SMALLSERIAL,
 	"name" VARCHAR(100),
-	"project_id" VARCHAR(50)
+	"project_id" VARCHAR(50),
+	PRIMARY KEY("id")
 );
 
 
@@ -280,12 +296,15 @@ CREATE TABLE IF NOT EXISTS "bridge_savings_plan_rancher" (
 	PRIMARY KEY("fk_rancher", "fk_savings_plan")
 );
 
+CREATE TABLE IF NOT EXISTS "bridge_over_quota_savings_plan" (
+	"fk_savings_plan" BIGSERIAL,
+	"fk_over_quota" BIGSERIAL,
+	PRIMARY KEY("fk_savings_plan", "fk_over_quota")
+);
+
 
 
 ALTER TABLE "bridge_instance_option"
-ADD FOREIGN KEY("fk_instance") REFERENCES "fact_current_dynamic_compute"("id")
-ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "bridge_savings_plan_dynamic_instance"
 ADD FOREIGN KEY("fk_instance") REFERENCES "fact_current_dynamic_compute"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_current_dynamic_compute"
@@ -408,13 +427,10 @@ ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_current_dynamic_mks"
 ADD FOREIGN KEY("fk_period_to") REFERENCES "dim_time"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "bridge_savings_plan_dynamic_instance"
-ADD FOREIGN KEY("fk_savings_plan") REFERENCES "fact_current_savings_plan"("id")
-ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "fact_current_savings_plan"
+ALTER TABLE "dim_current_savings_plan"
 ADD FOREIGN KEY("fk_period_from") REFERENCES "dim_time"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "fact_current_savings_plan"
+ALTER TABLE "dim_current_savings_plan"
 ADD FOREIGN KEY("fk_period_to") REFERENCES "dim_time"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_current_dynamic_rancher"
@@ -424,7 +440,7 @@ ALTER TABLE "bridge_savings_plan_rancher"
 ADD FOREIGN KEY("fk_rancher") REFERENCES "fact_current_dynamic_rancher"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "bridge_savings_plan_rancher"
-ADD FOREIGN KEY("fk_savings_plan") REFERENCES "fact_current_savings_plan"("id")
+ADD FOREIGN KEY("fk_savings_plan") REFERENCES "dim_current_savings_plan"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_current_dynamic_rancher"
 ADD FOREIGN KEY("fk_region") REFERENCES "dim_region"("id")
@@ -455,12 +471,6 @@ ADD FOREIGN KEY("fk_region") REFERENCES "dim_region"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_current_fixed_compute"
 ADD FOREIGN KEY("fk_created_at") REFERENCES "dim_time"("id")
-ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "bridge_savings_plan_fixed_instance"
-ADD FOREIGN KEY("fk_instance") REFERENCES "fact_current_fixed_compute"("id")
-ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "bridge_savings_plan_fixed_instance"
-ADD FOREIGN KEY("fk_savings_plan") REFERENCES "fact_current_savings_plan"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "bridge_instance_option"
 ADD FOREIGN KEY("fk_option") REFERENCES "fact_current_dynamic_instance_option"("id")
@@ -494,4 +504,10 @@ ADD FOREIGN KEY ("fk_deployment_mode") REFERENCES "dim_deployment_mode"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_current_network"
 ADD FOREIGN KEY ("fk_region") REFERENCES "dim_region"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "fact_savings_plan_over_quota"
+ADD FOREIGN KEY ("fk_unit") REFERENCES "dim_unit"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "fact_savings_plan_over_quota"
+ADD FOREIGN KEY ("fk_created_at") REFERENCES "dim_time"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
