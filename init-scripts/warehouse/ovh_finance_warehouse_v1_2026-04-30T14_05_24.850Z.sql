@@ -280,12 +280,20 @@ CREATE TABLE IF NOT EXISTS "dim_storage_type" (
 
 
 
-CREATE TABLE IF NOT EXISTS "bridge_instance_option" (
+CREATE TABLE IF NOT EXISTS "bridge_dynamic_instance_option" (
 	"fk_instance" BIGSERIAL NOT NULL,
 	"fk_option" BIGSERIAL NOT NULL,
 	PRIMARY KEY("fk_instance", "fk_option")
 );
 
+
+
+
+CREATE TABLE IF NOT EXISTS "bridge_fixed_instance_option" (
+	"fk_instance" BIGSERIAL NOT NULL,
+	"fk_option" BIGSERIAL NOT NULL,
+	PRIMARY KEY("fk_instance", "fk_option")
+);
 
 
 

@@ -26,7 +26,7 @@ from models.fact.fact_current_dynamic_compute import FactCurrentDynamicCompute
 from models.fact.fact_dynamic_instance_option import FactDynamicInstanceOption
 from services.db_service import DBService
 from services.fact.service_dynamic_instance import ServiceDynamicInstance
-from models.bridge.bridge_dynamic_instance_options import BridgeInstanceOption
+from models.bridge.bridge_dynamic_instance_options import BridgeDynamicInstanceOption
 
 class ETLDynamicInstance:
     def __init__(self, service_id: str, period_from: datetime, period_to: datetime):
@@ -143,8 +143,8 @@ class ETLDynamicInstance:
                             price=self.instance_options[instance.instance_id].total_price,
                         )
                     )
-                    DBService(db, BridgeInstanceOption).insert_one(
-                        BridgeInstanceOption(fk_instance=fk_instance, fk_option=fk_option)
+                    DBService(db, BridgeDynamicInstanceOption).insert_one(
+                        BridgeDynamicInstanceOption(fk_instance=fk_instance, fk_option=fk_option)
                     )
 
             db.commit()

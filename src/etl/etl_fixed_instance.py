@@ -5,7 +5,8 @@ from connector.postgres_connection import WarehouseSessionLocal
 from etl.etl_interface import ETLInterface
 from etl.instance_datatypes import FixedInstance, FixedInstanceOption
 from etl.shared import Quantity
-from models.bridge.bridge_dynamic_instance_options import BridgeInstanceOption
+from models.bridge.bridge_dynamic_instance_options import BridgeDynamicInstanceOption
+from models.bridge.bridge_fixed_instance_options import BridgeFixedInstanceOption
 from models.dimension.dim_deployment_mode import DimDeploymentMode
 from models.fact.fact_current_fixed_compute import FactCurrentFixedCompute
 from models.fact.fact_fixed_instance_option import FactFixedInstanceOption
@@ -93,8 +94,8 @@ class ETLFixedInstance:
                         )
                     )
 
-                    DBService(db, BridgeInstanceOption).insert_one(
-                        BridgeInstanceOption(fk_instance=fk_instance, fk_option=fk_option)
+                    DBService(db, BridgeFixedInstanceOption).insert_one(
+                        BridgeDynamicInstanceOption(fk_instance=fk_instance, fk_option=fk_option)
                     )
 
             db.commit()
