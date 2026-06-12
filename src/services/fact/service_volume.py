@@ -1,16 +1,11 @@
 from datetime import datetime, timezone
 from decimal import Decimal
-from typing import Optional, Type, TypeVar, Generic
 from sqlalchemy import func
-from sqlalchemy.orm import Mapped, Session, aliased, mapped_column
+from sqlalchemy.orm import Session, aliased
 
-from models.base import Base
 from models.dimension.dim_time import DimTime
-from services.has_id_model import HasIdModel
 from models.fact.fact_volume import FactVolume
-from services.db_service import DBService
 from models.dimension.dim_volume import DimVolume
-from dateutil.relativedelta import relativedelta
 
 
 class ServiceFactVolume:
@@ -27,7 +22,7 @@ class ServiceFactVolume:
             .join(DimVolume, DimVolume.id == FactVolume.fk_volume)\
             .join(DimTimeFrom, DimTimeFrom.id == FactVolume.fk_period_from)\
             .join(DimTimeTo, DimTimeTo.id == FactVolume.fk_period_to)\
-            .filter(DimTime.timestamptz >= month_start)\
+            .filter(DimTimeFrom.timestamptz >= month_start)\
             .filter(DimTimeTo.timestamptz < datetime.now(timezone.utc))\
             .scalar() or Decimal(0)
 

@@ -3,7 +3,7 @@ from decimal import Decimal
 
 from models.dimension.dim_time import DimTime
 from models.fact.fact_current_dynamic_compute import FactCurrentDynamicCompute
-from sqlalchemy import between, func
+from sqlalchemy import func
 from sqlalchemy.orm import Session, aliased
 
 

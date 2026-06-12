@@ -4,6 +4,7 @@ from typing import Any
 
 from etl.etl_fixed_instance import ETLFixedInstance
 from etl.etl_savings_plan import ETLSavingsPlan
+from etl.etl_storage import ETLStorage
 from etl.etl_volume import ETLVolume
 from models.raw.current_usage_raw import CurrentUsageRaw
 from etl.etl_dynamic_instance import ETLDynamicInstance
@@ -25,6 +26,8 @@ class ETL:
             self.service_id, self.period_from, self.period_to
         )
         self.savings_plans: ETLSavingsPlan = ETLSavingsPlan(self.service_id)
+        # self.mks: ETLMKS = ETLMKS(self.service_id, self.period_from, self.period_to)
+        self.storage: ETLStorage = ETLStorage(self.service_id, self.period_from, self.period_to)
 
     def run(self):
         print(f"Starting ETL process...")
@@ -35,10 +38,10 @@ class ETL:
         with open("run_raw_data.json", "w") as file:
             json.dump(self.json, file, indent=4)
 
-        # print(f"Volumes...")
-        # self.volume.extract_data(self.json["hourlyUsage"]["volume"])
-        # self.volume.load_data()
-        # print(f"Volumes processed.")
+        #print(f"Volumes...")
+        #self.volume.extract_data(self.json["hourlyUsage"]["volume"])
+        #self.volume.load_data()
+        #print(f"Volumes processed.")
 
         #print(f"Dynamic Instances...")
         #self.dynamic_instances.extract_data(
@@ -53,9 +56,18 @@ class ETL:
         #self.fixed_instances.load_data()
         #print(f"Fixed Instances processed.")
 
-        print(f"Savings Plans...")
-        self.savings_plans.extract_data(self.json["monthlyUsage"]["savingsPlan"], self.json["hourlyUsage"]["instance"])
-        self.savings_plans.load_data()
-        print(f"Savings Plans processed.")
+        #print(f"Savings Plans...")
+        #self.savings_plans.extract_data(self.json["monthlyUsage"]["savingsPlan"], self.json["hourlyUsage"]["instance"])
+        #self.savings_plans.load_data()
+        #print(f"Savings Plans processed.")
+
+        # print(f"Managed Kubernetes Service...")
+        # TODO
+        # print(f"Managed Kubernetes Service processed.")
+
+        print(f"Storage...")
+        self.storage.extract_data(self.json["hourlyUsage"]["storage"])
+        self.storage.load_data()
+        print(f"Storage processed.")
 
         print(f"ETL process done.")
