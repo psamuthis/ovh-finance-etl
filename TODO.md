@@ -1,8 +1,5 @@
 # TODO
 
-- mks
-- rancher
-- storage
 - tester instance options 
 - gérer fk bridge instance & instance options (recréer deux bridges distincts)
 

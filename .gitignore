@@ -3,3 +3,5 @@ __pycache__/
 .env
 .vscode/
 run_raw_data.json
+sample-api-response/
+backups/**/*
