@@ -312,7 +312,7 @@ CREATE TABLE IF NOT EXISTS "bridge_over_quota_savings_plan" (
 
 
 
-ALTER TABLE "bridge_instance_option"
+ALTER TABLE "bridge_dynamic_instance_option"
 ADD FOREIGN KEY("fk_instance") REFERENCES "fact_current_dynamic_compute"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_current_dynamic_compute"
@@ -480,16 +480,16 @@ ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_current_fixed_compute"
 ADD FOREIGN KEY("fk_created_at") REFERENCES "dim_time"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "bridge_instance_option"
+ALTER TABLE "bridge_dynamic_instance_option"
 ADD FOREIGN KEY("fk_option") REFERENCES "fact_current_dynamic_instance_option"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_current_dynamic_instance_option"
 ADD FOREIGN KEY("fk_unit") REFERENCES "dim_unit"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "bridge_instance_option"
+ALTER TABLE "bridge_fixed_instance_option"
 ADD FOREIGN KEY("fk_instance") REFERENCES "fact_current_fixed_compute"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "bridge_instance_option"
+ALTER TABLE "bridge_fixed_instance_option"
 ADD FOREIGN KEY("fk_option") REFERENCES "fact_current_fixed_instance_option"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "dim_kubernetes"
