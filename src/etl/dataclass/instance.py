@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from decimal import Decimal
 
-from etl.shared import Period, Quantity, TotalPrice
+from etl.dataclass.shared import Period, Quantity, TotalPrice
 
 
 @dataclass

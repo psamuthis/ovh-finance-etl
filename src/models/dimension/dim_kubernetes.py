@@ -2,6 +2,7 @@ from uuid import UUID
 from sqlalchemy import (
     BigInteger,
     ForeignKey,
+    SmallInteger,
     String,
     Uuid,
 )
@@ -19,6 +20,7 @@ class DimKubernetes(Base):
     fk_updated_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
     fk_deployed_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
     fk_deleted_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
+    fk_tenant: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_tenant.id"))
 
     cluster_id: Mapped[UUID] = mapped_column(Uuid)
     nodepool_id: Mapped[UUID] = mapped_column(Uuid)

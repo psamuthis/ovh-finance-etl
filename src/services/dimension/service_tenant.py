@@ -24,6 +24,7 @@ class ServiceTenant(DBService[DimTenant]):
     def insert_one(self, record: DimTenant) -> int:
         self.db.add(record)
         self.db.flush()
+        self.db.commit()
         ServiceTenant._cache[record.project_id] = record.id
         return record.id
 

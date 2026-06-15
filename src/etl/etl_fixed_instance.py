@@ -3,8 +3,8 @@ from typing import Any
 
 from connector.postgres_connection import WarehouseSessionLocal
 from etl.etl_interface import ETLInterface
-from etl.instance_datatypes import FixedInstance, FixedInstanceOption
-from etl.shared import Quantity
+from etl.dataclass.instance import FixedInstance, FixedInstanceOption
+from etl.dataclass.shared import Quantity
 from models.bridge.bridge_dynamic_instance_options import BridgeDynamicInstanceOption
 from models.bridge.bridge_fixed_instance_options import BridgeFixedInstanceOption
 from models.dimension.dim_deployment_mode import DimDeploymentMode

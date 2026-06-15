@@ -3,12 +3,15 @@ import json
 from time import sleep
 from typing import Any
 
+from connector.postgres_connection import WarehouseSessionLocal
 from etl.etl_fixed_instance import ETLFixedInstance
+from etl.etl_kubernetes import ETLKubernetes
 from etl.etl_savings_plan import ETLSavingsPlan
 from etl.etl_storage import ETLStorage
 from etl.etl_volume import ETLVolume
 from models.raw.current_usage_raw import CurrentUsageRaw
 from etl.etl_dynamic_instance import ETLDynamicInstance
+from services.dimension.service_tenant import ServiceTenant
 
 
 class ETL:
@@ -29,6 +32,7 @@ class ETL:
         self.savings_plans: ETLSavingsPlan = ETLSavingsPlan(self.service_id)
         # self.mks: ETLMKS = ETLMKS(self.service_id, self.period_from, self.period_to)
         self.storage: ETLStorage = ETLStorage(self.service_id, self.period_from, self.period_to)
+        self.kube: ETLKubernetes = ETLKubernetes(self.service_id, self.period_from, self.period_to)
 
     def run(self):
         print(f"Starting ETL process...")
@@ -36,7 +40,10 @@ class ETL:
         print(f"\t{self.period_from}")
         print(f"\t{self.period_to}")
 
-        with open("run_raw_data.json", "w") as file:
+        with WarehouseSessionLocal() as db:
+            ServiceTenant(db).get_or_create(self.service_id)
+
+        with open(f"latest_run_raw_data/{self.service_id}.json", "w") as file:
             json.dump(self.json, file, indent=4)
 
         print(f"Volumes...")
@@ -47,18 +54,19 @@ class ETL:
         print(f"Dynamic Instances...")
         self.dynamic_instances.extract_data(
             self.json["hourlyUsage"]["instance"],
-            self.json["hourlyUsage"]["instanceOption"],
-        )
+            self.json["hourlyUsage"]["instanceOption"])
         self.dynamic_instances.load_data()
         print(f"Dynamic Instances processed.")
 
         print(f"Fixed Instances...")
-        self.fixed_instances.extract_data(self.json["monthlyUsage"]["instance"], self.json["monthlyUsage"]["instanceOption"])
+        self.fixed_instances.extract_data(self.json["monthlyUsage"]["instance"],
+                                          self.json["monthlyUsage"]["instanceOption"])
         self.fixed_instances.load_data()
         print(f"Fixed Instances processed.")
 
         print(f"Savings Plans...")
-        self.savings_plans.extract_data(self.json["monthlyUsage"]["savingsPlan"], self.json["hourlyUsage"]["instance"])
+        self.savings_plans.extract_data(self.json["monthlyUsage"]["savingsPlan"],
+                                        self.json["hourlyUsage"]["instance"])
         self.savings_plans.load_data()
         print(f"Savings Plans processed.")
 
@@ -70,5 +78,10 @@ class ETL:
         self.storage.extract_data(self.json["hourlyUsage"]["storage"])
         self.storage.load_data()
         print(f"Storage processed.")
+
+        print(f"Kubernetes...")
+        self.kube.extract_data()
+        self.kube.load_data()
+        print(f"Kubernetes processed.")
 
         print(f"ETL process done.")

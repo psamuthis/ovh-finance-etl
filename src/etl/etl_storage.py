@@ -5,8 +5,8 @@ from tkinter import W
 from typing import Any
 
 from connector.postgres_connection import WarehouseSessionLocal
-from etl.instance_datatypes import Bandwidth
-from etl.shared import Quantity
+from etl.dataclass.instance import Bandwidth
+from etl.dataclass.shared import Quantity
 from models.dimension.dim_storage import DimStorage
 from models.fact.fact_storage import FactCurrentStorage
 from services.db_service import DBService

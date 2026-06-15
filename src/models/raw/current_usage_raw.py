@@ -21,11 +21,3 @@ class CurrentUsageRaw(Base):
     total_price_currency: Mapped[str] = mapped_column(String)
     full_response_json: Mapped[dict[str, Any]] = mapped_column(JSONB)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
-
-    @staticmethod
-    def retrieve_latest_record(db: Session) -> Optional["CurrentUsageRaw"]:
-        return (
-            db.query(CurrentUsageRaw)
-            .order_by(CurrentUsageRaw.created_at.desc())
-            .first()
-        )

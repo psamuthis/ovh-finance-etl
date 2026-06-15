@@ -6,8 +6,8 @@ from typing import Any, Optional
 from sqlalchemy.orm import Session
 
 from etl.etl_interface import ETLInterface
-from etl.shared import Quantity
-from etl.instance_datatypes import (
+from etl.dataclass.shared import Quantity
+from etl.dataclass.instance import (
     DynamicInstance,
     DynamicInstanceDetails,
     FixedInstance,

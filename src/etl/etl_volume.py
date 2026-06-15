@@ -22,7 +22,7 @@ from services.db_service import DBService
 from services.fact.service_volume import ServiceFactVolume
 from services.dimension.service_tenant import ServiceTenant
 
-from .shared import Quantity
+from .dataclass.shared import Quantity
 from .etl_interface import ETLInterface
 
 

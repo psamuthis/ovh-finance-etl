@@ -6,7 +6,7 @@ from typing import Any
 from dateutil import parser
 
 from connector.postgres_connection import WarehouseSessionLocal
-from etl.shared import Quantity
+from etl.dataclass.shared import Quantity
 from models.bridge.bridge_over_quota_savings_plan import BridgeOverQuotaSavingsPlan
 from models.dimension.dim_savings_plan import DimSavingsPlan
 from models.fact.fact_savings_plan_over_quota import FactSavingsPlanOverQuota

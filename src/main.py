@@ -1,25 +1,13 @@
-from typing import Any
-
-from models.dimension.dim_deployment_mode import DimDeploymentMode
+from etl.etl import ETL
 from models.raw.current_usage_raw import CurrentUsageRaw
 from connector.postgres_connection import RawSessionLocal, WarehouseSessionLocal
-from etl.etl import ETL
-from etl.etl_volume import ETLVolume
+from services.raw.service_current_usage_raw import ServiceUsageRaw
 
 with RawSessionLocal() as db:
-    latest_record: CurrentUsageRaw | None = CurrentUsageRaw.retrieve_latest_record(db)
+    latest_records: list[CurrentUsageRaw] = ServiceUsageRaw(db).retrieve_latest_data()
 
-if latest_record is None:
+if latest_records is None:
     raise ValueError("Latest raw record wasn't retrieved...")
 
-"""
-For each tenant handle:
-    - instance (network + options)
-    - storage
-    - volume
-    - rancher
-    - mks
-    - savings_plan
-"""
-
-ETL(latest_record).run()
+for record in latest_records:
+    ETL(record).run()
