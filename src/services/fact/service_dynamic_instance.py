@@ -20,9 +20,9 @@ class ServiceDynamicInstance:
         previous_sum = self.db.query(func.sum(FactCurrentDynamicCompute.usage_price))\
             .filter(FactCurrentDynamicCompute.instance_id==instance_id)\
             .join(DimTimeFrom, FactCurrentDynamicCompute.fk_period_from == DimTimeFrom.id)\
-            .join(DimTimeTo, FactCurrentDynamicCompute.fk_period_to == DimTimeTo.id)\
-            .filter(DimTimeTo.timestamptz >= month_start)\
-            .filter(DimTimeFrom.timestamptz <= datetime.now(timezone.utc))\
+            .join(DimTimeTo, FactCurrentDynamicCompute.fk_created_at == DimTimeTo.id)\
+            .filter(DimTimeFrom.timestamptz >= month_start)\
+            .filter(DimTimeTo.timestamptz < datetime.now(timezone.utc))\
             .scalar() or Decimal(0)
 
         return round(current_price - previous_sum, 5)
@@ -35,9 +35,9 @@ class ServiceDynamicInstance:
         previous_sum: Decimal = self.db.query(func.sum(FactCurrentDynamicCompute.usage_value))\
             .filter(FactCurrentDynamicCompute.instance_id==instance_id)\
             .join(DimTimeFrom, FactCurrentDynamicCompute.fk_period_from == DimTimeFrom.id)\
-            .join(DimTimeTo, FactCurrentDynamicCompute.fk_period_to == DimTimeTo.id)\
-            .filter(DimTimeTo.timestamptz >= month_start)\
-            .filter(DimTimeFrom.timestamptz <= datetime.now(timezone.utc))\
+            .join(DimTimeTo, FactCurrentDynamicCompute.fk_created_at == DimTimeTo.id)\
+            .filter(DimTimeFrom.timestamptz >= month_start)\
+            .filter(DimTimeTo.timestamptz < datetime.now(timezone.utc))\
             .scalar() or Decimal(0)
 
         return current_value - previous_sum

@@ -13,7 +13,6 @@ class ServiceSavingsPlan(DBService):
         
     def get_or_create(self, record: DimSavingsPlan) -> int:
         month_start: datetime = datetime.now(timezone.utc).replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-        month_end: datetime = month_start.replace(month=month_start.month+1)
 
         DimTimeFrom = aliased(DimTime)
         DimTimeTo = aliased(DimTime)
@@ -23,7 +22,7 @@ class ServiceSavingsPlan(DBService):
             .join(DimTimeFrom, DimTimeFrom.id==DimSavingsPlan.fk_period_from)\
             .join(DimTimeTo, DimTimeTo.id==DimSavingsPlan.fk_period_to)\
             .filter(DimTimeFrom.timestamptz >= month_start)\
-            .filter(DimTimeTo.timestamptz < month_end)\
+            .filter(DimTimeTo.timestamptz < datetime.now(timezone.utc))\
             .first()
 
         if existing_plan is not None:

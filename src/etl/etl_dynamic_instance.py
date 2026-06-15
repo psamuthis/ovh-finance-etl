@@ -94,7 +94,7 @@ class ETLDynamicInstance:
             region=region,
             instance_id=details["instanceId"],
             quantity=quantity,
-            total_price=details["totalPrice"],
+            total_price=Decimal(details["totalPrice"]),
             flavor=flavor
         )
 
