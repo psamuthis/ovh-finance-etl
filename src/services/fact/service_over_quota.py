@@ -14,7 +14,7 @@ class ServiceOverQuota(DBService):
         self.db: Session = db
 
     def get_non_cumulative_cost(self, flavor: str, current_price: Decimal) -> Decimal:
-        month_start: datetime = datetime.now(timezone.utc)
+        month_start: datetime = datetime.now(timezone.utc).replace(day=1, hour=0, minute=0, second=0, microsecond=0)
 
         previous_cumulated_cost: Decimal = self.db.query(func.sum(FactSavingsPlanOverQuota.price))\
             .filter(FactSavingsPlanOverQuota.flavor==flavor)\
@@ -26,7 +26,7 @@ class ServiceOverQuota(DBService):
         return current_price - previous_cumulated_cost
 
     def get_non_cumulative_value(self, flavor: str, current_value: Decimal) -> Decimal:
-        month_start: datetime = datetime.now(timezone.utc)
+        month_start: datetime = datetime.now(timezone.utc).replace(day=1, hour=0, minute=0, second=0, microsecond=0)
 
         previous_cumulated_value: Decimal = self.db.query(func.sum(FactSavingsPlanOverQuota.value))\
             .filter(FactSavingsPlanOverQuota.flavor == flavor)\
