@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from typing import Any, Optional
 
 import ovh
@@ -25,6 +26,9 @@ def CLUSTER(service_id: str, cluster_id: str) -> str:
 
 def ALL_NODE(service_id: str, cluster_id: str) -> str:
     return f"{ALL_PROJECTS}/{service_id}/kube/{cluster_id}/node"
+
+def ALL_DELETED_NODES(service_id: str, cluster_id: str) -> str:
+    return f"{ALL_PROJECTS}/{service_id}/kube/{cluster_id}/node?history=True"
 
 
 def NODE(service_id: str, cluster_id: str, node_id: str) -> str:
@@ -60,6 +64,26 @@ class APIServiceKubernetes:
             )
 
         return [node for node in api_response]
+
+    def list_cluster_deleted_nodes(self, cluster_id, active_month: bool = True) -> list[dict[str, Any]]:
+        api_response = self.ovh_client.get(ALL_DELETED_NODES(self.service_id, cluster_id))
+        if not isinstance(api_response, list):
+            raise TypeError(
+                f"Expected array in API response: {ALL_DELETED_NODES(self.service_id, cluster_id)}"
+            )
+
+        if not active_month:
+            return api_response
+
+        filtered_nodes: list[dict[str, Any]] = []
+        current_month: datetime = datetime.now(timezone.utc).replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+        for node in api_response:
+            if datetime.fromisoformat(node["createdAt"].replace("Z", "+00:00")) < current_month:
+                continue
+
+            filtered_nodes.append(node)
+
+        return filtered_nodes
 
     def get_node_cluster(self, node_id: str) -> Optional[str]:
         cluster_id: str | None = None
@@ -100,3 +124,12 @@ class APIServiceKubernetes:
             raise TypeError(f"Expected dict in API response: {SERVICE(self.service_id)}")
 
         return api_response
+
+    def find_latest_kube_match(self, cluster_id: str, instance_id: str) -> dict[str, Any]: # type: ignore
+        all_nodes: list[dict[str, Any]] = self.list_cluster_nodes(cluster_id) + self.list_cluster_deleted_nodes(cluster_id)
+        matching_nodes: list[dict[str, Any]] = []
+
+        for node in all_nodes:
+            if node["instanceId"] == instance_id:
+                matching_nodes.append(node)
+
