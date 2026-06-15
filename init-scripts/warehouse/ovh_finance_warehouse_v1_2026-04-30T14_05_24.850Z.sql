@@ -252,10 +252,10 @@ CREATE TABLE IF NOT EXISTS "dim_unit" (
 
 CREATE TABLE IF NOT EXISTS "dim_kubernetes" (
 	"id" BIGSERIAL NOT NULL,
-	"fk_created_at" BIGSERIAL,
-	"fk_updated_at" BIGSERIAL,
-	"fk_deployed_at" BIGSERIAL,
-	"fk_deleted_at" BIGSERIAL,
+	"fk_created_at" BIGINT,
+	"fk_updated_at" BIGINT,
+	"fk_deployed_at" BIGINT,
+	"fk_deleted_at" BIGINT,
 	"fk_tenant" SMALLSERIAL,
 	"cluster_id" UUID,
 	"nodepool_id" UUID,
@@ -265,6 +265,7 @@ CREATE TABLE IF NOT EXISTS "dim_kubernetes" (
 	"version" VARCHAR(255),
 	PRIMARY KEY("id")
 );
+CREATE INDEX idx_kube_instance_id ON dim_kubernetes(instance_id);
 
 CREATE TABLE IF NOT EXISTS "dim_tenant" (
 	"id" SMALLSERIAL,
