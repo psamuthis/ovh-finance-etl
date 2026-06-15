@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS "fact_current_dynamic_compute" (
 	"usage_price" NUMERIC,
 	PRIMARY KEY("id")
 );
+CREATE INDEX idx_dynamic_instance_uuid ON fact_current_dynamic_compute(instance_id);
 
 CREATE TABLE IF NOT EXISTS "fact_current_network" (
 	"id" BIGSERIAL,
@@ -42,6 +43,7 @@ CREATE TABLE IF NOT EXISTS "fact_current_fixed_compute" (
 	"price" NUMERIC,
 	PRIMARY KEY("id")
 );
+CREATE INDEX idx_fixed_compute_uuid ON fact_current_fixed_compute(instance_id);
 
 
 
@@ -139,7 +141,7 @@ CREATE TABLE IF NOT EXISTS "dim_current_savings_plan" (
 	"price" NUMERIC,
 	PRIMARY KEY("id")
 );
-
+CREATE INDEX idx_savings_plan_uuid ON dim_current_savings_plan(plan_id);
 
 
 
@@ -189,6 +191,7 @@ CREATE TABLE IF NOT EXISTS "dim_volume" (
 	"fk_tenant" SMALLSERIAL,
 	PRIMARY KEY("id")
 );
+CREATE INDEX idx_volume_uuid ON dim_volume(volume_uuid);
 
 
 
@@ -223,6 +226,8 @@ CREATE TABLE IF NOT EXISTS "dim_time" (
 	"quarter" SMALLINT,
 	PRIMARY KEY("id")
 );
+CREATE INDEX idx_dim_time_year_month ON dim_time(year, month);
+CREATE INDEX idx_dim_time_timestamptz_brin ON dim_time USING BRIN(timestamptz);
 
 
 
