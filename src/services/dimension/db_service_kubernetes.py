@@ -1,5 +1,9 @@
+import json
+
+from dateutil import parser
 from typing import Any, Optional
 
+from services.dimension.service_tenant import ServiceTenant
 from sqlalchemy.orm import Session
 
 from models.dimension.dim_kubernetes import DimKubernetes
@@ -12,49 +16,22 @@ class DBServiceKubernetes(DBService[DimKubernetes]):
     def __init__(self, db: Session):
         super().__init__(db, DimKubernetes)
 
-    def create_record(self, service_id: str, node_id: str) -> Optional[DimKubernetes]:
-        api_kube_service: APIServiceKubernetes = APIServiceKubernetes(service_id)
-        time_service: ServiceTime = ServiceTime(self.db)
+    def create_record(self, fk_tenant: int, node_data: dict[str, Any]) -> DimKubernetes:
+        fk_deployed_at: Optional[int] = None
 
-        tenant_name: str = api_kube_service.get_project_tenant()
-        node_data: Optional[dict[str, Any]] = api_kube_service.get_node_data(node_id)
-        if node_data is None:
-            raise ValueError(f"Did not find any data for node id: {node_id}")
-
-        if node_data is None:
-            return DimKubernetes(
-                fk_created_at=None,
-                fk_updated_at=None,
-                fk_deployed_at=None,
-                fk_deleted_at=None,
-                cluster_id=None,
-                nodepool_id=None,
-                instance_id=None,
-                flavor=None,
-                status=None,
-                version=None,
-            )
-
-        fk_created_at: int = time_service.get_or_create(
-            time_service.parse_iso_date(node_data["createdAt"])
-        )
-        fk_updated_at: int = time_service.get_or_create(
-            time_service.parse_iso_date(node_data["updatedAt"])
-        )
-        fk_deployed_at: int = time_service.get_or_create(
-            time_service.parse_iso_date(node_data["deployedAt"])
-        )
+        if node_data["deployedAt"] is not None:
+            fk_deployed_at = ServiceTime(self.db).get_or_create(parser.parse(node_data["deployedAt"]))
 
         return DimKubernetes(
-            fk_created_at=fk_created_at,
-            fk_updated_at=fk_updated_at,
+            fk_created_at=ServiceTime(self.db).get_or_create(parser.parse(node_data["createdAt"])),
+            fk_updated_at=ServiceTime(self.db).get_or_create(parser.parse(node_data["updatedAt"])),
             fk_deployed_at=fk_deployed_at,
             fk_deleted_at=None,
-            cluster_id=api_kube_service.get_node_cluster(node_id),
+            fk_tenant=fk_tenant,
+            cluster_id=node_data["clusterId"],
             nodepool_id=node_data["nodePoolId"],
             instance_id=node_data["instanceId"],
-            tenant_name=tenant_name,
             flavor=node_data["flavor"],
             status=node_data["status"],
-            version=node_data["version"],
+            version=node_data["version"]
         )

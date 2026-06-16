@@ -125,11 +125,22 @@ class APIServiceKubernetes:
 
         return api_response
 
-    def find_latest_kube_match(self, cluster_id: str, instance_id: str) -> dict[str, Any]: # type: ignore
-        all_nodes: list[dict[str, Any]] = self.list_cluster_nodes(cluster_id) + self.list_cluster_deleted_nodes(cluster_id)
-        matching_nodes: list[dict[str, Any]] = []
+    def find_latest_kube_match(self, instance_ids: list[str]) -> dict[str, dict[str, Any]]: 
+        all_nodes: dict[str, dict[str, Any]] = self.all_nodes_in_dict()
+        matching_nodes: dict[str, dict[str, Any]] = {}
+        
+        for instance_id in instance_ids:
+            if instance_id in all_nodes:
+                matching_nodes[instance_id] = all_nodes[instance_id]
 
-        for node in all_nodes:
-            if node["instanceId"] == instance_id:
-                matching_nodes.append(node)
+        print(f"input instance count={len(instance_ids)} | match count={len(matching_nodes)}")
+        return matching_nodes
 
+    def all_nodes_in_dict(self) -> dict[str, dict[str, Any]]:
+        all_nodes: dict[str, dict[str, Any]] = {}
+        for cluster in self.list_clusters():
+            for node in self.list_cluster_nodes(cluster) + self.list_cluster_deleted_nodes(cluster):
+                node["clusterId"] = cluster
+                all_nodes[node["instanceId"]] = node
+
+        return all_nodes

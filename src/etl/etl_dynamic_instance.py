@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from decimal import Decimal
 from typing import Any, Optional
 
+from services.dimension.api_service_kubernetes import APIServiceKubernetes
 from sqlalchemy.orm import Session
 
 from etl.etl_interface import ETLInterface
@@ -107,15 +108,25 @@ class ETLDynamicInstance:
         fk_period_from: int = ServiceTime(db).get_or_create(self.period_from)
         fk_period_to: int = ServiceTime(db).get_or_create(self.period_to)
 
+        instance_ids: list[str] = []
+        for instance_group in self.dynamic_instances:
+            for details in instance_group.details:
+                instance_ids.append(details.instance_id)
+
+        kube_instances: dict[str, dict[str, Any]] = APIServiceKubernetes(self.service_id).find_latest_kube_match([details.instance_id for instance in self.dynamic_instances for details in instance.details])
+
         for flavor in self.dynamic_instances:
             fk_dep_mode: int = ServiceDeploymentMode(db).get_or_create(flavor.deployment_mode)
             fk_region: int = ServiceRegion(db).get_or_create(flavor.region)
 
             for instance in flavor.details:
+                fk_resource: Optional[int] = None
                 fk_usage_unit: int = ServiceUnit(db).get_or_create(instance.quantity.unit)
-
                 instance.total_price = ServiceDynamicInstance(db).get_non_cumulative_cost(instance.instance_id, instance.total_price)
                 instance.quantity.value = ServiceDynamicInstance(db).get_non_cumulative_value(instance.instance_id, instance.quantity.value)
+
+                if instance.instance_id in kube_instances:
+                    fk_resource = DBService(db, DimKubernetes).insert_one(DBServiceKubernetes(db).create_record(fk_tenant, kube_instances[instance.instance_id]))
 
                 instance_record: FactCurrentDynamicCompute = FactCurrentDynamicCompute(
                     instance_id=instance.instance_id,
@@ -125,7 +136,7 @@ class ETLDynamicInstance:
                     fk_tenant=fk_tenant,
                     fk_region=fk_region,
                     fk_deployment_mode=fk_dep_mode,
-                    fk_resource=None,
+                    fk_resource=fk_resource,
                     fk_usage_unit=fk_usage_unit,
                     usage_value=instance.quantity.value,
                     usage_price=instance.total_price,

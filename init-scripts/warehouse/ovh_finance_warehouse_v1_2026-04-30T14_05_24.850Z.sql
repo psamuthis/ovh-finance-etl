@@ -525,3 +525,9 @@ ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_savings_plan_over_quota"
 ADD FOREIGN KEY ("fk_created_at") REFERENCES "dim_time"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "bridge_over_quota_savings_plan"
+ADD FOREIGN KEY ("fk_savings_plan") REFERENCES "dim_current_savings_plan"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "bridge_over_quota_savings_plan"
+ADD FOREIGN KEY ("fk_over_quota") REFERENCES "fact_savings_plan_over_quota"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;

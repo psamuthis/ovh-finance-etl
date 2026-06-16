@@ -5,7 +5,6 @@ from typing import Any
 
 from connector.postgres_connection import WarehouseSessionLocal
 from etl.etl_fixed_instance import ETLFixedInstance
-from etl.etl_kubernetes import ETLKubernetes
 from etl.etl_savings_plan import ETLSavingsPlan
 from etl.etl_storage import ETLStorage
 from etl.etl_volume import ETLVolume
@@ -32,7 +31,6 @@ class ETL:
         self.savings_plans: ETLSavingsPlan = ETLSavingsPlan(self.service_id)
         # self.mks: ETLMKS = ETLMKS(self.service_id, self.period_from, self.period_to)
         self.storage: ETLStorage = ETLStorage(self.service_id, self.period_from, self.period_to)
-        self.kube: ETLKubernetes = ETLKubernetes(self.service_id, self.period_from, self.period_to)
 
     def run(self):
         print(f"Starting ETL process...")
@@ -78,10 +76,5 @@ class ETL:
         self.storage.extract_data(self.json["hourlyUsage"]["storage"])
         self.storage.load_data()
         print(f"Storage processed.")
-
-        print(f"Kubernetes...")
-        self.kube.extract_data()
-        self.kube.load_data()
-        print(f"Kubernetes processed.")
 
         print(f"ETL process done.")
