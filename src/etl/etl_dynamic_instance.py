@@ -11,7 +11,6 @@ from etl.dataclass.shared import Quantity
 from etl.dataclass.instance import (
     DynamicInstance,
     DynamicInstanceDetails,
-    FixedInstance,
     DynamicInstanceOption
 )
 from connector.postgres_connection import WarehouseSessionLocal
@@ -133,7 +132,6 @@ class ETLDynamicInstance:
                     fk_period_from=fk_period_from,
                     fk_period_to=fk_period_to,
                     fk_created_at=ServiceTime(db).get_or_create(datetime.now(timezone.utc)),
-                    fk_tenant=fk_tenant,
                     fk_region=fk_region,
                     fk_deployment_mode=fk_dep_mode,
                     fk_resource=fk_resource,

@@ -15,7 +15,6 @@ class FactCurrentDynamicCompute(Base):
     fk_period_from: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
     fk_period_to: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
     fk_created_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
-    fk_tenant: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_tenant.id"))
     fk_region: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_region.id"))
     fk_deployment_mode: Mapped[int] = mapped_column(
         SmallInteger, ForeignKey("dim_deployment_mode.id")

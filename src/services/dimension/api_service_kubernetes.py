@@ -133,13 +133,12 @@ class APIServiceKubernetes:
             if instance_id in all_nodes:
                 matching_nodes[instance_id] = all_nodes[instance_id]
 
-        print(f"input instance count={len(instance_ids)} | match count={len(matching_nodes)}")
         return matching_nodes
 
     def all_nodes_in_dict(self) -> dict[str, dict[str, Any]]:
         all_nodes: dict[str, dict[str, Any]] = {}
         for cluster in self.list_clusters():
-            for node in self.list_cluster_nodes(cluster) + self.list_cluster_deleted_nodes(cluster):
+            for node in self.list_cluster_nodes(cluster) + self.list_cluster_deleted_nodes(cluster, False):
                 node["clusterId"] = cluster
                 all_nodes[node["instanceId"]] = node
 

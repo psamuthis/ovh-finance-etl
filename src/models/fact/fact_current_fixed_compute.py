@@ -17,6 +17,5 @@ class FactCurrentFixedCompute(Base):
     fk_activation: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
     fk_resource: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_kubernetes.id"))
     fk_created_at: Mapped[int] = mapped_column(BigInteger, ForeignKey("dim_time.id"))
-    fk_tenant: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_tenant.id"))
     instance_id: Mapped[str] = mapped_column(UUID)
     price: Mapped[Decimal] = mapped_column(Numeric)
