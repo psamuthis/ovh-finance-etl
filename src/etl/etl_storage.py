@@ -12,24 +12,52 @@ from models.fact.fact_storage import FactCurrentStorage
 from services.db_service import DBService
 from services.dimension.service_deployment_mode import ServiceDeploymentMode
 from services.dimension.service_region import ServiceRegion
+from services.dimension.service_storage import ServiceStorage
 from services.dimension.service_storage_type import ServiceStorageType
 from services.dimension.service_time import ServiceTime
 from services.dimension.service_unit import ServiceUnit
 
 @dataclass
 class StorageEntry:
-    name: str
-    type: str
-    deployment_mode: str
-    region: str
     incoming_bandwidth: Bandwidth
     incoming_internal_bandwidth: Bandwidth
     outgoing_bandwidth: Bandwidth
     outgoing_internal_bandwidth: Bandwidth
     retrieval_fees_quantity: Quantity
-    retrieval_fees_price: Decimal
     stored_quantity: Quantity
-    stored_price: Decimal
+    name: str = ""
+    type: str = ""
+    deployment_mode: str = ""
+    region: str = ""
+    retrieval_fees_price: Decimal = Decimal(0)
+    stored_price: Decimal = Decimal(0)
+
+@dataclass
+class StorageCost:
+    incoming_bandwidth_value: Decimal = Decimal(0)
+    incoming_bandwidth_price: Decimal = Decimal(0)
+    outgoing_bandwidth_value: Decimal = Decimal(0)
+    outgoing_bandwidth_price: Decimal = Decimal(0)
+    in_internal_bandwidth_value: Decimal = Decimal(0)
+    in_internal_bandwidth_price: Decimal = Decimal(0)
+    out_internal_bandwidth_value: Decimal = Decimal(0)
+    out_internal_bandwidth_price: Decimal = Decimal(0)
+    retrieval_fees_value: Decimal = Decimal(0)
+    retrieval_fees_price: Decimal = Decimal(0)
+
+    def __sub__(self, other: "StorageCost") -> "StorageCost":
+        return StorageCost(
+            self.incoming_bandwidth_value - other.incoming_bandwidth_value,
+            self.incoming_bandwidth_price - other.incoming_bandwidth_price,
+            self.outgoing_bandwidth_value - other.outgoing_bandwidth_value,
+            self.outgoing_bandwidth_price - other.outgoing_bandwidth_price,
+            self.in_internal_bandwidth_value - other.in_internal_bandwidth_value,
+            self.in_internal_bandwidth_price - other.in_internal_bandwidth_price,
+            self.out_internal_bandwidth_value - other.out_internal_bandwidth_value,
+            self.out_internal_bandwidth_price - other.out_internal_bandwidth_price,
+            self.retrieval_fees_value - other.retrieval_fees_value,
+            self.retrieval_fees_price - other.retrieval_fees_price,
+        )
 
 
 class ETLStorage:
@@ -62,10 +90,6 @@ class ETLStorage:
                 storage_entry["outgoingInternalBandwidth"]["totalPrice"])
 
             self.storage.append(StorageEntry(
-                storage_entry["bucketName"],
-                storage_entry["type"],
-                storage_entry["deploymentMode"],
-                storage_entry["region"],
                 incoming_bandwidth,
                 incoming_internal_bandwidth,
                 outgoing_bandwidth,
@@ -73,10 +97,14 @@ class ETLStorage:
                 Quantity(
                     storage_entry["retrievalFees"]["quantity"]["unit"],
                     storage_entry["retrievalFees"]["quantity"]["value"]),
-                storage_entry["retrievalFees"]["totalPrice"]["value"],
                 Quantity(
                     storage_entry["stored"]["quantity"]["unit"], 
                     storage_entry["stored"]["quantity"]["value"]),
+                storage_entry["bucketName"],
+                storage_entry["type"],
+                storage_entry["deploymentMode"],
+                storage_entry["region"],
+                storage_entry["retrievalFees"]["totalPrice"]["value"],
                 storage_entry["stored"]["totalPrice"]
             ))
 
@@ -89,6 +117,20 @@ class ETLStorage:
                     fk_type=ServiceStorageType(db).get_or_create(storage.type),
                     name=storage.name,
                 ))
+
+                storage_cost: StorageCost = StorageCost(
+                    storage.incoming_bandwidth.quantity.value,
+                    storage.incoming_bandwidth.total_price,
+                    storage.outgoing_bandwidth.quantity.value,
+                    storage.outgoing_bandwidth.total_price,
+                    storage.incoming_internal_bandwidth.quantity.value,
+                    storage.incoming_internal_bandwidth.total_price,
+                    storage.outgoing_internal_bandwidth.quantity.value,
+                    storage.outgoing_internal_bandwidth.total_price,
+                    storage.retrieval_fees_quantity.value,
+                    storage.retrieval_fees_price
+                )
+                storage_cost = ServiceStorage(db).get_non_cumulative_cost(storage.name, storage_cost)
 
                 DBService(db, FactCurrentStorage).insert_one(FactCurrentStorage(
                     fk_storage=fk_storage,

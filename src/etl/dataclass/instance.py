@@ -16,7 +16,7 @@ class DynamicInstanceDetails:
 @dataclass
 class Bandwidth:
     quantity: Quantity
-    total_price: Decimal
+    total_price: Decimal = Decimal(0)
 
 
 @dataclass

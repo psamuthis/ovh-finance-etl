@@ -11,8 +11,8 @@ class Period:
 
 @dataclass
 class Quantity:
-    unit: str
-    value: Decimal
+    unit: str = ""
+    value: Decimal = Decimal(0)
 
 
 @dataclass
