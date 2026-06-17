@@ -2,12 +2,8 @@ from datetime import datetime, timezone
 from typing import Any
 
 from connector.postgres_connection import WarehouseSessionLocal
-from etl.etl_interface import ETLInterface
 from etl.dataclass.instance import FixedInstance, FixedInstanceOption
-from etl.dataclass.shared import Quantity
-from models.bridge.bridge_dynamic_instance_options import BridgeDynamicInstanceOption
 from models.bridge.bridge_fixed_instance_options import BridgeFixedInstanceOption
-from models.dimension.dim_deployment_mode import DimDeploymentMode
 from models.fact.fact_current_fixed_compute import FactCurrentFixedCompute
 from models.fact.fact_fixed_instance_option import FactFixedInstanceOption
 from services.db_service import DBService
@@ -16,7 +12,6 @@ from services.dimension.service_region import ServiceRegion
 from services.dimension.service_tenant import ServiceTenant
 from services.dimension.service_time import ServiceTime
 from services.fact.service_fixed_instance import ServiceFixedInstance
-from sqlalchemy.orm import Session
 
 class ETLFixedInstance:
     def __init__(self, service_id: str, period_from: datetime, period_to: datetime):
@@ -77,7 +72,6 @@ class ETLFixedInstance:
                         fk_activation=fk_activation,
                         fk_resource=None,
                         fk_created_at=ServiceTime(db).get_or_create(datetime.now(timezone.utc)),
-                        fk_tenant=fk_tenant,
                         instance_id=fixed_instance.instance_id,
                         price=fixed_instance.total_price,
                     )
@@ -95,7 +89,7 @@ class ETLFixedInstance:
                     )
 
                     DBService(db, BridgeFixedInstanceOption).insert_one(
-                        BridgeDynamicInstanceOption(fk_instance=fk_instance, fk_option=fk_option)
+                        BridgeFixedInstanceOption(fk_instance=fk_instance, fk_option=fk_option)
                     )
 
             db.commit()
