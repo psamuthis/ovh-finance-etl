@@ -94,14 +94,9 @@ class ETLVolume(ETLInterface):
                     created_at: datetime = datetime.now(timezone.utc)
                     fk_created_at: int = ServiceTime(db).get_or_create(created_at)
                     fk_volume: int = ServiceDimVolume(db).insert_one(dim_volume)
-                    non_cumulative_price: Decimal = ServiceFactVolume(
-                        db
-                    ).get_non_cumulative_cost(
+                    non_cumulative_price: Decimal = ServiceFactVolume(db).get_non_cumulative_cost(
                         details.volume_uuid,
                         details.total_price,
-                    )
-                    non_cumulative_value: Decimal = ServiceFactVolume(db).get_non_cumulative_value(
-                        details.volume_uuid, details.quantity.value
                     )
 
                     record: FactVolume = FactVolume(
@@ -110,7 +105,7 @@ class ETLVolume(ETLInterface):
                         fk_period_to=ServiceTime(db).get_or_create(self.period_to),
                         fk_created_at=fk_created_at,
                         fk_unit=ServiceUnit(db).get_or_create(details.quantity.unit),
-                        value=non_cumulative_value,
+                        value=details.quantity.value,
                         price=non_cumulative_price,
                     )
 
