@@ -1,12 +1,15 @@
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Optional
 
 from connector.postgres_connection import WarehouseSessionLocal
 from etl.dataclass.instance import FixedInstance, FixedInstanceOption
 from models.bridge.bridge_fixed_instance_options import BridgeFixedInstanceOption
+from models.dimension.dim_kubernetes import DimKubernetes
 from models.fact.fact_current_fixed_compute import FactCurrentFixedCompute
 from models.fact.fact_fixed_instance_option import FactFixedInstanceOption
 from services.db_service import DBService
+from services.dimension.api_service_kubernetes import APIServiceKubernetes
+from services.dimension.db_service_kubernetes import DBServiceKubernetes
 from services.dimension.service_deployment_mode import ServiceDeploymentMode
 from services.dimension.service_region import ServiceRegion
 from services.dimension.service_tenant import ServiceTenant
@@ -56,6 +59,7 @@ class ETLFixedInstance:
     def load_data(self) -> None:
         with WarehouseSessionLocal() as db:
             fk_tenant: int = ServiceTenant(db).get_or_create(self.service_id)
+            kube_instances: dict[str, dict[str, Any]] = APIServiceKubernetes(self.service_id).find_latest_kube_match([instance.instance_id for instance in self.fixed_instances])
 
             for fixed_instance in self.fixed_instances:
                 fk_deployment_mode: int = ServiceDeploymentMode(db).get_or_create(
@@ -63,14 +67,18 @@ class ETLFixedInstance:
                 )
                 fk_region: int = ServiceRegion(db).get_or_create(fixed_instance.region)
                 fk_activation: int = ServiceTime(db).get_or_create(fixed_instance.activation_date)
+                fk_resource: Optional[int] = None
 
+
+                if fixed_instance.instance_id in kube_instances:
+                    fk_resource = DBService(db, DimKubernetes).insert_one(DBServiceKubernetes(db).create_record(fk_tenant, kube_instances[fixed_instance.instance_id]))
 
                 fk_instance: int = ServiceFixedInstance(db).get_or_create(
                     FactCurrentFixedCompute(
                         fk_deployment_mode=fk_deployment_mode,
                         fk_region=fk_region,
                         fk_activation=fk_activation,
-                        fk_resource=None,
+                        fk_resource=fk_resource,
                         fk_created_at=ServiceTime(db).get_or_create(datetime.now(timezone.utc)),
                         instance_id=fixed_instance.instance_id,
                         price=fixed_instance.total_price,

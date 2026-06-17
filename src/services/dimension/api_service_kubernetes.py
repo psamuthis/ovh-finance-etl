@@ -137,6 +137,7 @@ class APIServiceKubernetes:
 
     def all_nodes_in_dict(self) -> dict[str, dict[str, Any]]:
         all_nodes: dict[str, dict[str, Any]] = {}
+
         for cluster in self.list_clusters():
             for node in self.list_cluster_nodes(cluster) + self.list_cluster_deleted_nodes(cluster, False):
                 node["clusterId"] = cluster
