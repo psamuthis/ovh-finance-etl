@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS "fact_current_dynamic_compute" (
 	"fk_deployment_mode" SMALLSERIAL,
 	"fk_resource" BIGINT,
 	"fk_usage_unit" BIGINT,
-	"fk_tenant" SMALLINT,
 	"usage_value" NUMERIC,
 	"usage_price" NUMERIC,
 	PRIMARY KEY("id")
@@ -38,7 +37,6 @@ CREATE TABLE IF NOT EXISTS "fact_current_fixed_compute" (
 	"fk_activation" BIGSERIAL,
 	"fk_resource" BIGINT,
 	"fk_created_at" BIGSERIAL,
-	"fk_tenant" SMALLSERIAL,
 	"instance_id" UUID,
 	"price" NUMERIC,
 	PRIMARY KEY("id")
@@ -341,9 +339,6 @@ ADD FOREIGN KEY("fk_period_to") REFERENCES "dim_time"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "fact_current_dynamic_compute"
 ADD FOREIGN KEY("fk_period_from") REFERENCES "dim_time"("id")
-ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "fact_current_dynamic_compute"
-ADD FOREIGN KEY("fk_tenant") REFERENCES "dim_tenant"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "dim_kubernetes"
 ADD FOREIGN KEY("fk_deployed_at") REFERENCES "dim_time"("id")
