@@ -89,7 +89,7 @@ class ETLSavingsPlan:
                         size=self.savings_plan[id].size,
                         flavor=over_quota.flavor,
                         currency_code=self.savings_plan[id].currency_code,
-                        price=self.savings_plan[id].price,
+                        price=round(self.savings_plan[id].price, 5),
                         plan_id=id
                     ))
 
