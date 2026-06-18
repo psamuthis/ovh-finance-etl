@@ -5,6 +5,7 @@ from models.dimension.dim_time import DimTime
 from models.dimension.dim_savings_plan import DimSavingsPlan
 from services.db_service import DBService
 from sqlalchemy.orm import Session, aliased
+from dateutil.relativedelta import relativedelta
 
 
 class ServiceSavingsPlan(DBService):
@@ -13,6 +14,7 @@ class ServiceSavingsPlan(DBService):
         
     def get_or_create(self, record: DimSavingsPlan) -> int:
         month_start: datetime = datetime.now(timezone.utc).replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+        month_end: datetime = month_start + relativedelta(months=1)
 
         DimTimeFrom = aliased(DimTime)
         DimTimeTo = aliased(DimTime)
@@ -22,7 +24,7 @@ class ServiceSavingsPlan(DBService):
             .join(DimTimeFrom, DimTimeFrom.id==DimSavingsPlan.fk_period_from)\
             .join(DimTimeTo, DimTimeTo.id==DimSavingsPlan.fk_period_to)\
             .filter(DimTimeFrom.timestamptz >= month_start)\
-            .filter(DimTimeTo.timestamptz < datetime.now(timezone.utc))\
+            .filter(DimTimeTo.timestamptz < month_end)\
             .first()
 
         if existing_plan is not None:

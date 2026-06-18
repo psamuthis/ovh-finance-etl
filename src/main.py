@@ -5,7 +5,7 @@ from models.raw.current_usage_raw import CurrentUsageRaw
 from connector.postgres_connection import RawSessionLocal, WarehouseSessionLocal
 from services.raw.service_current_usage_raw import ServiceUsageRaw
 
-from excluded_tenants import EXCLUDED_TENANTS
+from config import EXCLUDED_TENANTS
 
 EXCLUDED_TENANT_IDS: set[str] = set(EXCLUDED_TENANTS.values())
 

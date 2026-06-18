@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from decimal import Decimal
 
+from config import DECIMAL_PRECISION
 from models.dimension.dim_time import DimTime
 from models.fact.fact_current_dynamic_compute import FactCurrentDynamicCompute
 from sqlalchemy import func
@@ -25,7 +26,7 @@ class ServiceDynamicInstance:
             .filter(DimTimeTo.timestamptz < datetime.now(timezone.utc))\
             .scalar() or Decimal(0)
 
-        return round(current_price - previous_sum, 5)
+        return round(current_price - previous_sum, DECIMAL_PRECISION)
 
     def get_non_cumulative_value(self, instance_id: str, current_value: Decimal) -> Decimal:
         month_start: datetime = datetime.now(timezone.utc).replace(day=1, hour=0, minute=0, second=0, microsecond=0)

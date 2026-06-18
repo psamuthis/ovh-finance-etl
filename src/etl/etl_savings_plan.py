@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from decimal import Decimal
 import re
 from typing import Any
+from config import DECIMAL_PRECISION
 from dateutil import parser
 
 from connector.postgres_connection import WarehouseSessionLocal
@@ -63,7 +64,7 @@ class ETLSavingsPlan:
             self.over_quota.append(OverQuotaEntry(
                 instance_group["reference"].replace(OVER_QUOTA_TOK, ""),
                 instance_group["savingsPlanIds"],
-                Quantity(instance_group["quantity"]["unit"], instance_group["quantity"]["value"]),
+                Quantity(instance_group["quantity"]["unit"], Decimal(instance_group["quantity"]["value"])),
                 instance_group["totalPrice"]
             ))
 
@@ -89,7 +90,7 @@ class ETLSavingsPlan:
                         size=self.savings_plan[id].size,
                         flavor=over_quota.flavor,
                         currency_code=self.savings_plan[id].currency_code,
-                        price=round(self.savings_plan[id].price, 5),
+                        price=round(self.savings_plan[id].price, DECIMAL_PRECISION),
                         plan_id=id
                     ))
 

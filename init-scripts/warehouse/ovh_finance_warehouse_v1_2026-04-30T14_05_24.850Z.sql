@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS "dim_storage" (
 	"fk_deployment_mode" SMALLSERIAL,
 	"fk_region" SMALLSERIAL,
 	"fk_type" SMALLSERIAL,
-	"name" VARCHAR(255),
+	"name" VARCHAR(255) DEFAULT NULL,
 	PRIMARY KEY("id")
 );
 

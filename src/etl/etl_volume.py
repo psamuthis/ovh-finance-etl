@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from decimal import Decimal
 from typing import Any, Optional
 
+from config import DECIMAL_PRECISION
 from connector.postgres_connection import WarehouseSessionLocal
 from models.dimension.dim_deployment_mode import DimDeploymentMode
 from models.dimension.dim_kubernetes import DimKubernetes
@@ -66,7 +67,7 @@ class ETLVolume(ETLInterface):
                 details = VolumeDetails(
                     quantity=quantity,
                     resource_id=volume_details["resourceId"],
-                    total_price=round(Decimal(volume_details["totalPrice"]), 5),
+                    total_price=round(Decimal(volume_details["totalPrice"]), DECIMAL_PRECISION),
                     volume_uuid=volume_details["volumeId"],
                 )
 

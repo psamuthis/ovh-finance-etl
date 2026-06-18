@@ -1,63 +1,21 @@
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from decimal import Decimal
-from tkinter import W
 from typing import Any
 
+from config import DECIMAL_PRECISION
 from connector.postgres_connection import WarehouseSessionLocal
 from etl.dataclass.instance import Bandwidth
 from etl.dataclass.shared import Quantity
+from etl.dataclass.storage import StorageEntry
 from models.dimension.dim_storage import DimStorage
 from models.fact.fact_storage import FactCurrentStorage
 from services.db_service import DBService
 from services.dimension.service_deployment_mode import ServiceDeploymentMode
 from services.dimension.service_region import ServiceRegion
-from services.dimension.service_storage import ServiceStorage
 from services.dimension.service_storage_type import ServiceStorageType
 from services.dimension.service_time import ServiceTime
 from services.dimension.service_unit import ServiceUnit
-
-@dataclass
-class StorageEntry:
-    incoming_bandwidth: Bandwidth
-    incoming_internal_bandwidth: Bandwidth
-    outgoing_bandwidth: Bandwidth
-    outgoing_internal_bandwidth: Bandwidth
-    retrieval_fees_quantity: Quantity
-    stored_quantity: Quantity
-    name: str = ""
-    type: str = ""
-    deployment_mode: str = ""
-    region: str = ""
-    retrieval_fees_price: Decimal = Decimal(0)
-    stored_price: Decimal = Decimal(0)
-
-@dataclass
-class StorageCost:
-    incoming_bandwidth_value: Decimal = Decimal(0)
-    incoming_bandwidth_price: Decimal = Decimal(0)
-    outgoing_bandwidth_value: Decimal = Decimal(0)
-    outgoing_bandwidth_price: Decimal = Decimal(0)
-    in_internal_bandwidth_value: Decimal = Decimal(0)
-    in_internal_bandwidth_price: Decimal = Decimal(0)
-    out_internal_bandwidth_value: Decimal = Decimal(0)
-    out_internal_bandwidth_price: Decimal = Decimal(0)
-    retrieval_fees_value: Decimal = Decimal(0)
-    retrieval_fees_price: Decimal = Decimal(0)
-
-    def __sub__(self, other: "StorageCost") -> "StorageCost":
-        return StorageCost(
-            self.incoming_bandwidth_value - other.incoming_bandwidth_value,
-            self.incoming_bandwidth_price - other.incoming_bandwidth_price,
-            self.outgoing_bandwidth_value - other.outgoing_bandwidth_value,
-            self.outgoing_bandwidth_price - other.outgoing_bandwidth_price,
-            self.in_internal_bandwidth_value - other.in_internal_bandwidth_value,
-            self.in_internal_bandwidth_price - other.in_internal_bandwidth_price,
-            self.out_internal_bandwidth_value - other.out_internal_bandwidth_value,
-            self.out_internal_bandwidth_price - other.out_internal_bandwidth_price,
-            self.retrieval_fees_value - other.retrieval_fees_value,
-            self.retrieval_fees_price - other.retrieval_fees_price,
-        )
 
 
 class ETLStorage:
@@ -71,23 +29,26 @@ class ETLStorage:
         for storage_entry in storage_data:
             incoming_bandwidth: Bandwidth = Bandwidth(Quantity(
                     storage_entry["incomingBandwidth"]["quantity"]["unit"],
-                    storage_entry["incomingBandwidth"]["quantity"]["value"]),
-                storage_entry["incomingBandwidth"]["totalPrice"])
+                    Decimal(storage_entry["incomingBandwidth"]["quantity"]["value"])),
+                Decimal(storage_entry["incomingBandwidth"]["totalPrice"]))
 
             incoming_internal_bandwidth: Bandwidth = Bandwidth(Quantity(
                     storage_entry["incomingInternalBandwidth"]["quantity"]["unit"],
-                    storage_entry["incomingInternalBandwidth"]["quantity"]["value"]),
-                storage_entry["incomingInternalBandwidth"]["totalPrice"])
+                    Decimal(storage_entry["incomingInternalBandwidth"]["quantity"]["value"])),
+                Decimal(storage_entry["incomingInternalBandwidth"]["totalPrice"]))
 
             outgoing_bandwidth: Bandwidth = Bandwidth(Quantity(
                     storage_entry["outgoingBandwidth"]["quantity"]["unit"],
-                    storage_entry["outgoingBandwidth"]["quantity"]["value"]),
-                storage_entry["outgoingBandwidth"]["totalPrice"])
+                    Decimal(storage_entry["outgoingBandwidth"]["quantity"]["value"])),
+                Decimal(storage_entry["outgoingBandwidth"]["totalPrice"]))
 
             outgoing_internal_bandwidth: Bandwidth = Bandwidth(Quantity(
                     storage_entry["outgoingInternalBandwidth"]["quantity"]["unit"],
-                    storage_entry["outgoingInternalBandwidth"]["quantity"]["value"]),
-                storage_entry["outgoingInternalBandwidth"]["totalPrice"])
+                    Decimal(storage_entry["outgoingInternalBandwidth"]["quantity"]["value"])),
+                Decimal(storage_entry["outgoingInternalBandwidth"]["totalPrice"]))
+
+            if storage_entry["bucketName"] == "":
+                storage_entry["bucketName"] = None
 
             self.storage.append(StorageEntry(
                 incoming_bandwidth,
@@ -96,16 +57,16 @@ class ETLStorage:
                 outgoing_internal_bandwidth,
                 Quantity(
                     storage_entry["retrievalFees"]["quantity"]["unit"],
-                    storage_entry["retrievalFees"]["quantity"]["value"]),
+                    Decimal(storage_entry["retrievalFees"]["quantity"]["value"])),
                 Quantity(
                     storage_entry["stored"]["quantity"]["unit"], 
-                    storage_entry["stored"]["quantity"]["value"]),
+                    Decimal(storage_entry["stored"]["quantity"]["value"])),
                 storage_entry["bucketName"],
                 storage_entry["type"],
                 storage_entry["deploymentMode"],
                 storage_entry["region"],
-                storage_entry["retrievalFees"]["totalPrice"]["value"],
-                storage_entry["stored"]["totalPrice"]
+                Decimal(storage_entry["retrievalFees"]["totalPrice"]["value"]),
+                Decimal(storage_entry["stored"]["totalPrice"])
             ))
 
     def load_data(self) -> None:
@@ -118,20 +79,6 @@ class ETLStorage:
                     name=storage.name,
                 ))
 
-                storage_cost: StorageCost = StorageCost(
-                    storage.incoming_bandwidth.quantity.value,
-                    storage.incoming_bandwidth.total_price,
-                    storage.outgoing_bandwidth.quantity.value,
-                    storage.outgoing_bandwidth.total_price,
-                    storage.incoming_internal_bandwidth.quantity.value,
-                    storage.incoming_internal_bandwidth.total_price,
-                    storage.outgoing_internal_bandwidth.quantity.value,
-                    storage.outgoing_internal_bandwidth.total_price,
-                    storage.retrieval_fees_quantity.value,
-                    storage.retrieval_fees_price
-                )
-                storage_cost = ServiceStorage(db).get_non_cumulative_cost(storage.name, storage_cost)
-
                 DBService(db, FactCurrentStorage).insert_one(FactCurrentStorage(
                     fk_storage=fk_storage,
                     fk_period_from=ServiceTime(db).get_or_create(self.period_from),
@@ -139,28 +86,28 @@ class ETLStorage:
                     fk_created_at=ServiceTime(db).get_or_create(datetime.now(timezone.utc)),
 
                     fk_in_bandwidth_unit=ServiceUnit(db).get_or_create(storage.incoming_bandwidth.quantity.unit),
-                    in_bandwidth_value=storage.incoming_bandwidth.quantity.value,
-                    in_bandwidth_price=storage.incoming_bandwidth.total_price,
+                    in_bandwidth_value=round(storage.incoming_bandwidth.quantity.value, DECIMAL_PRECISION),
+                    in_bandwidth_price=round(storage.incoming_bandwidth.total_price, DECIMAL_PRECISION),
 
                     fk_in_internal_bandwidth_unit=ServiceUnit(db).get_or_create(storage.incoming_internal_bandwidth.quantity.unit),
-                    in_internal_bandwidth_value=storage.incoming_internal_bandwidth.quantity.value,
-                    in_internal_bandwidth_price=storage.incoming_internal_bandwidth.total_price,
+                    in_internal_bandwidth_value=round(storage.incoming_internal_bandwidth.quantity.value, DECIMAL_PRECISION),
+                    in_internal_bandwidth_price=round(storage.incoming_internal_bandwidth.total_price, DECIMAL_PRECISION),
 
                     fk_out_bandwidth_unit=ServiceUnit(db).get_or_create(storage.outgoing_bandwidth.quantity.unit),
-                    out_bandwidth_value=storage.outgoing_bandwidth.quantity.value,
-                    out_bandwidth_price=storage.outgoing_bandwidth.total_price,
+                    out_bandwidth_value=round(storage.outgoing_bandwidth.quantity.value, DECIMAL_PRECISION),
+                    out_bandwidth_price=round(storage.outgoing_bandwidth.total_price, DECIMAL_PRECISION),
 
                     fk_out_internal_bandwidth_unit=ServiceUnit(db).get_or_create(storage.outgoing_internal_bandwidth.quantity.unit),
-                    out_internal_bandwidth_value=storage.outgoing_internal_bandwidth.quantity.value,
-                    out_internal_bandwidth_price=storage.outgoing_internal_bandwidth.total_price,
+                    out_internal_bandwidth_value=round(storage.outgoing_internal_bandwidth.quantity.value, DECIMAL_PRECISION),
+                    out_internal_bandwidth_price=round(storage.outgoing_internal_bandwidth.total_price, DECIMAL_PRECISION),
 
                     fk_retrieval_fees_unit=ServiceUnit(db).get_or_create(storage.retrieval_fees_quantity.unit),
-                    retrieval_fees_value=storage.retrieval_fees_quantity.value,
-                    retrieval_fees_price=storage.retrieval_fees_price,
+                    retrieval_fees_value=round(storage.retrieval_fees_quantity.value, DECIMAL_PRECISION),
+                    retrieval_fees_price=round(storage.retrieval_fees_price, DECIMAL_PRECISION),
 
                     fk_stored_unit=ServiceUnit(db).get_or_create(storage.stored_quantity.unit),
-                    stored_value=storage.stored_quantity.value,
-                    stored_price=storage.stored_price
+                    stored_value=round(storage.stored_quantity.value, DECIMAL_PRECISION),
+                    stored_price=round(storage.stored_price, DECIMAL_PRECISION),
                 ))
 
             db.commit()
