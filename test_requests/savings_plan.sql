@@ -5,17 +5,7 @@ join dim_time t2 on t2.id = sp.fk_period_to
 group by sp.id, sp.flavor, t.timestamptz, t2.timestamptz
 order by t.timestamptz, t2.timestamptz;
 
--- all env in saving plan and associated over quota
-/*
-select dsp.flavor, dsp.name, dsp.size, dsp.price,
-    sum(oq.price) as total_oq, t.month
-    from bridge_over_quota_savings_plan b
-    join dim_current_savings_plan dsp on dsp.id = b.fk_savings_plan
-    join fact_savings_plan_over_quota oq on oq.id = b.fk_over_quota
-    join dim_time t on t.id = dsp.fk_period_from
-    group by dsp.flavor, t.month, dsp.name, dsp.size, dsp.price, t.month;
-*/
-
+-- env per flavor with associated over_quota
 SELECT 
     name,
     flavor,
