@@ -6,3 +6,4 @@ run_raw_data.json
 sample-api-response/
 backups/**/*
 latest_run_raw_data/
+*.log
