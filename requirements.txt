@@ -2,3 +2,4 @@ ovh
 sqlalchemy
 dotenv
 psycopg2-binary
+python-dateutil

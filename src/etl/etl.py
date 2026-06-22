@@ -41,8 +41,6 @@ class ETL:
         with WarehouseSessionLocal() as db:
             ServiceTenant(db).get_or_create(self.service_id)
 
-        with open(f"latest_run_raw_data/{self.service_id}.json", "w") as file:
-            json.dump(self.json, file, indent=4)
 
         print(f"Volumes...")
         self.volume.extract_data(self.json["hourlyUsage"]["volume"])
