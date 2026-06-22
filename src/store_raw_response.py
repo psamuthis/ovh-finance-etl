@@ -14,7 +14,6 @@ from models.raw.current_usage_raw import CurrentUsageRaw
 
 ENDPOINT_PREFIX: str = "/cloud/project/"
 ENDPOINT_SUFFIX: str = "/usage/current"
-SERVICE_ID: str = "b41a8077d3ed49c69ddc77ed0b16572e"
 
 ovh_client: ovh.Client = OVHConnector._get_client()
 service_list: Optional[list[str]] = ovh_client.get(f"{ENDPOINT_PREFIX}")
@@ -34,7 +33,7 @@ for service_id in service_list:
 
     if api_response is None:
         raise ValueError(
-            f"No response return from API at {ENDPOINT_PREFIX} + {SERVICE_ID} + {ENDPOINT_SUFFIX}"
+            f"No response return from API at {ENDPOINT_PREFIX} + {service_id} + {ENDPOINT_SUFFIX}"
         )
 
     data: dict[str, Any] = {
