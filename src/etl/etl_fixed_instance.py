@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from decimal import Decimal
 from typing import Any, Optional
 
 from connector.postgres_connection import WarehouseSessionLocal
@@ -38,7 +39,7 @@ class ETLFixedInstance:
                     detail["resourceId"],
                     reference,
                     region,
-                    detail["totalPrice"],
+                    Decimal(detail["totalPrice"]),
                 )
                 self.fixed_instances.append(fixed_instance)
 

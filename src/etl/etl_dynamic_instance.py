@@ -76,7 +76,7 @@ class ETLDynamicInstance:
             self.dynamic_instances.append(dynamic_instance)
 
     def transform_dynamic_instance_details(self, details: dict[str, Any]) -> DynamicInstanceDetails:
-        quantity: Quantity = Quantity(details["quantity"]["unit"], details["quantity"]["value"])
+        quantity: Quantity = Quantity(details["quantity"]["unit"], Decimal(details["quantity"]["value"]))
         return DynamicInstanceDetails(
             instance_id=details["instanceId"],
             quantity=quantity,

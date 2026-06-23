@@ -20,4 +20,4 @@ class TotalPrice:
     currency_code: str
     ucents_price: float
     text_value: str
-    value: float
+    value: Decimal = Decimal(0)
