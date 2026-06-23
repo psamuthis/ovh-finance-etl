@@ -256,6 +256,7 @@ CREATE TABLE IF NOT EXISTS "dim_kubernetes" (
 	"fk_deleted_at" BIGINT,
 	"fk_tenant" SMALLSERIAL,
 	"cluster_id" UUID,
+	"cluster_name" VARCHAR(200),
 	"nodepool_id" UUID,
 	"instance_id" UUID,
 	"flavor" VARCHAR(255),

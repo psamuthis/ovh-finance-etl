@@ -23,6 +23,7 @@ class DimKubernetes(Base):
     fk_tenant: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_tenant.id"))
 
     cluster_id: Mapped[UUID] = mapped_column(Uuid)
+    cluster_name: Mapped[str] = mapped_column(String)
     nodepool_id: Mapped[UUID] = mapped_column(Uuid)
     instance_id: Mapped[UUID] = mapped_column(Uuid)
     flavor: Mapped[str] = mapped_column(String)

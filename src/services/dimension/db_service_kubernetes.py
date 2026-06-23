@@ -29,6 +29,7 @@ class DBServiceKubernetes(DBService[DimKubernetes]):
             fk_deleted_at=None,
             fk_tenant=fk_tenant,
             cluster_id=node_data["clusterId"],
+            cluster_name=node_data["name"],
             nodepool_id=node_data["nodePoolId"],
             instance_id=node_data["instanceId"],
             flavor=node_data["flavor"],
