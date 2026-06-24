@@ -26,7 +26,6 @@ db: Session = RawSessionLocal()
 
 for service_id in service_list:
 
-    call_timestamp: datetime = datetime.now(timezone.utc)
     api_response: dict[str, Any] | None = ovh_client.get(
         f"{ENDPOINT_PREFIX}{service_id}{ENDPOINT_SUFFIX}"
     )
@@ -47,7 +46,6 @@ for service_id in service_list:
         "full_response_json": api_response,
         "created_at": datetime.now(timezone.utc),
     }
-
 
     current_usage_record = CurrentUsageRaw(**data)
     db.add(current_usage_record)
