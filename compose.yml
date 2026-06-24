@@ -1,7 +1,7 @@
 services:
   raw_db:
     image: postgres:alpine
-    container_name: raw_postgres
+    container_name: raw
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -24,7 +24,7 @@ services:
 
   warehouse:
     image: postgres:alpine
-    container_name: warehouse_container
+    container_name: warehouse
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
