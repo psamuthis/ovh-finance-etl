@@ -1,17 +1,11 @@
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from decimal import Decimal
-from typing import Any, Optional
+from typing import Any
 
 from config import DECIMAL_PRECISION
 from connector.postgres_connection import WarehouseSessionLocal
-from models.dimension.dim_deployment_mode import DimDeploymentMode
-from models.dimension.dim_kubernetes import DimKubernetes
-from models.dimension.dim_region import DimRegion
-from models.dimension.dim_storage_type import DimStorageType
 from models.dimension.dim_volume import DimVolume
-from services.dimension.api_service_kubernetes import APIServiceKubernetes
-from services.dimension.db_service_kubernetes import DBServiceKubernetes
 from services.dimension.service_deployment_mode import ServiceDeploymentMode
 from services.dimension.service_region import ServiceRegion
 from services.dimension.service_storage_type import ServiceStorageType
@@ -20,7 +14,6 @@ from services.dimension.service_volume import ServiceDimVolume
 from services.dimension.service_unit import ServiceUnit
 from models.fact.fact_volume import FactVolume
 from services.db_service import DBService
-from services.fact.service_volume import ServiceFactVolume
 from services.dimension.service_tenant import ServiceTenant
 
 from .dataclass.shared import Quantity
@@ -92,22 +85,14 @@ class ETLVolume(ETLInterface):
                         fk_tenant=fk_tenant,
                     )
 
-                    created_at: datetime = datetime.now(timezone.utc)
-                    fk_created_at: int = ServiceTime(db).get_or_create(created_at)
-                    fk_volume: int = ServiceDimVolume(db).insert_one(dim_volume)
-                    non_cumulative_price: Decimal = ServiceFactVolume(db).get_non_cumulative_cost(
-                        details.volume_uuid,
-                        details.total_price,
-                    )
-
                     record: FactVolume = FactVolume(
-                        fk_volume=fk_volume,
+                        fk_volume=ServiceDimVolume(db).insert_one(dim_volume),
                         fk_period_from=ServiceTime(db).get_or_create(self.period_from),
                         fk_period_to=ServiceTime(db).get_or_create(self.period_to),
-                        fk_created_at=fk_created_at,
+                        fk_created_at=ServiceTime(db).get_or_create(datetime.now(timezone.utc)),
                         fk_unit=ServiceUnit(db).get_or_create(details.quantity.unit),
                         value=details.quantity.value,
-                        price=non_cumulative_price,
+                        price=details.total_price,
                     )
 
                     DBService(db, FactVolume).insert_one(record)

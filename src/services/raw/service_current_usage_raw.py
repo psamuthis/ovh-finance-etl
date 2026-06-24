@@ -16,3 +16,4 @@ class ServiceUsageRaw(DBService):
             .order_by(CurrentUsageRaw.service_id, CurrentUsageRaw.created_at.desc())
             .all()
         )
+    

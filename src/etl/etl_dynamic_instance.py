@@ -1,12 +1,11 @@
-from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from decimal import Decimal
 from typing import Any, Optional
 
+from config import DECIMAL_PRECISION
 from services.dimension.api_service_kubernetes import APIServiceKubernetes
 from sqlalchemy.orm import Session
 
-from etl.etl_interface import ETLInterface
 from etl.dataclass.shared import Quantity
 from etl.dataclass.instance import (
     DynamicInstance,
@@ -21,11 +20,9 @@ from services.dimension.service_time import ServiceTime
 from services.dimension.service_unit import ServiceUnit
 from models.dimension.dim_kubernetes import DimKubernetes
 from services.dimension.db_service_kubernetes import DBServiceKubernetes
-from models.dimension.dim_time import DimTime
 from models.fact.fact_current_dynamic_compute import FactCurrentDynamicCompute
 from models.fact.fact_dynamic_instance_option import FactDynamicInstanceOption
 from services.db_service import DBService
-from services.fact.service_dynamic_instance import ServiceDynamicInstance
 from models.bridge.bridge_dynamic_instance_options import BridgeDynamicInstanceOption
 
 class ETLDynamicInstance:
@@ -81,7 +78,7 @@ class ETLDynamicInstance:
             instance_id=details["instanceId"],
             quantity=quantity,
             resource_id=details["resourceId"],
-            total_price=Decimal(details["totalPrice"]),
+            total_price=round(Decimal(details["totalPrice"]), DECIMAL_PRECISION),
         )
 
     def transform_option_details(self, details: dict[str, Any], dep_mode: str, region: str, flavor: str) -> DynamicInstanceOption:
@@ -121,8 +118,6 @@ class ETLDynamicInstance:
             for instance in flavor.details:
                 fk_resource: Optional[int] = None
                 fk_usage_unit: int = ServiceUnit(db).get_or_create(instance.quantity.unit)
-                instance.total_price = ServiceDynamicInstance(db).get_non_cumulative_cost(instance.instance_id, instance.total_price)
-                instance.quantity.value = ServiceDynamicInstance(db).get_non_cumulative_value(instance.instance_id, instance.quantity.value)
 
                 if instance.instance_id in kube_instances:
                     fk_resource = DBService(db, DimKubernetes).insert_one(DBServiceKubernetes(db).create_record(fk_tenant, kube_instances[instance.instance_id]))

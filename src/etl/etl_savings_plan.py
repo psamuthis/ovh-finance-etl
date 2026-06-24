@@ -74,8 +74,8 @@ class ETLSavingsPlan:
                 fk_over_quota: int = ServiceOverQuota(db).insert_one(FactSavingsPlanOverQuota(
                     fk_unit=ServiceUnit(db).get_or_create(over_quota.quantity.unit),
                     fk_created_at=ServiceTime(db).get_or_create(datetime.now(timezone.utc)),
-                    value=ServiceOverQuota(db).get_non_cumulative_value(over_quota.flavor, over_quota.quantity.value),
-                    price=ServiceOverQuota(db).get_non_cumulative_cost(over_quota.flavor, over_quota.price),
+                    value=over_quota.quantity.value,
+                    price=over_quota.price,
                     flavor=over_quota.flavor
                 ))
 
