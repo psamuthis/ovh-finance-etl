@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS current_usage_raw;
 CREATE TABLE IF NOT EXISTS current_usage_raw(
     id BIGSERIAL PRIMARY KEY,
     service_id VARCHAR(50) NOT NULL,
@@ -11,6 +12,7 @@ CREATE TABLE IF NOT EXISTS current_usage_raw(
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+DROP TABLE IF EXISTS history_usage_raw;
 CREATE TABLE IF NOT EXISTS history_usage_raw (
     id BIGSERIAL PRIMARY KEY,
     usage_id VARCHAR(50),
