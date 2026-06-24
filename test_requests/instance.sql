@@ -14,3 +14,37 @@ join dim_time "time" on "time".id = fc.fk_created_at
 where "time".month = 6
 group by tenant.name, kube.flavor
 order by total_price desc;
+
+
+-- non cumulative cost
+SELECT
+    fdc.instance_id as id,
+    DATE(t.timestamptz) as day,
+    fdc.usage_price as cumulative_cost,
+    fdc.usage_price - COALESCE(
+        LAG(fdc.usage_price) OVER (
+            PARTITION BY fdc.instance_id 
+            ORDER BY DATE(t.timestamptz)
+        ),
+        0
+    ) as daily_non_cumulative_cost
+FROM fact_current_dynamic_compute fdc
+JOIN dim_time t ON t.id = fdc.fk_created_at
+ORDER BY fdc.instance_id, DATE(t.timestamptz);
+
+-- non cumulative cost per flavor
+select
+    t.timestamptz as "date",
+    k.flavor as flavor,
+    fdc.usage_price - coalesce(
+        lag(fdc.usage_price) over(
+            partition by fdc.instance_id
+            order by t.timestamptz
+        ),
+        0
+    ) as daily_non_cumulative_cost
+from fact_current_dynamic_compute fdc
+join dim_time t on t.id = fdc.fk_created_at
+join dim_kubernetes k on k.id = fdc.fk_resource
+group by k.flavor, t.timestamptz, daily_non_cumulative_cost
+order by t.timestamptz, k.flavor;
