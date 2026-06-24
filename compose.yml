@@ -45,14 +45,6 @@ services:
     networks:
       - finops_network
 
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    ports:
-      - "3000:3000"
-    networks:
-      - finops_network
-
 volumes:
   postgres_raw_data:
   postgres_warehouse_data:
