@@ -16,6 +16,8 @@ from services.dimension.service_region import ServiceRegion
 from services.dimension.service_tenant import ServiceTenant
 from services.dimension.service_time import ServiceTime
 from services.fact.service_fixed_instance import ServiceFixedInstance
+from config import DECIMAL_PRECISION
+
 
 class ETLFixedInstance:
     def __init__(self, service_id: str, period_from: datetime, period_to: datetime, archived_at: datetime):
@@ -40,7 +42,7 @@ class ETLFixedInstance:
                     detail["resourceId"],
                     reference,
                     region,
-                    Decimal(detail["totalPrice"]),
+                    round(Decimal(detail["totalPrice"]), DECIMAL_PRECISION),
                 )
                 self.fixed_instances.append(fixed_instance)
 
@@ -54,26 +56,27 @@ class ETLFixedInstance:
                         deployment_mode=deployment_mode,
                         region=region,
                         instance_id=detail["instanceId"],
-                        total_price=detail["totalPrice"],
-                        flavor=flavor
+                        total_price=round(Decimal(detail["totalPrice"]), DECIMAL_PRECISION),
+                        flavor=flavor,
                     )
 
     def load_data(self) -> None:
         with WarehouseSessionLocal() as db:
             fk_tenant: int = ServiceTenant(db).get_or_create(self.service_id)
-            kube_instances: dict[str, dict[str, Any]] = APIServiceKubernetes(self.service_id).find_latest_kube_match([instance.instance_id for instance in self.fixed_instances])
+            kube_instances: dict[str, dict[str, Any]] = APIServiceKubernetes(self.service_id).find_latest_kube_match(
+                [instance.instance_id for instance in self.fixed_instances]
+            )
 
             for fixed_instance in self.fixed_instances:
-                fk_deployment_mode: int = ServiceDeploymentMode(db).get_or_create(
-                    fixed_instance.deployment_mode
-                )
+                fk_deployment_mode: int = ServiceDeploymentMode(db).get_or_create(fixed_instance.deployment_mode)
                 fk_region: int = ServiceRegion(db).get_or_create(fixed_instance.region)
                 fk_activation: int = ServiceTime(db).get_or_create(fixed_instance.activation_date)
                 fk_resource: Optional[int] = None
 
-
                 if fixed_instance.instance_id in kube_instances:
-                    fk_resource = DBService(db, DimKubernetes).insert_one(DBServiceKubernetes(db).create_record(fk_tenant, kube_instances[fixed_instance.instance_id]))
+                    fk_resource = DBService(db, DimKubernetes).insert_one(
+                        DBServiceKubernetes(db).create_record(fk_tenant, kube_instances[fixed_instance.instance_id])
+                    )
 
                 fk_instance: int = ServiceFixedInstance(db).get_or_create(
                     FactCurrentFixedCompute(
@@ -85,7 +88,7 @@ class ETLFixedInstance:
                         instance_id=fixed_instance.instance_id,
                         price=fixed_instance.total_price,
                     ),
-                    self.archived_at
+                    self.archived_at,
                 )
 
                 if fixed_instance.instance_id in self.instance_option:
@@ -94,12 +97,10 @@ class ETLFixedInstance:
                             fk_deployment_mode=fk_deployment_mode,
                             fk_region=fk_region,
                             price=fixed_instance.total_price,
-                            flavor=self.instance_option[fixed_instance.instance_id].flavor
+                            flavor=self.instance_option[fixed_instance.instance_id].flavor,
                         )
                     )
 
-                    DBService(db, BridgeFixedInstanceOption).insert_one(
-                        BridgeFixedInstanceOption(fk_instance=fk_instance, fk_option=fk_option)
-                    )
+                    DBService(db, BridgeFixedInstanceOption).insert_one(BridgeFixedInstanceOption(fk_instance=fk_instance, fk_option=fk_option))
 
             db.commit()
