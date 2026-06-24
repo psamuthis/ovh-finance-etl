@@ -15,25 +15,10 @@ from services.dimension.service_unit import ServiceUnit
 from models.fact.fact_volume import FactVolume
 from services.db_service import DBService
 from services.dimension.service_tenant import ServiceTenant
+from src.etl.dataclass.volume import Volume, VolumeDetails
 
 from .dataclass.shared import Quantity
 from .etl_interface import ETLInterface
-
-
-@dataclass
-class VolumeDetails:
-    quantity: Quantity
-    resource_id: str
-    total_price: Decimal
-    volume_uuid: str
-
-
-@dataclass
-class Volume:
-    deployment_mode: str = ""
-    details: list[VolumeDetails] = field(default_factory=list)
-    region: str = ""
-    type: str = ""
 
 
 class ETLVolume(ETLInterface):
@@ -55,7 +40,7 @@ class ETLVolume(ETLInterface):
             for volume_details in volume_group["details"]:
                 quantity = Quantity(
                     unit=volume_details["quantity"]["unit"],
-                    value=volume_details["quantity"]["value"],
+                    value=round(Decimal(volume_details["quantity"]["value"]), DECIMAL_PRECISION),
                 )
 
                 details = VolumeDetails(
