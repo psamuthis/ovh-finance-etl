@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from decimal import Decimal
 
-from src.etl.dataclass.shared import Quantity
+from etl.dataclass.shared import Quantity
 
 
 @dataclass
