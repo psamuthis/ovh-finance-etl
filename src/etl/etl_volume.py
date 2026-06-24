@@ -15,7 +15,7 @@ from services.dimension.service_unit import ServiceUnit
 from models.fact.fact_volume import FactVolume
 from services.db_service import DBService
 from services.dimension.service_tenant import ServiceTenant
-from src.etl.dataclass.volume import Volume, VolumeDetails
+from etl.dataclass.volume import Volume, VolumeDetails
 
 from .dataclass.shared import Quantity
 from .etl_interface import ETLInterface
@@ -54,9 +54,8 @@ class ETLVolume(ETLInterface):
             self.volumes.append(volume)
 
     def load_data(self) -> None:
-
-        for volume in self.volumes:
-            with WarehouseSessionLocal() as db:
+        with WarehouseSessionLocal() as db:
+            for volume in self.volumes:
                 fk_dep_mode: int = ServiceDeploymentMode(db).get_or_create(volume.deployment_mode)
                 fk_region: int = ServiceRegion(db).get_or_create(volume.region)
                 fk_type: int = ServiceStorageType(db).get_or_create(volume.type)
