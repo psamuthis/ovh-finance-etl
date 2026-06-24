@@ -1,3 +1,5 @@
+import argparse
+from datetime import datetime
 from enum import Enum
 
 from etl.etl import ETL
@@ -9,14 +11,43 @@ from config import EXCLUDED_TENANTS
 
 EXCLUDED_TENANT_IDS: set[str] = set(EXCLUDED_TENANTS.values())
 
-with RawSessionLocal() as db:
-    latest_records: list[CurrentUsageRaw] = ServiceUsageRaw(db).retrieve_latest_data()
+parser = argparse.ArgumentParser()
+parser.add_argument('start_date', nargs='?', default=None, help="start date format YYYY-MM-DD format")
+parser.add_argument('end_date', nargs='?', default=None, help="start date format YYYY-MM-DD format")
 
-if latest_records is None:
-    raise ValueError("Latest raw record wasn't retrieved...")
+args = parser.parse_args()
 
-for record in latest_records:
-    if record.service_id in EXCLUDED_TENANT_IDS:
-        continue
+if args.start_date:
+    start_period: datetime = datetime.strptime(args.start_date, "%Y-%m-%d")
 
-    ETL(record).run()
+    if args.end_date:
+        end_period: datetime = datetime.strptime(args.end_date, "%Y-%m-%d")
+    else:
+        end_period: datetime = datetime.now()
+
+    with RawSessionLocal() as db:
+        records: list[CurrentUsageRaw] = ServiceUsageRaw(db).retrieve_data_between(start_period, end_period)
+
+    if records is None:
+        raise ValueError("No records found in interval.")
+
+    print(f"Pulling data from {start_period} to {end_period}.")
+    for record in records:
+        if record.service_id in EXCLUDED_TENANT_IDS:
+            continue
+        
+        ETL(record).run()
+
+else:
+    with RawSessionLocal() as db:
+        latest_records: list[CurrentUsageRaw] = ServiceUsageRaw(db).retrieve_latest_data()
+
+    if latest_records is None:
+        raise ValueError("Latest raw record wasn't retrieved...")
+
+    print(f"Pulling latest records.")
+    for record in latest_records:
+        if record.service_id in EXCLUDED_TENANT_IDS:
+            continue
+
+        ETL(record).run()

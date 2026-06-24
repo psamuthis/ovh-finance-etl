@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional
 
 from models.raw.current_usage_raw import CurrentUsageRaw
@@ -16,4 +17,12 @@ class ServiceUsageRaw(DBService):
             .order_by(CurrentUsageRaw.service_id, CurrentUsageRaw.created_at.desc())
             .all()
         )
-    
+
+    def retrieve_data_between(self, period_from: datetime, period_to: datetime) -> list[CurrentUsageRaw]:
+        return (
+            self.db.query(CurrentUsageRaw)
+                .filter(CurrentUsageRaw.created_at >= period_from)
+                .filter(CurrentUsageRaw.created_at <= period_to)
+                .order_by(CurrentUsageRaw.created_at)
+                .all()
+        )

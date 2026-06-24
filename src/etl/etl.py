@@ -29,7 +29,6 @@ class ETL:
             self.service_id, self.period_from, self.period_to
         )
         self.savings_plans: ETLSavingsPlan = ETLSavingsPlan(self.service_id)
-        # self.mks: ETLMKS = ETLMKS(self.service_id, self.period_from, self.period_to)
         self.storage: ETLStorage = ETLStorage(self.service_id, self.period_from, self.period_to)
 
     def run(self):
