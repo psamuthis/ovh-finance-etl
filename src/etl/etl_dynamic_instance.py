@@ -26,10 +26,11 @@ from services.db_service import DBService
 from models.bridge.bridge_dynamic_instance_options import BridgeDynamicInstanceOption
 
 class ETLDynamicInstance:
-    def __init__(self, service_id: str, period_from: datetime, period_to: datetime):
+    def __init__(self, service_id: str, period_from: datetime, period_to: datetime, archived_at: datetime):
         self.service_id = service_id
         self.period_from = period_from
         self.period_to = period_to
+        self.archived_at = archived_at
         self.dynamic_instances: list[DynamicInstance] = []
         self.instance_options: dict[str, DynamicInstanceOption] = {}
 
@@ -126,7 +127,7 @@ class ETLDynamicInstance:
                     instance_id=instance.instance_id,
                     fk_period_from=fk_period_from,
                     fk_period_to=fk_period_to,
-                    fk_created_at=ServiceTime(db).get_or_create(datetime.now(timezone.utc)),
+                    fk_created_at=ServiceTime(db).get_or_create(self.archived_at),
                     fk_region=fk_region,
                     fk_deployment_mode=fk_dep_mode,
                     fk_resource=fk_resource,

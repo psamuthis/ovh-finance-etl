@@ -19,17 +19,18 @@ class ETL:
         self.service_id: str = raw_record.service_id
         self.period_from: datetime = raw_record.period_from
         self.period_to: datetime = raw_record.period_to
+        self.archived_at: datetime = raw_record.created_at
         self.json: dict[str, Any] = raw_record.full_response_json
 
-        self.volume: ETLVolume = ETLVolume(self.service_id, self.period_from, self.period_to)
+        self.volume: ETLVolume = ETLVolume(self.service_id, self.period_from, self.period_to, self.archived_at)
         self.dynamic_instances: ETLDynamicInstance = ETLDynamicInstance(
-            self.service_id, self.period_from, self.period_to
+            self.service_id, self.period_from, self.period_to, self.archived_at
         )
         self.fixed_instances: ETLFixedInstance = ETLFixedInstance(
-            self.service_id, self.period_from, self.period_to
+            self.service_id, self.period_from, self.period_to, self.archived_at
         )
-        self.savings_plans: ETLSavingsPlan = ETLSavingsPlan(self.service_id)
-        self.storage: ETLStorage = ETLStorage(self.service_id, self.period_from, self.period_to)
+        self.savings_plans: ETLSavingsPlan = ETLSavingsPlan(self.service_id, self.archived_at)
+        self.storage: ETLStorage = ETLStorage(self.service_id, self.period_from, self.period_to, self.archived_at)
 
     def run(self):
         print(f"Starting ETL process...")

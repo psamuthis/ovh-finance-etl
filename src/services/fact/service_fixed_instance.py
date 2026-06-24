@@ -11,8 +11,8 @@ class ServiceFixedInstance(DBService):
     def __init__(self, db: Session):
         self.db: Session = db
 
-    def get_or_create(self, record: FactCurrentFixedCompute) -> int:
-        month_start: datetime = datetime.now(timezone.utc).replace(day=1, minute=0, second=0, microsecond=0)
+    def get_or_create(self, record: FactCurrentFixedCompute, archived_at: datetime) -> int:
+        month_start: datetime = archived_at.replace(day=1, minute=0, second=0, microsecond=0)
         month_end: datetime = month_start + relativedelta(months=1)
 
         existing_record: FactCurrentFixedCompute  = self.db.query(FactCurrentFixedCompute)\

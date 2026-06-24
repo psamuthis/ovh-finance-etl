@@ -19,10 +19,11 @@ from services.dimension.service_unit import ServiceUnit
 
 
 class ETLStorage:
-    def __init__(self, service_id: str, period_from: datetime, period_to: datetime):
+    def __init__(self, service_id: str, period_from: datetime, period_to: datetime, archived_at: datetime):
         self.service_id: str = service_id
         self.period_from: datetime = period_from
         self.period_to: datetime = period_to
+        self.archived_at: datetime = archived_at
         self.storage: list[StorageEntry] = []
 
     def extract_data(self, storage_data: list[dict[str, Any]]) -> None:
@@ -83,7 +84,7 @@ class ETLStorage:
                     fk_storage=fk_storage,
                     fk_period_from=ServiceTime(db).get_or_create(self.period_from),
                     fk_period_to=ServiceTime(db).get_or_create(self.period_to),
-                    fk_created_at=ServiceTime(db).get_or_create(datetime.now(timezone.utc)),
+                    fk_created_at=ServiceTime(db).get_or_create(self.archived_at),
 
                     fk_in_bandwidth_unit=ServiceUnit(db).get_or_create(storage.incoming_bandwidth.quantity.unit),
                     in_bandwidth_value=round(storage.incoming_bandwidth.quantity.value, DECIMAL_PRECISION),

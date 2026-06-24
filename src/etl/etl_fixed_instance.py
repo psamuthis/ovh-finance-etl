@@ -18,10 +18,11 @@ from services.dimension.service_time import ServiceTime
 from services.fact.service_fixed_instance import ServiceFixedInstance
 
 class ETLFixedInstance:
-    def __init__(self, service_id: str, period_from: datetime, period_to: datetime):
+    def __init__(self, service_id: str, period_from: datetime, period_to: datetime, archived_at: datetime):
         self.service_id: str = service_id
         self.period_from: datetime = period_from
         self.period_to: datetime = period_to
+        self.archived_at: datetime = archived_at
         self.fixed_instances: list[FixedInstance] = []
         self.instance_option: dict[str, FixedInstanceOption] = {}
 
@@ -80,11 +81,11 @@ class ETLFixedInstance:
                         fk_region=fk_region,
                         fk_activation=fk_activation,
                         fk_resource=fk_resource,
-                        fk_created_at=ServiceTime(db).get_or_create(datetime.now(timezone.utc)),
+                        fk_created_at=ServiceTime(db).get_or_create(self.archived_at),
                         instance_id=fixed_instance.instance_id,
                         price=fixed_instance.total_price,
-                    )
-
+                    ),
+                    self.archived_at
                 )
 
                 if fixed_instance.instance_id in self.instance_option:

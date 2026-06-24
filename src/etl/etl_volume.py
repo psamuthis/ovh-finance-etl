@@ -38,11 +38,12 @@ class Volume:
 
 class ETLVolume(ETLInterface):
 
-    def __init__(self, service_id: str, period_from: datetime, period_to: datetime):
+    def __init__(self, service_id: str, period_from: datetime, period_to: datetime, archived_at: datetime):
         self.volumes: list[Volume] = []
         self.service_id = service_id
         self.period_from = period_from
         self.period_to = period_to
+        self.archived_at: datetime = archived_at
 
     def extract_data(self, raw_data: list[dict[str, Any]]) -> None:
         for volume_group in raw_data:
@@ -89,7 +90,7 @@ class ETLVolume(ETLInterface):
                         fk_volume=ServiceDimVolume(db).insert_one(dim_volume),
                         fk_period_from=ServiceTime(db).get_or_create(self.period_from),
                         fk_period_to=ServiceTime(db).get_or_create(self.period_to),
-                        fk_created_at=ServiceTime(db).get_or_create(datetime.now(timezone.utc)),
+                        fk_created_at=ServiceTime(db).get_or_create(self.archived_at),
                         fk_unit=ServiceUnit(db).get_or_create(details.quantity.unit),
                         value=details.quantity.value,
                         price=details.total_price,

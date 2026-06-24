@@ -36,9 +36,10 @@ class OverQuotaEntry:
     price: Decimal
 
 class ETLSavingsPlan:
-    def __init__(self, service_id: str):
+    def __init__(self, service_id: str, archived_at: datetime):
         self.service_id: str = service_id
         self.savings_plan: dict[str, SavingsPlanEntry] = {}
+        self.archived_at: datetime = archived_at
         self.over_quota: list[OverQuotaEntry] = []
 
     def extract_data(self, savings_plan_data: list[dict[str, Any]], over_quota_data: list[dict[str, Any]]) -> None:
@@ -73,7 +74,7 @@ class ETLSavingsPlan:
             for over_quota in self.over_quota:
                 fk_over_quota: int = ServiceOverQuota(db).insert_one(FactSavingsPlanOverQuota(
                     fk_unit=ServiceUnit(db).get_or_create(over_quota.quantity.unit),
-                    fk_created_at=ServiceTime(db).get_or_create(datetime.now(timezone.utc)),
+                    fk_created_at=ServiceTime(db).get_or_create(self.archived_at),
                     value=over_quota.quantity.value,
                     price=over_quota.price,
                     flavor=over_quota.flavor
@@ -83,16 +84,18 @@ class ETLSavingsPlan:
                     if id not in self.savings_plan:
                         continue
 
-                    fk_savings_plan: int = ServiceSavingsPlan(db).get_or_create(DimSavingsPlan(
-                        name=self.savings_plan[id].name,
-                        fk_period_from=ServiceTime(db).get_or_create(self.savings_plan[id].period_from),
-                        fk_period_to=ServiceTime(db).get_or_create(self.savings_plan[id].period_to),
-                        size=self.savings_plan[id].size,
-                        flavor=over_quota.flavor,
-                        currency_code=self.savings_plan[id].currency_code,
-                        price=round(self.savings_plan[id].price, DECIMAL_PRECISION),
-                        plan_id=id
-                    ))
+                    fk_savings_plan: int = ServiceSavingsPlan(db).get_or_create(
+                        DimSavingsPlan(
+                            name=self.savings_plan[id].name,
+                            fk_period_from=ServiceTime(db).get_or_create(self.savings_plan[id].period_from),
+                            fk_period_to=ServiceTime(db).get_or_create(self.savings_plan[id].period_to),
+                            size=self.savings_plan[id].size,
+                            flavor=over_quota.flavor,
+                            currency_code=self.savings_plan[id].currency_code,
+                            price=round(self.savings_plan[id].price, DECIMAL_PRECISION),
+                            plan_id=id),
+                        self.archived_at
+                    )
 
                     ServiceBridge(db, BridgeOverQuotaSavingsPlan).insert_one(BridgeOverQuotaSavingsPlan(
                         fk_savings_plan=fk_savings_plan,

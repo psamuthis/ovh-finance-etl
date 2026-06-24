@@ -12,8 +12,8 @@ class ServiceSavingsPlan(DBService):
     def __init__(self, db: Session):
         self.db: Session = db
         
-    def get_or_create(self, record: DimSavingsPlan) -> int:
-        month_start: datetime = datetime.now(timezone.utc).replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    def get_or_create(self, record: DimSavingsPlan, archived_at: datetime) -> int:
+        month_start: datetime = archived_at.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
         month_end: datetime = month_start + relativedelta(months=1)
 
         DimTimeFrom = aliased(DimTime)
