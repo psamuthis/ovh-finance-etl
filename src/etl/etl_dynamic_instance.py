@@ -7,11 +7,7 @@ from services.dimension.api_service_kubernetes import APIServiceKubernetes
 from sqlalchemy.orm import Session
 
 from etl.dataclass.shared import Quantity
-from etl.dataclass.instance import (
-    DynamicInstance,
-    DynamicInstanceDetails,
-    DynamicInstanceOption
-)
+from etl.dataclass.instance import DynamicInstance, DynamicInstanceDetails, DynamicInstanceOption
 from connector.postgres_connection import WarehouseSessionLocal
 from services.dimension.service_deployment_mode import ServiceDeploymentMode
 from services.dimension.service_region import ServiceRegion
@@ -24,6 +20,7 @@ from models.fact.fact_current_dynamic_compute import FactCurrentDynamicCompute
 from models.fact.fact_dynamic_instance_option import FactDynamicInstanceOption
 from services.db_service import DBService
 from models.bridge.bridge_dynamic_instance_options import BridgeDynamicInstanceOption
+
 
 class ETLDynamicInstance:
     def __init__(self, service_id: str, period_from: datetime, period_to: datetime, archived_at: datetime):
@@ -47,12 +44,7 @@ class ETLDynamicInstance:
             flavor: str = option_group["flavor"]
 
             for details in option_group["details"]:
-                self.instance_options[details["instanceId"]] = self.transform_option_details(
-                    details,
-                    deployment_mode,
-                    region,
-                    flavor
-                )
+                self.instance_options[details["instanceId"]] = self.transform_option_details(details, deployment_mode, region, flavor)
 
     def transform_instance(self, instance_data) -> None:
         for instance_group in instance_data:
@@ -67,14 +59,13 @@ class ETLDynamicInstance:
             )
 
             for details_entry in instance_group["details"]:
-                dynamic_instance.details.append(
-                    self.transform_dynamic_instance_details(details_entry)
-                )
+                dynamic_instance.details.append(self.transform_dynamic_instance_details(details_entry))
 
             self.dynamic_instances.append(dynamic_instance)
 
     def transform_dynamic_instance_details(self, details: dict[str, Any]) -> DynamicInstanceDetails:
-        quantity: Quantity = Quantity(details["quantity"]["unit"], Decimal(details["quantity"]["value"]))
+        quantity: Quantity = Quantity(details["quantity"]["unit"], round(Decimal(details["quantity"]["value"]), DECIMAL_PRECISION))
+
         return DynamicInstanceDetails(
             instance_id=details["instanceId"],
             quantity=quantity,
@@ -83,9 +74,7 @@ class ETLDynamicInstance:
         )
 
     def transform_option_details(self, details: dict[str, Any], dep_mode: str, region: str, flavor: str) -> DynamicInstanceOption:
-        quantity: Quantity = Quantity(
-            unit=details["quantity"]["unit"], value=details["quantity"]["value"]
-        )
+        quantity: Quantity = Quantity(unit=details["quantity"]["unit"], value=details["quantity"]["value"])
 
         return DynamicInstanceOption(
             deployment_mode=dep_mode,
@@ -93,7 +82,7 @@ class ETLDynamicInstance:
             instance_id=details["instanceId"],
             quantity=quantity,
             total_price=Decimal(details["totalPrice"]),
-            flavor=flavor
+            flavor=flavor,
         )
 
     def load_data(self) -> None:
@@ -110,7 +99,9 @@ class ETLDynamicInstance:
             for details in instance_group.details:
                 instance_ids.append(details.instance_id)
 
-        kube_instances: dict[str, dict[str, Any]] = APIServiceKubernetes(self.service_id).find_latest_kube_match([details.instance_id for instance in self.dynamic_instances for details in instance.details])
+        kube_instances: dict[str, dict[str, Any]] = APIServiceKubernetes(self.service_id).find_latest_kube_match(
+            [details.instance_id for instance in self.dynamic_instances for details in instance.details]
+        )
 
         for flavor in self.dynamic_instances:
             fk_dep_mode: int = ServiceDeploymentMode(db).get_or_create(flavor.deployment_mode)
@@ -121,7 +112,9 @@ class ETLDynamicInstance:
                 fk_usage_unit: int = ServiceUnit(db).get_or_create(instance.quantity.unit)
 
                 if instance.instance_id in kube_instances:
-                    fk_resource = DBService(db, DimKubernetes).insert_one(DBServiceKubernetes(db).create_record(fk_tenant, kube_instances[instance.instance_id]))
+                    fk_resource = DBService(db, DimKubernetes).insert_one(
+                        DBServiceKubernetes(db).create_record(fk_tenant, kube_instances[instance.instance_id])
+                    )
 
                 instance_record: FactCurrentDynamicCompute = FactCurrentDynamicCompute(
                     instance_id=instance.instance_id,
@@ -136,11 +129,10 @@ class ETLDynamicInstance:
                     usage_price=instance.total_price,
                 )
 
-                fk_instance: int = DBService(db, FactCurrentDynamicCompute).insert_one(
-                    instance_record
-                )
+                fk_instance: int = DBService(db, FactCurrentDynamicCompute).insert_one(instance_record)
                 fk_option: Optional[int] = None
                 if instance.instance_id in self.instance_options:
+
                     fk_option = DBService(db, FactDynamicInstanceOption).insert_one(
                         FactDynamicInstanceOption(
                             fk_unit=self.instance_options[instance.instance_id].quantity.unit,
@@ -148,8 +140,7 @@ class ETLDynamicInstance:
                             price=self.instance_options[instance.instance_id].total_price,
                         )
                     )
-                    DBService(db, BridgeDynamicInstanceOption).insert_one(
-                        BridgeDynamicInstanceOption(fk_instance=fk_instance, fk_option=fk_option)
-                    )
+
+                    DBService(db, BridgeDynamicInstanceOption).insert_one(BridgeDynamicInstanceOption(fk_instance=fk_instance, fk_option=fk_option))
 
             db.commit()
