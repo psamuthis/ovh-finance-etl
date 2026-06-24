@@ -23,12 +23,8 @@ class ETL:
         self.json: dict[str, Any] = raw_record.full_response_json
 
         self.volume: ETLVolume = ETLVolume(self.service_id, self.period_from, self.period_to, self.archived_at)
-        self.dynamic_instances: ETLDynamicInstance = ETLDynamicInstance(
-            self.service_id, self.period_from, self.period_to, self.archived_at
-        )
-        self.fixed_instances: ETLFixedInstance = ETLFixedInstance(
-            self.service_id, self.period_from, self.period_to, self.archived_at
-        )
+        self.dynamic_instances: ETLDynamicInstance = ETLDynamicInstance(self.service_id, self.period_from, self.period_to, self.archived_at)
+        self.fixed_instances: ETLFixedInstance = ETLFixedInstance(self.service_id, self.period_from, self.period_to, self.archived_at)
         self.savings_plans: ETLSavingsPlan = ETLSavingsPlan(self.service_id, self.archived_at)
         self.storage: ETLStorage = ETLStorage(self.service_id, self.period_from, self.period_to, self.archived_at)
 
@@ -41,28 +37,23 @@ class ETL:
         with WarehouseSessionLocal() as db:
             ServiceTenant(db).get_or_create(self.service_id)
 
-
         print(f"Volumes...")
         self.volume.extract_data(self.json["hourlyUsage"]["volume"])
         self.volume.load_data()
         print(f"Volumes processed.")
 
         print(f"Dynamic Instances...")
-        self.dynamic_instances.extract_data(
-            self.json["hourlyUsage"]["instance"],
-            self.json["hourlyUsage"]["instanceOption"])
+        self.dynamic_instances.extract_data(self.json["hourlyUsage"]["instance"], self.json["hourlyUsage"]["instanceOption"])
         self.dynamic_instances.load_data()
         print(f"Dynamic Instances processed.")
 
         print(f"Fixed Instances...")
-        self.fixed_instances.extract_data(self.json["monthlyUsage"]["instance"],
-                                          self.json["monthlyUsage"]["instanceOption"])
+        self.fixed_instances.extract_data(self.json["monthlyUsage"]["instance"], self.json["monthlyUsage"]["instanceOption"])
         self.fixed_instances.load_data()
         print(f"Fixed Instances processed.")
 
         print(f"Savings Plans...")
-        self.savings_plans.extract_data(self.json["monthlyUsage"]["savingsPlan"],
-                                        self.json["hourlyUsage"]["instance"])
+        self.savings_plans.extract_data(self.json["monthlyUsage"]["savingsPlan"], self.json["hourlyUsage"]["instance"])
         self.savings_plans.load_data()
         print(f"Savings Plans processed.")
 
