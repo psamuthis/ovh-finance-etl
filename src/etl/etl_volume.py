@@ -83,4 +83,4 @@ class ETLVolume(ETLInterface):
 
                     DBService(db, FactVolume).insert_one(record)
 
-                db.commit()
+            db.commit()
