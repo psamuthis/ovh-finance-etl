@@ -12,10 +12,8 @@ class ServiceSavingsPlan(DBService):
     def __init__(self, db: Session):
         self.db: Session = db
         
-    def get_or_create(self, record: DimSavingsPlan, archived_at: datetime) -> int:
-        month_start: datetime = archived_at.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-        month_end: datetime = month_start + relativedelta(months=1)
-
+    # TODO changer le filtre: chercher un plan existant dans la période from-to au lieu de month_start-month_end
+    def get_or_create(self, record: DimSavingsPlan, plan_start: datetime, plan_end: datetime) -> int:
         DimTimeFrom = aliased(DimTime)
         DimTimeTo = aliased(DimTime)
 
@@ -23,8 +21,8 @@ class ServiceSavingsPlan(DBService):
             .filter(DimSavingsPlan.plan_id==record.plan_id)\
             .join(DimTimeFrom, DimTimeFrom.id==DimSavingsPlan.fk_period_from)\
             .join(DimTimeTo, DimTimeTo.id==DimSavingsPlan.fk_period_to)\
-            .filter(DimTimeFrom.timestamptz >= month_start)\
-            .filter(DimTimeTo.timestamptz < month_end)\
+            .filter(DimTimeFrom.timestamptz >= plan_start)\
+            .filter(DimTimeTo.timestamptz < plan_end)\
             .first()
 
         if existing_plan is not None:
