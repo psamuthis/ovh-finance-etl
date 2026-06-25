@@ -7,3 +7,7 @@ sample-api-response/
 backups/**/*
 latest_run_raw_data/
 *.log
+
+combined_insert.sql
+daily_usage/
+yearly_data.sql
