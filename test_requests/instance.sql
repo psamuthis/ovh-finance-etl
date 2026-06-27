@@ -32,19 +32,90 @@ FROM fact_current_dynamic_compute fdc
 JOIN dim_time t ON t.id = fdc.fk_created_at
 ORDER BY fdc.instance_id, DATE(t.timestamptz);
 
--- non cumulative cost per flavor
-select
-    t.timestamptz as "date",
-    k.flavor as flavor,
-    fdc.usage_price - coalesce(
-        lag(fdc.usage_price) over(
-            partition by fdc.instance_id
+-- [DYNAMIC] non cumulative cost of flavors per (year,month) 
+with non_cumulative_cost as (
+    select
+        t.year as year,
+        t.month as month,
+        k.flavor as flavor,
+        fdc.usage_price - coalesce(
+            lag(fdc.usage_price) over(
+                partition by fdc.instance_id, date_trunc('month', t.timestamptz)
+                order by t.timestamptz
+            ),
+            0
+        ) as daily_non_cumulative_cost
+    from fact_current_dynamic_compute fdc
+    join dim_time t on t.id = fdc.fk_created_at
+    join dim_kubernetes k on k.id = fdc.fk_resource
+)
+select concat(year, '-', month) as date, flavor, sum(daily_non_cumulative_cost) 
+from non_cumulative_cost
+group by 1, 2
+order by 1;
+
+-- over quota per flavor across the year/month
+with non_cumulative_over_quota as (
+    select t.year as year,
+    t.month as month,
+    foq.flavor as flavor,
+    foq.price - coalesce(
+        lag(foq.price) over(
+            partition by foq.flavor, date_trunc('month', t.timestamptz)
             order by t.timestamptz
         ),
         0
-    ) as daily_non_cumulative_cost
-from fact_current_dynamic_compute fdc
+    ) as daily_non_cumulative_over_quota
+    from fact_savings_plan_over_quota foq
+    join dim_time t on t.id = foq.fk_created_at
+)
+select concat(year, '-', month) as date, flavor, sum(daily_non_cumulative_over_quota)
+from non_cumulative_over_quota
+group by 1, 2
+order by 1;
+
+-- [DYNAMIC] non cumulative cost of flavors for the current month
+with non_cumulative_cost as (
+    select
+        t.year as year,
+        t.month as month,
+        k.flavor as flavor,
+        fdc.usage_price - coalesce(
+            lag(fdc.usage_price) over(
+                partition by fdc.instance_id, date_trunc('month', t.timestamptz)
+                order by t.timestamptz
+            ),
+            0
+        ) as daily_non_cumulative_cost
+    from fact_current_dynamic_compute fdc
+    join dim_time t on t.id = fdc.fk_created_at
+    join dim_kubernetes k on k.id = fdc.fk_resource
+    where date_trunc('month', t.timestamptz) = date_trunc('month', current_date)
+)
+select flavor, sum(daily_non_cumulative_cost) as total_cost
+from non_cumulative_cost
+group by flavor
+order by total_cost desc;
+
+-- [FIXED] cost per flavor per month
+select 
+    to_char(date_trunc('month', t.timestamptz), 'YYYY-MM') as month,
+    k.flavor as flavor,
+    sum(fdc.price) as total_cost
+from fact_current_fixed_compute fdc
 join dim_time t on t.id = fdc.fk_created_at
 join dim_kubernetes k on k.id = fdc.fk_resource
-group by k.flavor, t.timestamptz, daily_non_cumulative_cost
-order by t.timestamptz, k.flavor;
+group by date_trunc('month', t.timestamptz), k.flavor
+order by date_trunc('month', t.timestamptz), total_cost desc;
+
+-- [FIXED] cost per flavor for the current month
+select 
+    date_trunc('month', t.timestamptz) as month,
+    k.flavor as flavor,
+    sum(fdc.price) as total_cost
+from fact_current_fixed_compute fdc
+join dim_time t on t.id = fdc.fk_created_at
+join dim_kubernetes k on k.id = fdc.fk_resource
+where date_trunc('month', t.timestamptz) = date_trunc('month', current_date)
+group by date_trunc('month', t.timestamptz), k.flavor
+order by total_cost desc;
