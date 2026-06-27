@@ -45,9 +45,22 @@ services:
     networks:
       - finops_network
 
+  grafana:
+    image: grafana/grafana:latest
+    container_name: finops_grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    restart: unless-stopped
+    networks:
+      - finops_network
+
 volumes:
   postgres_raw_data:
   postgres_warehouse_data:
+  grafana-storage:
 
 networks:
   finops_network:
