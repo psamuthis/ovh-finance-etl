@@ -19,7 +19,7 @@ class ETL:
         self.service_id: str = raw_record.service_id
         self.period_from: datetime = raw_record.period_from
         self.period_to: datetime = raw_record.period_to
-        self.archived_at: datetime = raw_record.created_at
+        self.archived_at: datetime = raw_record.call_timestamp
         self.json: dict[str, Any] = raw_record.full_response_json
 
         self.volume: ETLVolume = ETLVolume(self.service_id, self.period_from, self.period_to, self.archived_at)
