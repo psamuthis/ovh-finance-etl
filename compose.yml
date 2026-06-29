@@ -46,8 +46,10 @@ services:
       - finops_network
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:13.0.2
     container_name: finops_grafana
+    environment:
+      - GF_FEATURE_TOGGLES_ENABLE=dashboardNewLayouts
     ports:
       - "3000:3000"
     volumes:
