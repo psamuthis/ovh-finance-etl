@@ -74,6 +74,10 @@ class ETLStorage:
     def load_data(self) -> None:
         with WarehouseSessionLocal() as db:
             for storage in self.storage:
+                
+                if storage.name == "":
+                    continue
+
                 fk_storage: int = DBService(db, DimStorage).insert_one(DimStorage(
                     fk_deployment_mode=ServiceDeploymentMode(db).get_or_create(storage.deployment_mode),
                     fk_region=ServiceRegion(db).get_or_create(storage.region),
