@@ -94,8 +94,6 @@ class ETLSavingsPlan:
                             currency_code=self.savings_plan[id].currency_code,
                             price=round(self.savings_plan[id].price, DECIMAL_PRECISION),
                             plan_id=id),
-                        self.savings_plan[id].period_from,
-                        self.savings_plan[id].period_to
                     )
 
                     ServiceBridge(db, BridgeOverQuotaSavingsPlan).insert_one(BridgeOverQuotaSavingsPlan(
