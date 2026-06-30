@@ -14,6 +14,7 @@ from services.db_service import DBService
 from services.dimension.service_deployment_mode import ServiceDeploymentMode
 from services.dimension.service_region import ServiceRegion
 from services.dimension.service_storage_type import ServiceStorageType
+from services.dimension.service_tenant import ServiceTenant
 from services.dimension.service_time import ServiceTime
 from services.dimension.service_unit import ServiceUnit
 
@@ -109,6 +110,7 @@ class ETLStorage:
                     fk_stored_unit=ServiceUnit(db).get_or_create(storage.stored_quantity.unit),
                     stored_value=round(storage.stored_quantity.value, DECIMAL_PRECISION),
                     stored_price=round(storage.stored_price, DECIMAL_PRECISION),
+                    fk_tenant=ServiceTenant(db).get_or_create(self.service_id)
                 ))
 
             db.commit()

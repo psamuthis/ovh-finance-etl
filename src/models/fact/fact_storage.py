@@ -36,3 +36,5 @@ class FactCurrentStorage(Base):
     fk_stored_unit: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_unit.id"))
     stored_value: Mapped[Decimal] = mapped_column(Numeric)
     stored_price: Mapped[Decimal] = mapped_column(Numeric)
+
+    fk_tenant: Mapped[int] = mapped_column(SmallInteger)

@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS "fact_current_dynamic_storage" (
 	"stored_value" NUMERIC,
 	"stored_price" NUMERIC,
 	"fk_created_at" BIGSERIAL,
+	"fk_tenant" SMALLSERIAL,
 	PRIMARY KEY("id")
 );
 
