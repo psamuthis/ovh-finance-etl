@@ -33,6 +33,7 @@ class ETL:
         print(f"\t{self.service_id}")
         print(f"\t{self.period_from}")
         print(f"\t{self.period_to}")
+        print(f"\t{self.archived_at}")
 
         with WarehouseSessionLocal() as db:
             ServiceTenant(db).get_or_create(self.service_id)
