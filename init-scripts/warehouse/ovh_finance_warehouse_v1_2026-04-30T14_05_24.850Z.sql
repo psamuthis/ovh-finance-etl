@@ -568,3 +568,6 @@ ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "bridge_over_quota_savings_plan"
 ADD FOREIGN KEY ("fk_over_quota") REFERENCES "fact_savings_plan_over_quota"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE ("fact_current_dynamic_storage")
+ADD FOREIGN KEY ("fk_tenant") REFERENCES "dim_tenant"("id")
+ON UPDATE NO ACTION ON DELTE NO ACTION;
