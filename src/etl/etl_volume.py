@@ -1,10 +1,9 @@
-from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime
 from decimal import Decimal
 from typing import Any
 
 from config import DECIMAL_PRECISION
-from connector.postgres_connection import WarehouseSessionLocal
+from connector.db_connection import WarehouseSessionLocal
 from models.dimension.dim_volume import DimVolume
 from services.dimension.service_deployment_mode import ServiceDeploymentMode
 from services.dimension.service_region import ServiceRegion

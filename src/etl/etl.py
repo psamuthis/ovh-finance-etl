@@ -1,9 +1,8 @@
 from datetime import datetime
-import json
 from time import sleep
 from typing import Any
 
-from connector.postgres_connection import WarehouseSessionLocal
+from connector.db_connection import WarehouseSessionLocal
 from etl.etl_fixed_instance import ETLFixedInstance
 from etl.etl_savings_plan import ETLSavingsPlan
 from etl.etl_storage import ETLStorage

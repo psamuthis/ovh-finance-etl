@@ -1,12 +1,11 @@
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime
 from decimal import Decimal
-import re
 from typing import Any
 from config import DECIMAL_PRECISION
 from dateutil import parser
 
-from connector.postgres_connection import WarehouseSessionLocal
+from connector.db_connection import WarehouseSessionLocal
 from etl.dataclass.shared import Quantity
 from models.bridge.bridge_over_quota_savings_plan import BridgeOverQuotaSavingsPlan
 from models.dimension.dim_savings_plan import DimSavingsPlan

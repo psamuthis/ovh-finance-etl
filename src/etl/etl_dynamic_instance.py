@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime
 from decimal import Decimal
 from typing import Any, Optional
 
@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 
 from etl.dataclass.shared import Quantity
 from etl.dataclass.instance import DynamicInstance, DynamicInstanceDetails, DynamicInstanceOption
-from connector.postgres_connection import WarehouseSessionLocal
+from connector.db_connection import WarehouseSessionLocal
 from services.dimension.service_deployment_mode import ServiceDeploymentMode
 from services.dimension.service_region import ServiceRegion
 from services.dimension.service_tenant import ServiceTenant

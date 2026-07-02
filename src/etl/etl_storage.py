@@ -1,10 +1,9 @@
-from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime
 from decimal import Decimal
 from typing import Any
 
 from config import DECIMAL_PRECISION
-from connector.postgres_connection import WarehouseSessionLocal
+from connector.db_connection import WarehouseSessionLocal
 from etl.dataclass.instance import Bandwidth
 from etl.dataclass.shared import Quantity
 from etl.dataclass.storage import StorageEntry

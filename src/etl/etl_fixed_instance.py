@@ -1,8 +1,8 @@
-from datetime import datetime, timezone
+from datetime import datetime
 from decimal import Decimal
 from typing import Any, Optional
 
-from connector.postgres_connection import WarehouseSessionLocal
+from connector.db_connection import WarehouseSessionLocal
 from etl.dataclass.instance import FixedInstance, FixedInstanceOption
 from models.bridge.bridge_fixed_instance_options import BridgeFixedInstanceOption
 from models.dimension.dim_kubernetes import DimKubernetes
