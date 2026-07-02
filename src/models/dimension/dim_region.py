@@ -1,10 +1,8 @@
 from sqlalchemy import (
-    BigInteger,
     Integer,
-    Sequence,
     String,
 )
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column
 
 from models.base import Base
 
