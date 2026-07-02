@@ -1,15 +1,10 @@
-"""
-Temporary script to retrieve and feed the raw ovh financial database
-"""
-
 from typing import Any, Optional
 import ovh
 from datetime import datetime, timezone
-from services.dimension.api_service_kubernetes import APIServiceKubernetes
 from sqlalchemy.orm import Session
 
 from connector.ovh_connection import OVHConnector
-from connector.postgres_connection import RawSessionLocal
+from connector.db_connection import RawSessionLocal
 from models.raw.current_usage_raw import CurrentUsageRaw
 
 ENDPOINT_PREFIX: str = "/cloud/project/"

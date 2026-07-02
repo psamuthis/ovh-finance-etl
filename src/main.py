@@ -4,7 +4,7 @@ from enum import Enum
 
 from etl.etl import ETL
 from models.raw.current_usage_raw import CurrentUsageRaw
-from connector.postgres_connection import RawSessionLocal, WarehouseSessionLocal
+from connector.db_connection import RawSessionLocal, WarehouseSessionLocal
 from services.raw.service_current_usage_raw import ServiceUsageRaw
 
 from config import EXCLUDED_TENANTS
