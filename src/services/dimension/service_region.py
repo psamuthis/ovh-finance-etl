@@ -4,7 +4,6 @@ from typing_extensions import override
 from sqlalchemy.orm import Session
 
 
-from connector.postgres_connection import WarehouseSessionLocal
 from models.dimension.dim_region import DimRegion
 from services.db_service import DBService
 
