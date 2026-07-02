@@ -23,6 +23,6 @@ class ServiceUsageRaw(DBService):
             self.db.query(CurrentUsageRaw)
                 .filter(CurrentUsageRaw.created_at >= period_from)
                 .filter(CurrentUsageRaw.created_at <= period_to)
-                .order_by(CurrentUsageRaw.created_at)
+                .order_by(CurrentUsageRaw.created_at, CurrentUsageRaw.service_id)
                 .all()
         )
