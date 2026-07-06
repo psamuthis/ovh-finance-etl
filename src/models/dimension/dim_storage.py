@@ -8,7 +8,7 @@ class DimStorage(Base):
     __tablename__ = "dim_storage"
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
-    fk_deployment_mode: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_deployment_mode.id"))
+    fk_deployment_mode: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_deployment_mode.id"), nullable=True)
     fk_region: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_region.id"))
     fk_type: Mapped[int] = mapped_column(SmallInteger, ForeignKey("dim_storage_type.id"))
     name: Mapped[str] = mapped_column(String)

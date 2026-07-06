@@ -6,8 +6,8 @@ from sqlalchemy import DateTime, Float, Integer, SmallInteger, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 
-class Consomption(Base):
-    __tablename__ = "consomption"
+class ConsomptionHistory(Base):
+    __tablename__ = "consomption_history"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
 
