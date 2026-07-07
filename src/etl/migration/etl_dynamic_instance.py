@@ -32,7 +32,7 @@ class ETLDynamicInstance:
                     instance_id=instance.ressource_id,
                     fk_period_from=ServiceTime(db).get_or_create(instance._from),
                     fk_period_to=ServiceTime(db).get_or_create(instance._to),
-                    fk_created_at=ServiceTime(db).get_or_create(instance.last_update),
+                    fk_created_at=ServiceTime(db).get_or_create(instance._from),
                     fk_region=ServiceRegion(db).get_or_create(instance.region),
                     fk_deployment_mode=None,
                     fk_resource=fk_resource,

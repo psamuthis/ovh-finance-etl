@@ -38,7 +38,7 @@ class ETLStorage:
                     fk_storage=fk_storage,
                     fk_period_from=fk_period_from,
                     fk_period_to=fk_period_to,
-                    fk_created_at=ServiceTime(db).get_or_create(entry.last_update),
+                    fk_created_at=ServiceTime(db).get_or_create(entry._from),
                     fk_tenant=fk_tenant,
                     fk_in_bandwidth_unit=ServiceUnit(db).get_or_create(entry.incomingBandwidth_unit),
                     in_bandwidth_value=entry.incomingBandwidth_value,

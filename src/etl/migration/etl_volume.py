@@ -27,7 +27,7 @@ class ETLVolume:
             fk_tenant: int = ServiceTenant(db).get_or_create(self.project_id)
 
             for volume in volumes:
-                fk_created_at: int = ServiceTime(db).get_or_create(volume.last_update)
+                fk_created_at: int = ServiceTime(db).get_or_create(volume._from)
 
                 fk_volume: int = DBService(db, DimVolume).insert_one(DimVolume(
                     volume_uuid=volume.ressource_id,

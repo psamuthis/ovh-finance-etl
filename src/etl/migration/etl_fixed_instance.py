@@ -35,7 +35,7 @@ class ETLFixedInstance:
                 DBService(db, FactCurrentFixedCompute).insert_one(FactCurrentFixedCompute(
                     fk_region=ServiceRegion(db).get_or_create(instance.region),
                     fk_resource=fk_resource,
-                    fk_created_at=ServiceTime(db).get_or_create(instance.last_update),
+                    fk_created_at=ServiceTime(db).get_or_create(instance._from),
                     instance_id=instance.ressource_id,
                     price=instance.totalPrice
                 ))
