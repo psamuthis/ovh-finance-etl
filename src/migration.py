@@ -31,7 +31,6 @@ with FinopsSessionLocal() as db:
 
             dynamic_instances: list[ConsomptionHistory] = db.query(ConsomptionHistory)\
                 .where(ConsomptionHistory._from == periods[FROM])\
-                .where(ConsomptionHistory._to == periods[TO])\
                 .where(ConsomptionHistory.service_name == project_id)\
                 .where(ConsomptionHistory.type == 'instance')\
                 .where(ConsomptionHistory.cost_type == 'hourlyUsage')\
@@ -40,7 +39,6 @@ with FinopsSessionLocal() as db:
 
             fixed_instances: list[ConsomptionHistory] = db.query(ConsomptionHistory)\
                 .where(ConsomptionHistory._from == periods[FROM])\
-                .where(ConsomptionHistory._to == periods[TO])\
                 .where(ConsomptionHistory.service_name == project_id)\
                 .where(ConsomptionHistory.type == 'instance')\
                 .where(ConsomptionHistory.cost_type == 'monthlyUsage')\
@@ -50,7 +48,6 @@ with FinopsSessionLocal() as db:
 
             storage: list[ConsomptionHistory] = db.query(ConsomptionHistory)\
                 .where(ConsomptionHistory._from == periods[FROM])\
-                .where(ConsomptionHistory._to == periods[TO])\
                 .where(ConsomptionHistory.service_name == project_id)\
                 .where(ConsomptionHistory.type == 'storage')\
                 .all()
@@ -58,7 +55,6 @@ with FinopsSessionLocal() as db:
 
             volumes: list[ConsomptionHistory] = db.query(ConsomptionHistory)\
                 .where(ConsomptionHistory._from == periods[FROM])\
-                .where(ConsomptionHistory._to == periods[TO])\
                 .where(ConsomptionHistory.service_name == project_id)\
                 .where(ConsomptionHistory.type == 'volume')\
                 .all()
