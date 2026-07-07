@@ -22,11 +22,7 @@ with FinopsSessionLocal() as db:
         .where(ConsomptionHistory._from < MIGRATE_TO)\
         .all()
 
-    for periods in ALL_PERIODS:
-        print(periods)
 
-    exit(0)
-    
     for periods in ALL_PERIODS:
         for project_id in PROJECT_IDS:
             
