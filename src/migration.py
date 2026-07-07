@@ -22,40 +22,42 @@ with FinopsSessionLocal() as db:
         .where(ConsomptionHistory._from < MIGRATE_TO)\
         .all()
 
+    for period in ALL_PERIODS:
+        print(f"from:{period[FROM]} - to:{period[TO]}")
 
-    for periods in ALL_PERIODS:
         for project_id in PROJECT_IDS:
+            print(f"\t tenant:{project_id}")
             
             if project_id in EXCLUDED_TENANT_IDS:
                 continue
 
             dynamic_instances: list[ConsomptionHistory] = db.query(ConsomptionHistory)\
-                .where(ConsomptionHistory._from == periods[FROM])\
+                .where(ConsomptionHistory._from == period[FROM])\
                 .where(ConsomptionHistory.service_name == project_id)\
                 .where(ConsomptionHistory.type == 'instance')\
                 .where(ConsomptionHistory.cost_type == 'hourlyUsage')\
                 .all()
-            ETLDynamicInstance(project_id, periods[FROM], periods[TO]).load_data(dynamic_instances)
+            ETLDynamicInstance(project_id, period[FROM], period[TO]).load_data(dynamic_instances)
 
             fixed_instances: list[ConsomptionHistory] = db.query(ConsomptionHistory)\
-                .where(ConsomptionHistory._from == periods[FROM])\
+                .where(ConsomptionHistory._from == period[FROM])\
                 .where(ConsomptionHistory.service_name == project_id)\
                 .where(ConsomptionHistory.type == 'instance')\
                 .where(ConsomptionHistory.cost_type == 'monthlyUsage')\
                 .all()
-            ETLFixedInstance(project_id, periods[FROM], periods[TO]).load_data(fixed_instances)
+            ETLFixedInstance(project_id, period[FROM], period[TO]).load_data(fixed_instances)
             
 
             storage: list[ConsomptionHistory] = db.query(ConsomptionHistory)\
-                .where(ConsomptionHistory._from == periods[FROM])\
+                .where(ConsomptionHistory._from == period[FROM])\
                 .where(ConsomptionHistory.service_name == project_id)\
                 .where(ConsomptionHistory.type == 'storage')\
                 .all()
-            ETLStorage(project_id, periods[FROM], periods[TO]).load_data(storage)
+            ETLStorage(project_id, period[FROM], period[TO]).load_data(storage)
 
             volumes: list[ConsomptionHistory] = db.query(ConsomptionHistory)\
-                .where(ConsomptionHistory._from == periods[FROM])\
+                .where(ConsomptionHistory._from == period[FROM])\
                 .where(ConsomptionHistory.service_name == project_id)\
                 .where(ConsomptionHistory.type == 'volume')\
                 .all()
-            ETLVolume(project_id, periods[FROM], periods[TO]).load_data(volumes)
+            ETLVolume(project_id, period[FROM], period[TO]).load_data(volumes)
