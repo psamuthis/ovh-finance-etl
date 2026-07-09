@@ -20,6 +20,9 @@ class ETLStorage:
         self.period_to = period_to
 
     def load_data(self, storage_entries: list[ConsomptionHistory]):
+        if len(storage_entries) == 0:
+            return
+
         with WarehouseSessionLocal() as db:
             fk_period_from: int = ServiceTime(db).get_or_create(self.period_from)
             fk_period_to: int = ServiceTime(db).get_or_create(self.period_to)

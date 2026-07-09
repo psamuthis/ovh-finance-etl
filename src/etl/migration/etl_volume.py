@@ -20,6 +20,9 @@ class ETLVolume:
         self.period_to = period_to
 
     def load_data(self, volumes: list[ConsomptionHistory]) -> None:
+        if len(volumes) == 0:
+            return
+
         with WarehouseSessionLocal() as db:
 
             fk_period_from: int = ServiceTime(db).get_or_create(self.period_from)

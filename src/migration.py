@@ -26,10 +26,11 @@ with FinopsSessionLocal() as db:
         print(f"from:{period[FROM]} - to:{period[TO]}")
 
         for project_id in PROJECT_IDS:
-            print(f"\t tenant:{project_id}")
             
             if project_id in EXCLUDED_TENANT_IDS:
                 continue
+
+            print(f"\t tenant:{project_id}")
 
             dynamic_instances: list[ConsomptionHistory] = db.query(ConsomptionHistory)\
                 .where(ConsomptionHistory._from == period[FROM])\
@@ -47,7 +48,6 @@ with FinopsSessionLocal() as db:
                 .all()
             ETLFixedInstance(project_id, period[FROM], period[TO]).load_data(fixed_instances)
             
-
             storage: list[ConsomptionHistory] = db.query(ConsomptionHistory)\
                 .where(ConsomptionHistory._from == period[FROM])\
                 .where(ConsomptionHistory.service_name == project_id)\
